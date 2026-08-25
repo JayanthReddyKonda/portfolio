@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+ * Design tokens — see DESIGN.md §2. Single dark theme ("Engine Room").
+ * ------------------------------------------------------------------------- */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050505;
+  --foreground: #fafafa;
+  --muted: rgba(255, 255, 255, 0.56);
+  --faint: rgba(255, 255, 255, 0.32);
+  --hairline: rgba(255, 255, 255, 0.1);
+  --glass: rgba(5, 5, 5, 0.55);
+
+  --font-stack-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-stack-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-hairline: var(--hairline);
+  --color-glass: var(--glass);
+  --font-sans: var(--font-stack-sans);
+  --font-mono: var(--font-stack-mono);
+
+  /* Custom breakpoints for Originkit components */
+  --breakpoint-iphone: 375px;
+  --breakpoint-ipad: 768px;
+  --breakpoint-ipad-landscape: 1024px;
+  --breakpoint-laptop: 1440px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-stack-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* Custom Cursor: hide native cursor on pointer devices when custom cursor is active */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* Base Section Transition support (sectionTransition03) */
+main {
+  position: relative;
+}
+
+main>section {
+  position: relative;
+  min-height: 100vh;
+  z-index: 1;
+}
+
+/* Hairline scrollbar, engine-room style */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hairline);
+}
+
+/* Focus discipline (DESIGN.md §6) */
+:focus-visible {
+  outline: 1px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

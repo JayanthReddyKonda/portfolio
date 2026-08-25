@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jayanth Reddy Konda — Portfolio
+
+[![Next.js](https://img.shields.io/badge/Next.js-16.3.2-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2.8-blue?logo=react)](https://react.dev/)
+[![Three.js](https://img.shields.io/badge/Three.js-0.185.1-black?logo=threedotjs)](https://threejs.org/)
+[![GSAP](https://img.shields.io/badge/GSAP-3.15.0-88CE02?logo=greensock)](https://gsap.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
+
+An award-winning, state-of-the-art interactive portfolio for **Jayanth Reddy Konda** — AI/ML Systems Engineer & Backend Architect. Features an interactive 3D avatar rig, GSAP pixelated grid transitions, Originkit butterfly shader swarm, real-time ASCII face reveal canvas, interactive CLI diagnostics terminal, and deep architectural case studies.
+
+---
+
+## Live Profile & Channels
+- **GitHub**: [github.com/JayanthReddyKonda](https://github.com/JayanthReddyKonda)
+- **LinkedIn**: [linkedin.com/in/jayanthreddykonda](https://www.linkedin.com/in/jayanthreddykonda/)
+- **Email**: [kondajayanthreddy@gmail.com](mailto:kondajayanthreddy@gmail.com)
+- **Location**: Hyderabad, Telangana, India
+
+---
+
+## Key Features & Architecture
+
+### 1. 3D WebGL Avatar Engine (`src/components/three/`)
+- **Real-Time Skeletal Cursor Parallax**: Tracks pointer movement to rotate neck (`mixamorigNeck`) and head (`mixamorigHead`) bones with exponential decay smoothing (`LOOK_DAMPING = 4.5`).
+- **Animation Crossfading**: Dedicated Three.js `AnimationMixer` orchestrating smooth animation clips with React 19 compiler immutability compliance.
+- **Dynamic Framing & Scroll Dissolve**: Viewport-clamped positioning (`Math.min(viewport.width * 0.20, 2.1)`) that dissolves smoothly into deep content sections without obscuring text.
+
+### 2. GSAP Pixelated Grid Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
+- **Cybernetic Pixelated Grid Wave (`sectionTransition03`)**: Dynamic CSS grid layer injected into section bottoms, auto-calculating rows for square pixel aspect ratios.
+- **Hardware-Accelerated Scrub**: GSAP `ScrollTrigger` scrubs glowing emerald & cyan cyber-pixel cells in a staggered bottom-to-top wave across section boundaries.
+
+### 3. Originkit Butterfly Drift Background (`src/components/ui/ButterflyDrift.tsx`)
+- **GPU Procedural Swarm**: Pure WebGL shader-based butterfly flock drifting organically behind all sections.
+- **Interactive Cursor Physics**: Wing flap frequency, cruise speed, and repel thrust respond dynamically to pointer velocity.
+
+### 4. Shockwave Ripple Navigation Teleporter (`src/components/ui/RippleTransition.tsx`)
+- Intercepts anchor navigation (`#about`, `#work`, `#experience`, `#terminal`, `#contact`) and creates expanding radial shockwaves from click coordinates with smooth glide transitions.
+
+### 5. Originkit ASCII Face Reveal Engine (`src/components/ui/AsciiReveal.tsx`)
+- High-density ASCII matrix sampling source pixels in real-time.
+- Multi-blob spring physics cursor tracking that organically dissolves matrix characters to reveal high-definition portraits with gaussian softness blending.
+
+### 6. Interactive Developer CLI Terminal (`src/components/ui/TerminalWidget.tsx`)
+- Live terminal session (`jayanth@engine-room:~`) supporting tab history, arrow navigation, and rich formatted outputs for:
+  - `projects` — Deep-dive summary of 4 production systems
+  - `skills` — Languages, Backend, Vector DBs, ML & Infra
+  - `education` — VNR VJIET (CGPA: 9.1 / 10.0), Intermediate (93%), Matriculation (97.2%)
+  - `experience` — IBM SkillsBuild AI/ML Trainee & Krithomedh Club
+  - `certifications` — Stanford University & DeepLearning.AI ML Specialization
+  - `contact` — Direct transmission channels
+  - `help` / `clear` — Diagnostic utilities
+
+### 7. Production AI & Distributed Systems Showcase (`src/components/ui/ProjectsSection.tsx`)
+1. **AI-Powered Corporate Credit Intelligence Platform** (FastAPI, React 19, PostgreSQL, Qdrant, Gemini 2.0 Flash, LangChain LCEL)
+2. **Real-Time Financial Market Intelligence Platform** (FastAPI, WebSockets, PostgreSQL, rolling Z-score, spaCy, 50+ Tickers)
+3. **AI-Powered Patient Recovery Monitoring System** (FastAPI, React, Redis, Socket.IO, WhatsApp API)
+4. **Multi-Factor Face Authentication + Secure Notes System** (Flask, DeepFace, RetinaFace, AES-256, PostgreSQL)
+
+### 8. Performance & Reliability Engineering (v1.1.0 Full System Audit)
+- **Scoped GSAP contexts only** — no global `ScrollTrigger.kill()` anywhere; every GSAP system (pixel transitions, camera rig) owns its triggers via `gsap.context` / `useGSAP`.
+- **Loader-aware initialization** — scroll-position-dependent systems wait for the `jrk:loader-complete` event instead of arbitrary timeouts, so GSAP never measures a scroll-locked page.
+- **WebGL context preservation** — the 3D canvas stays mounted and gates its render loop (`frameloop="never"`) when the hero is off-screen: zero draw calls, zero context churn.
+- **Shader swarm lifecycle** — butterfly background suspends on tab hide and renders a single static frame under `prefers-reduced-motion`.
+- **rAF-throttled scroll handlers** — cursor section detection coalesces layout reads to one pass per frame.
+- **Reduced-motion respected everywhere** — loader, reveals, transitions, swarm, and avatar all collapse under `prefers-reduced-motion`.
+
+---
+
+## Tech Stack
+
+| Layer | Technology | Version | Purpose |
+|---|---|---|---|
+| **Framework** | Next.js (App Router, Turbopack) | `16.3.2` | Core SSR/SSG & routing engine |
+| **UI Library** | React | `19.2.8` | Component rendering & state |
+| **Compiler** | React Compiler (`babel-plugin-react-compiler`) | `1.0.0` | Automatic memoization & immutability |
+| **3D Rendering** | Three.js + React Three Fiber + Drei | `0.185.1` / `9.7.0` | WebGL 3D scene & GLTF character rig |
+| **Animations** | Motion (Framer Motion) + GSAP ScrollTrigger | `13.1.1` / `3.15.0` | Choreographed transitions & parallax |
+| **Styling** | Tailwind CSS | `v4` | High-performance atomic styling |
+| **Icons** | Lucide React | `1.34.0` | Vector icon system |
+| **Typography** | Geist Sans + Geist Mono | `next/font` | Display and monospace typefaces |
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18.18+ or 20+
+- npm, pnpm, or bun
 
+### Installation
 ```bash
+# Clone the repository
+git clone https://github.com/JayanthReddyKonda/portfolio.git
+cd portfolio
+
+# Install dependencies
+npm install
+
+# Run the local development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production Build & Linting
+```bash
+# Type check without emitting
+npx tsc --noEmit
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Optimized production build
+npm run build
 
-## Learn More
+# Strict ESLint check
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+MIT © Jayanth Reddy Konda
