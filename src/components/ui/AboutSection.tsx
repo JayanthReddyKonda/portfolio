@@ -12,6 +12,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import { Cpu, Flame, Database, Zap, Sparkles, Shield, GitBranch, CheckCircle2 } from "lucide-react";
 import { AsciiReveal } from "./AsciiReveal";
+import { SectionTransition } from "./PixelSectionTransition";
 
 /** Core competencies taxonomy */
 const SKILLS = [
@@ -45,7 +46,6 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      data-st-03="20"
       aria-labelledby="about-heading"
       className="relative min-h-screen px-6 py-32 sm:px-10 lg:px-16"
     >
@@ -175,6 +175,8 @@ export function AboutSection() {
           })}
         </div>
       </div>
+
+      <SectionTransition />
     </section>
   );
 }

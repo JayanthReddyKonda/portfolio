@@ -59,7 +59,7 @@ body {
   cursor: none !important;
 }
 
-/* Base Section Transition support (sectionTransition03) */
+/* Base layout for page sections (relative stacking for seam overlays) */
 main {
   position: relative;
 }

@@ -11,6 +11,7 @@
  */
 
 import { ArrowUpRight, Mail, Phone, MapPin, Sparkles } from "lucide-react";
+import { SectionTransition } from "./PixelSectionTransition";
 
 /** GitHub SVG icon */
 function GithubIcon({ className }: { className?: string }) {
@@ -151,6 +152,8 @@ export function Footer() {
           <p className="text-emerald-400">Status: Open for High-Impact Roles</p>
         </div>
       </div>
+
+      <SectionTransition />
     </footer>
   );
 }

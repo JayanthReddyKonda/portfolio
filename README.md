@@ -26,9 +26,8 @@ An award-winning, state-of-the-art interactive portfolio for **Jayanth Reddy Kon
 - **Animation Crossfading**: Dedicated Three.js `AnimationMixer` orchestrating smooth animation clips with React 19 compiler immutability compliance.
 - **Dynamic Framing & Scroll Dissolve**: Viewport-clamped positioning (`Math.min(viewport.width * 0.20, 2.1)`) that dissolves smoothly into deep content sections without obscuring text.
 
-### 2. GSAP Pixelated Grid Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
-- **Cybernetic Pixelated Grid Wave (`sectionTransition03`)**: Dynamic CSS grid layer injected into section bottoms, auto-calculating rows for square pixel aspect ratios.
-- **Hardware-Accelerated Scrub**: GSAP `ScrollTrigger` scrubs glowing emerald & cyan cyber-pixel cells in a staggered bottom-to-top wave across section boundaries.
+### 2. "Cyber Wipe" Full-Screen Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
+- Crossing any section boundary triggers a full-screen wipe: six glowing vertical slats sweep up, cover the viewport for a beat, then peel away upward into the next section — fully scroll-scrubbed and reversible, reduced-motion aware.
 
 ### 3. Originkit Butterfly Drift Background (`src/components/ui/ButterflyDrift.tsx`)
 - **GPU Procedural Swarm**: Pure WebGL shader-based butterfly flock drifting organically behind all sections.

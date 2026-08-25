@@ -13,6 +13,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { Briefcase, GraduationCap, Award, CheckCircle2, Users } from "lucide-react";
+import { SectionTransition } from "./PixelSectionTransition";
 
 export function ExperienceSection() {
   const reduceMotion = useReducedMotion() ?? false;
@@ -28,7 +29,6 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
-      data-st-03="20"
       aria-labelledby="experience-heading"
       className="relative min-h-screen px-6 py-32 sm:px-10 lg:px-16"
     >
@@ -225,6 +225,8 @@ export function ExperienceSection() {
           </motion.div>
         </div>
       </div>
+
+      <SectionTransition />
     </section>
   );
 }

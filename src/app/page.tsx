@@ -8,7 +8,7 @@ import { ExperienceSection } from "@/components/ui/ExperienceSection";
 import { TerminalWidget } from "@/components/ui/TerminalWidget";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { ButterflyDrift } from "@/components/ui/ButterflyDrift";
-import { PixelSectionTransition } from "@/components/ui/PixelSectionTransition";
+import { SectionTransition } from "@/components/ui/PixelSectionTransition";
 import { RippleTransition } from "@/components/ui/RippleTransition";
 import { InitialLoader } from "@/components/ui/InitialLoader";
 import { Footer } from "@/components/ui/Footer";
@@ -17,15 +17,16 @@ import { SceneMount } from "@/components/three/SceneMount";
 export default function Home() {
   return (
     <>
-      <InitialLoader onComplete={() => {
-        if (typeof window !== "undefined") {
-          import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-            ScrollTrigger.refresh();
-          });
-        }
-      }} />
+      <InitialLoader
+        onComplete={() => {
+          if (typeof window !== "undefined") {
+            import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+              ScrollTrigger.refresh();
+            });
+          }
+        }}
+      />
       <RippleTransition />
-      <PixelSectionTransition />
       <ButterflyDrift
         background="#030303"
         baseColor="#00E5FF"
@@ -46,11 +47,8 @@ export default function Home() {
         <AboutSection />
         <ProjectsSection />
         <ExperienceSection />
-        <section
-          id="terminal"
-          data-st-03="20"
-          className="relative px-6 py-24 sm:px-10 lg:px-16 max-w-7xl mx-auto"
-        >
+        <section id="terminal" className="relative">
+          <div className="px-6 py-24 sm:px-10 lg:px-16 max-w-7xl mx-auto">
           <div className="mb-6 flex items-center justify-between">
             <span className="font-mono text-xs uppercase tracking-[0.25em] text-faint">
               04 — Interactive CLI Diagnostics
@@ -60,9 +58,10 @@ export default function Home() {
             </span>
           </div>
           <TerminalWidget />
+          </div>
+          <SectionTransition />
         </section>
-        {/* Inside <main> so the terminal section has a nextElementSibling and
-            its pixel transition can cover the seam into #contact. */}
+        {/* Footer inside <main> keeps the terminal → contact flow contiguous. */}
         <Footer />
       </main>
       <SceneMount />

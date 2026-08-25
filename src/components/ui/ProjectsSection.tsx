@@ -10,6 +10,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { ExternalLink, Activity, ShieldCheck, TrendingUp, HeartPulse, Lock, CheckCircle2 } from "lucide-react";
+import { SectionTransition } from "./PixelSectionTransition";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -118,7 +119,6 @@ export function ProjectsSection() {
   return (
     <section
       id="work"
-      data-st-03="20"
       aria-labelledby="projects-heading"
       className="relative min-h-screen px-6 py-32 sm:px-10 lg:px-16"
     >
@@ -250,6 +250,8 @@ export function ProjectsSection() {
           })}
         </div>
       </div>
+
+      <SectionTransition />
     </section>
   );
 }

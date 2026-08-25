@@ -2,7 +2,7 @@
 
 **Project**: Interactive 3D Developer Portfolio — Jayanth Reddy Konda
 **Profile**: AI/ML Systems & Backend Architect (VNR VJIET • CGPA: 9.1)
-**Version**: 1.1.0 (Production-Ready — Post Full System Audit)
+**Version**: 1.2.0 (Production-Ready — Final Audit & Cyber Wipe Transitions)
 **Framework**: Next.js 16.3.2 (App Router, Turbopack) • React 19.2.8 • Three.js 0.185.1 • GSAP 3.15.0 • Tailwind CSS v4
 
 ---
@@ -71,13 +71,13 @@ portfolio/
 
 ## 3. Core Systems & Technical Implementation
 
-### A. GSAP Cybernetic Pixel Grid Section Transitions (`PixelSectionTransition.tsx`)
-- **Init contract**: waits for `jrk:loader-complete` (dispatched by `InitialLoader`) before measuring layout — GSAP never measures against a scroll-locked page (4s fallback timer).
-- **Square-cell math**: explicit `${cellSize}px` column/row tracks; no grid gap/padding distortion.
-- **Timeline**: wave-in `0 → 0.65`, wave-out starts `0.7` so the full-glow peak renders mid-scrub.
-- **Lifecycle safety**: StrictMode double-mount guard (`:scope > [data-st-03-pixels]` check), breakpoint-crossing rebuild via `matchMedia change`, debounced resize rebuild, `document.fonts.ready` refresh, `prefers-reduced-motion` bail-out.
-- **Perf**: no per-cell `backdrop-filter`; `will-change` hints and `contain: strict` on layers.
-- **CRITICAL RULE**: nothing in the app may call `ScrollTrigger.getAll().forEach(kill)` or `ScrollTrigger.killAll()`. The camera rig previously did this and silently destroyed every transition trigger. All GSAP work must stay inside scoped `gsap.context()` / `useGSAP`.
+### A. "Cyber Wipe" Full-Screen Section Transitions (`PixelSectionTransition.tsx` — v5)
+- **A real on-screen transition**: crossing any section boundary sweeps six vertical panels up from the bottom of the screen (staggered left→right, glowing cyan leading edges), holds a brief covered beat, then peels the panels away through the top to reveal the next section.
+- **Fully scroll-scrubbed**: reversing scroll reverses the wipe; each overlay animates only while its seam is in view (opacity-gated, so hidden overlays cost nothing).
+- **Zero coupling**: each timeline's trigger is its own parent container — no sibling logic, no measurements, no init races. Overlay sits at `z-[45]` (below navbar/cursor).
+- **Coverage**: hero→about→work→experience→terminal→contact seams all wipe.
+- **Lifecycle**: `useGSAP` scoped contexts revert everything on unmount; `prefers-reduced-motion` renders nothing.
+- **CRITICAL RULE (still applies)**: never call `ScrollTrigger.getAll().forEach(kill)` / `ScrollTrigger.killAll()` anywhere in the app; all GSAP contexts stay scoped via `gsap.context()` / `useGSAP`.
 
 ### B. 3D WebGL Avatar Engine (`src/components/three/`)
 - **Skeletal cursor tracking**: head/neck bone look-at with exponential decay (`LOOK_DAMPING = 4.5`).
@@ -94,18 +94,19 @@ portfolio/
 ### E. Scoped Interactive Developer CLI (`TerminalWidget.tsx`)
 - Container-scoped auto-scroll never moves the window. Supports: `projects`, `skills`, `education`, `experience`, `certifications`, `contact`, `clear`, `help`. Root div no longer carries a duplicate `id="terminal"` (the parent section owns it).
 
-### F. Boot Loader Event Contract (`InitialLoader.tsx`)
-- Sets `document.body.dataset.loaderActive = "true"` while scroll is locked; on completion clears it and dispatches the `jrk:loader-complete` window event. Any scroll-position-dependent system must subscribe to this event instead of guessing with timeouts.
+### F. Boot Loader Contract (`InitialLoader.tsx`)
+- Sets `document.body.dataset.loaderActive = "true"` while scroll is locked; on completion clears it and dispatches the `jrk:loader-complete` window event. The event currently has no subscribers — it is kept as the documented hook for any future scroll-position-dependent system that must wait for final layout.
 
 ---
 
-## 4. Verification & Quality Assurance (v1.1.0)
+## 4. Verification & Quality Assurance (v1.2.0 Final)
 
 | Test / Check | Command | Status |
 | :--- | :--- | :---: |
 | **Production Compiler** | `npm run build` | ✅ Passed (static prerender `/`) |
 | **TypeScript Typecheck** | `npx tsc --noEmit` (also inside build) | ✅ Passed |
 | **ESLint Analysis** | `npm run lint` | ✅ Passed (0 errors, 0 warnings) |
+| **Dead Code Sweep** | No unused exports, no stale selectors/attrs, no TODO/FIXME markers | ✅ Audited |
 | **ScrollTrigger Isolation** | No global kill calls; scoped contexts only | ✅ Audited |
 | **Duplicate DOM IDs** | Single `id="terminal"`; unique section ids | ✅ Fixed |
 | **Favicon Routes** | Prerendered `/icon.png` & `/favicon.png` | ✅ Verified |
@@ -119,7 +120,7 @@ Manual QA checklist before release: full scroll-through at 375 / 768 / 1280 px, 
 1. **Updating Resume**: Replace `/public/resume.pdf`.
 2. **Adding/Editing Projects**: Modify `REAL_PROJECTS` in `src/components/ui/ProjectsSection.tsx` and matching terminal logs in `src/components/ui/TerminalWidget.tsx`.
 3. **Updating Bio & Metrics**: Modify `IMPACT_METRICS` and `SKILLS` in `src/components/ui/AboutSection.tsx`.
-4. **Adding a new section**: give it `data-st-03="20"` and ensure it has a next/previous sibling per its `data-st-mode`; register any cursor badge label in `CustomCursor.tsx`.
+4. **Adding a new section**: render `<SectionTransition />` as the last child of the section element; register any cursor badge label in `CustomCursor.tsx`.
 5. **Local Development**:
    ```bash
    npm install
