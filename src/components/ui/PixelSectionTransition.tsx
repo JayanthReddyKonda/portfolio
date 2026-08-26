@@ -2,109 +2,90 @@
 
 /**
  * @file PixelSectionTransition.tsx
- * @description "Cyber Wipe" — full-screen slat transition between sections (v5).
+ * @description "Spiral Veil" — pure-CSS clip-path section transition (v6).
  *
- * When the viewport crosses a section boundary, six vertical panels sweep UP
- * from the bottom edge and cover the entire screen (staggered left-to-right,
- * each with a glowing teal leading edge), then peel AWAY through the top to
- * reveal the next section. Fully scrubbed to scroll position — reversing the
- * scroll reverses the wipe.
+ * Technique (scroll-variable keyframes, zero per-frame JS animation):
+ * - Each section mounts a fixed two-tone veil (dark #1c2129 over grey #393E46).
+ * - A rAF-throttled scroll listener writes ONE custom property (`--scroll`,
+ *   0→1 seam progress) on the parent section.
+ * - The veils run a CSS `@keyframes st-spiral` animation with
+ *   `animation-play-state: paused` and `animation-delay: calc(var(--scroll) * -1s)`
+ *   — the scroll position literally scrubs the keyframes. The grey layer runs
+ *   slightly offset, so the collapse reads as a two-tone rotating spiral that
+ *   tightens into the centre and reveals the next section.
  *
- * Implementation notes:
- * - One fixed-position overlay per section, animated only while its seam is
- *   on screen (opacity gated so hidden overlays cost nothing).
- * - Trigger is the component's own parent container — zero coupling between
- *   sections, no sibling logic, no init races.
- * - GPU-friendly transforms only; useGSAP context reverts on unmount.
- * - prefers-reduced-motion: no overlay is rendered.
+ * No GSAP, no per-cell writes, fully reversible, StrictMode-proof.
+ * prefers-reduced-motion: renders nothing.
  */
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
-
-const SLAT_COUNT = 6;
+import { useEffect, useRef } from "react";
 
 export function SectionTransition() {
   const root = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      const section = root.current?.parentElement;
-      const overlay = root.current?.querySelector(".st-overlay");
-      if (!section || !overlay) return;
+    const section = root.current?.parentElement;
+    const veils = root.current?.querySelectorAll<HTMLElement>(".st-veil");
+    if (!section || !veils || veils.length === 0) return;
 
-      const slats = overlay.querySelectorAll(".st-slat");
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
 
-      const tl = gsap.timeline({
-        defaults: { ease: "power2.inOut" },
-        scrollTrigger: {
-          trigger: section,
-          // Centered ON the seam crossing: the wipe only begins once the
-          // boundary reaches the upper-middle of the viewport (i.e. the next
-          // section is genuinely arriving) and completes just after it has
-          // fully taken the screen. One full viewport of travel = slow.
-          start: "bottom 65%",
-          end: "bottom -35%",
-          scrub: 1.2, // heavy smoothing = weighty, watchable motion
-        },
+      // 0 while the seam is below the viewport; sweeps 0→1 as the boundary
+      // travels from the viewport bottom to 15% from the top.
+      const p = Math.min(1, Math.max(0, (vh - rect.bottom) / (vh * 0.85)));
+      section.style.setProperty("--scroll", p.toFixed(4));
+
+      // Veils only exist while the spiral is mid-flight.
+      const active = p > 0.001 && p < 0.999;
+      veils.forEach((v) => {
+        v.style.visibility = active ? "visible" : "hidden";
       });
+    };
 
-      // Phase 1 — panels sweep up and cover the screen (staggered L->R).
-      tl.set(overlay, { opacity: 1 })
-        .fromTo(
-          slats,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            duration: 0.4,
-            stagger: 0.07,
-            ease: "power2.inOut",
-          },
-          0
-        )
-        // Covered beat — long enough to register as its own moment.
-        .to({}, { duration: 0.3 })
-        // Phase 2 — panels peel away through the top (staggered R->L).
-        .set(slats, { transformOrigin: "top center" })
-        .to(slats, {
-          scaleY: 0,
-          duration: 0.4,
-          stagger: { each: 0.07, from: "end" },
-          ease: "power2.inOut",
-        })
-        .set(overlay, { opacity: 0 });
-    },
-    { scope: root }
-  );
+    const requestUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
+  }, []);
 
   return (
     <div ref={root} aria-hidden="true" className="contents">
-      <div className="st-overlay pointer-events-none fixed inset-0 z-[45] opacity-0">
-        <div className="absolute inset-0 grid grid-cols-6">
-          {Array.from({ length: SLAT_COUNT }, (_, i) => (
-            <div
-              key={i}
-              className="st-slat h-full w-full origin-bottom"
-              style={{
-                background:
-                  i % 2 === 0
-                    ? "linear-gradient(180deg, #1c2129 0%, #152a2e 100%)"
-                    : "linear-gradient(180deg, #222831 0%, #173034 100%)",
-                boxShadow:
-                  "inset 0 2px 0 rgba(0,173,181,0.55), inset 0 10px 28px rgba(0,173,181,0.12)",
-              }}
-            />
-          ))}
-        </div>
-      </div>
+      {/* Grey under-veil: trails the dark layer for two-tone depth */}
+      <div
+        className="st-veil pointer-events-none fixed inset-0 z-[44] invisible"
+        style={{
+          background: "#393E46",
+          animation: "st-spiral 1s linear both paused",
+          animationDelay: "calc(var(--scroll, 0) * -0.88s)",
+          willChange: "clip-path",
+        }}
+      />
+      {/* Dark main veil */}
+      <div
+        className="st-veil pointer-events-none fixed inset-0 z-[45] invisible"
+        style={{
+          background: "#1c2129",
+          animation: "st-spiral 1s linear both paused",
+          animationDelay: "calc(var(--scroll, 0) * -1s)",
+          willChange: "clip-path",
+        }}
+      />
     </div>
   );
 }

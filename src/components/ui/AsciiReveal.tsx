@@ -377,6 +377,19 @@ export function AsciiReveal(props: AsciiImageProps) {
       paint();
     }
 
+    // Touch support: a pressed finger drives the reveal blobs. The canvas
+    // opts out of browser panning (touch-action: none) so drags scrub the
+    // reveal instead of scrolling the page away mid-interaction.
+    function onPointerDown(event: PointerEvent) {
+      if (event.pointerType !== "touch") return; // mouse handled by move/leave
+      canvas.setPointerCapture(event.pointerId);
+      onMove(event);
+    }
+    function onPointerEnd(event: PointerEvent) {
+      if (event.pointerType !== "touch") return;
+      onLeave();
+    }
+
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.onload = () => {
@@ -397,6 +410,9 @@ export function AsciiReveal(props: AsciiImageProps) {
     }
     canvas.addEventListener("pointermove", onMove);
     canvas.addEventListener("pointerleave", onLeave);
+    canvas.addEventListener("pointerdown", onPointerDown);
+    canvas.addEventListener("pointerup", onPointerEnd);
+    canvas.addEventListener("pointercancel", onPointerEnd);
 
     return () => {
       alive = false;
@@ -404,6 +420,9 @@ export function AsciiReveal(props: AsciiImageProps) {
       ro?.disconnect();
       canvas.removeEventListener("pointermove", onMove);
       canvas.removeEventListener("pointerleave", onLeave);
+      canvas.removeEventListener("pointerdown", onPointerDown);
+      canvas.removeEventListener("pointerup", onPointerEnd);
+      canvas.removeEventListener("pointercancel", onPointerEnd);
     };
   }, [
     src,
@@ -433,6 +452,7 @@ export function AsciiReveal(props: AsciiImageProps) {
         width: "100%",
         height: "100%",
         cursor: reveal ? "crosshair" : "default",
+        touchAction: reveal ? "none" : "auto",
       }}
     />
   );

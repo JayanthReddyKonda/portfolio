@@ -26,8 +26,11 @@ An award-winning, state-of-the-art interactive portfolio for **Jayanth Reddy Kon
 - **Animation Crossfading**: Dedicated Three.js `AnimationMixer` orchestrating smooth animation clips with React 19 compiler immutability compliance.
 - **Dynamic Framing & Scroll Dissolve**: Viewport-clamped positioning (`Math.min(viewport.width * 0.20, 2.1)`) that dissolves smoothly into deep content sections without obscuring text.
 
-### 2. "Cyber Wipe" Full-Screen Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
-- Crossing any section boundary triggers a full-screen wipe: six glowing vertical slats sweep up, cover the viewport for a beat, then peel away upward into the next section — fully scroll-scrubbed and reversible, reduced-motion aware.
+### 2. "Spiral Veil" CSS Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
+- Crossing any section boundary scrubs a two-tone clip-path spiral (dark + grey veils winding into the centre) — driven purely by a CSS custom property and paused keyframes, no JS animation loop, fully reversible, reduced-motion aware.
+
+### 2b. Touch-Reveal ASCII Portrait (`src/components/ui/AsciiReveal.tsx`)
+- The ASCII face reveal now responds to touch: pressing and dragging a finger over the canvas drives the reveal blobs (`pointerdown` capture + `touch-action: none`), with mouse hover behaviour unchanged.
 
 ### 3. Originkit Butterfly Drift Background (`src/components/ui/ButterflyDrift.tsx`)
 - **GPU Procedural Swarm**: Pure WebGL shader-based butterfly flock drifting organically behind all sections.

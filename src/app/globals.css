@@ -92,6 +92,57 @@ main>section {
   outline-offset: 3px;
 }
 
+/* ---------------------------------------------------------------------------
+ * "Spiral Veil" section transition (PixelSectionTransition.tsx v6)
+ * A 12-point polygon winds inward: outer square → mid ring → core, each frame
+ * tightening the spiral corridor until the veil collapses to the centre point.
+ * Scrubbed purely by the section's `--scroll` custom property (0→1).
+ * ------------------------------------------------------------------------- */
+@keyframes st-spiral {
+  0% {
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 100%, 0% 100%,
+      0% 22%, 78% 22%, 78% 78%, 22% 78%,
+      22% 44%, 56% 44%, 56% 56%, 44% 56%, 44% 44%
+    );
+  }
+  20% {
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 100%, 0% 100%,
+      0% 22%, 78% 22%, 78% 78%, 50% 78%,
+      50% 44%, 56% 44%, 56% 56%, 44% 56%, 44% 44%
+    );
+  }
+  40% {
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 100%, 0% 100%,
+      0% 22%, 78% 22%, 78% 50%, 50% 50%,
+      50% 44%, 56% 44%, 56% 56%, 44% 56%, 44% 44%
+    );
+  }
+  60% {
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 100%, 0% 100%,
+      0% 22%, 22% 22%, 22% 50%, 50% 50%,
+      50% 44%, 50% 44%, 50% 56%, 44% 56%, 44% 44%
+    );
+  }
+  80% {
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 100%, 0% 100%,
+      0% 78%, 22% 78%, 22% 50%, 50% 50%,
+      50% 50%, 50% 50%, 50% 56%, 44% 56%, 44% 50%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      0% 0%, 0% 0%, 0% 0%, 0% 0%,
+      0% 0%, 0% 0%, 0% 0%, 0% 0%,
+      0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%
+    );
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

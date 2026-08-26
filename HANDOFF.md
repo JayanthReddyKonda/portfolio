@@ -71,12 +71,12 @@ portfolio/
 
 ## 3. Core Systems & Technical Implementation
 
-### A. "Cyber Wipe" Full-Screen Section Transitions (`PixelSectionTransition.tsx` — v5)
-- **A real on-screen transition**: crossing any section boundary sweeps six vertical panels up from the bottom of the screen (staggered left→right, glowing cyan leading edges), holds a brief covered beat, then peels the panels away through the top to reveal the next section.
-- **Fully scroll-scrubbed**: reversing scroll reverses the wipe; each overlay animates only while its seam is in view (opacity-gated, so hidden overlays cost nothing).
-- **Zero coupling**: each timeline's trigger is its own parent container — no sibling logic, no measurements, no init races. Overlay sits at `z-[45]` (below navbar/cursor).
-- **Coverage**: hero→about→work→experience→terminal→contact seams all wipe.
-- **Lifecycle**: `useGSAP` scoped contexts revert everything on unmount; `prefers-reduced-motion` renders nothing.
+### A. "Spiral Veil" Section Transitions (`PixelSectionTransition.tsx` — v6)
+- **Pure-CSS clip-path scrub**: each section mounts a fixed two-tone veil (dark `#1c2129` over grey `#393E46`). A rAF-throttled listener writes a single `--scroll` (0→1) property on the section; the veils run `@keyframes st-spiral` (globals.css) with `animation-play-state: paused` and `animation-delay: calc(var(--scroll) * -1s)` — scroll position literally scrubs the keyframes.
+- **The spiral**: a 12-point polygon winds inward — outer square → mid ring → core — tightening into the centre point to reveal the next section. The grey under-veil trails the dark layer (`-0.88s` offset) for two-tone depth.
+- **Zero-cost when idle**: veils are `visibility: hidden` outside the seam window; no GSAP, no per-frame JS animation, fully scroll-reversible, `z-[44]/z-[45]` (below navbar/cursor).
+- **Coverage**: hero→about→work→experience→terminal→contact seams all spiral.
+- **Accessibility**: `prefers-reduced-motion` renders nothing.
 - **CRITICAL RULE (still applies)**: never call `ScrollTrigger.getAll().forEach(kill)` / `ScrollTrigger.killAll()` anywhere in the app; all GSAP contexts stay scoped via `gsap.context()` / `useGSAP`.
 
 ### B. 3D WebGL Avatar Engine (`src/components/three/`)
