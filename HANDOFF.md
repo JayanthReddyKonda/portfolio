@@ -1,17 +1,15 @@
 # Portfolio Engineering & Architecture Handoff
 
-**Project**: Interactive 3D Developer Portfolio — Jayanth Reddy Konda
-**Profile**: AI/ML Systems & Backend Architect (VNR VJIET • CGPA: 9.1)
-**Version**: 2.0.0 (Production-Ready — Luminous Wipe, Palette Retheme, Touch Reveal)
-**Framework**: Next.js 16.3.2 (App Router, Turbopack) • React 19.2.8 • Three.js 0.185.1 • GSAP 3.15.0 • Tailwind CSS v4
+**Project**: Interactive Developer Portfolio — Jayanth Reddy Konda  
+**Profile**: AI/ML Systems & Distributed Backend Architect (VNR VJIET • CGPA: 9.1)  
+**Version**: 3.0.0 (Production-Ready — Emerald Sophistication, Spatial Transitions, LabelSlideButton)  
+**Framework**: Next.js 16.3.2 (App Router, Turbopack) • React 19.2.8 • Three.js 0.185.1 • Framer Motion 13.1.1 • Tailwind CSS v4  
 
 ---
 
 ## 1. Executive Summary
 
-This codebase is a high-performance, single-page interactive portfolio engineered to showcase AI/ML architectures, distributed backend platforms, and biometric systems. It integrates real-time WebGL 3D avatar mechanics, procedural GPU shaders, GSAP ScrollTrigger section transitions, an interactive developer CLI terminal, and an Originkit ASCII face reveal canvas.
-
-**v1.1.0 audit outcome**: full performance/design/bug pass across every file. Critical fixes include removal of a global `ScrollTrigger.kill()` inside the 3D camera rig (which destroyed the pixel transitions), WebGL context preservation via `frameloop` gating, duplicate-DOM-id elimination, rAF-throttled scroll handlers, and tab-visibility suspension for the shader swarm.
+This codebase is a high-performance, production-grade interactive engineering portfolio built to showcase AI/ML architectures, distributed backend platforms, and biometric systems. It integrates real-time WebGL 3D avatar mechanics, procedural GPU shaders, horizontal spatial page transitions with View Transitions API integration, an interactive developer CLI diagnostics terminal, and an Originkit ASCII face reveal canvas.
 
 ---
 
@@ -30,73 +28,92 @@ portfolio/
 │
 ├── src/
 │   ├── app/
-│   │   ├── globals.css           # Tailwind v4 tokens, custom cursor rules, base section setup
-│   │   ├── layout.tsx            # Root layout, font loader (Geist), metadata & PNG icon routes
-│   │   └── page.tsx              # Single-page orchestration (Footer lives INSIDE <main> so the
-│   │                             #   terminal→contact pixel seam has a valid sibling target)
+│   │   ├── layout.tsx            # Root layout, metadata, particle swarm & cursor
+│   │   ├── template.tsx          # Per-route spatial stage transition boundary
+│   │   ├── page.tsx              # Overview stage (3D Avatar Hero)
+│   │   ├── globals.css           # Emerald Sophistication tokens & View Transitions
+│   │   ├── about/page.tsx        # Profile & Neural ASCII Matrix
+│   │   ├── work/page.tsx         # Production Systems & Benchmarks
+│   │   ├── gallery/page.tsx      # 3D Architecture Gallery Tunnel
+│   │   ├── experience/page.tsx   # Work experience, education, certifications
+│   │   ├── skills/page.tsx       # 3D Sticker Peel Deck & Live CLI Lab
+│   │   └── contact/page.tsx      # Direct outreach & transmission lines
 │   │
-│   └── components/
-│       ├── three/                # 3D WebGL Canvas Layer
-│       │   ├── CameraController.tsx # Camera parallax — SCOPED gsap.context only (never killAll)
-│       │   ├── Character.tsx        # 3D Avatar rig, bone cursor parallax, animation mixer
-│       │   ├── EnvironmentSetup.tsx # Three-point studio lighting (zero network deps)
-│       │   ├── Scene.tsx            # Canvas wrapper; frameloop gated by hero visibility
-│       │   └── SceneMount.tsx       # Dynamic client mount wrapper (SSR safe)
-│       │
-│       └── ui/                   # UI Components & Interactive Layers
-│           ├── AboutSection.tsx           # Profile foundation, metrics (9.1 CGPA), skills taxonomy
-│           ├── AsciiReveal.tsx            # Multi-blob spring physics ASCII face reveal
-│           ├── ButterflyDrift.tsx         # GPU shader swarm; pauses when tab hidden,
-│           │                              #   static single frame under prefers-reduced-motion
-│           ├── CustomCursor.tsx           # Spring cursor with section badges; rAF-throttled scroll
-│           ├── ExperienceSection.tsx      # Work experience, education, certifications, leadership
-│           ├── Footer.tsx                 # Contact CTA (#contact); plain anchors for hash nav
-│           ├── HeroSection.tsx            # Hero typography, liquid carve button, CTAs
-│           ├── InitialLoader.tsx          # 0→100% loader; dispatches `jrk:loader-complete` event
-│           ├── LiquidCarveButton.tsx      # Liquid-goo CTA — used in Hero (Explore Projects)
-│           │                              #   and Footer (primary email action)
-│           ├── Navbar.tsx                 # Frosted glass capsule with live beacon & resume download
-│           ├── PixelSectionTransition.tsx # "Luminous Wipe" teal glow-line transition (see §3A)
-│           ├── ProjectsSection.tsx        # 4 production-grade systems case studies
-│           ├── RippleTransition.tsx       # Shockwave ripple teleporter for anchor navigation
-│           ├── RotatingText.tsx           # GSAP rotating taxonomy text badge
-│           ├── TerminalWidget.tsx         # Interactive developer CLI (scoped container scroll)
-│           └── Typewriter.tsx             # Terminal typing emulator component
+│   ├── components/
+│   │   ├── core/                 # Atomic UI Primitives
+│   │   │   ├── Navbar.tsx            # Floating glass capsule with JRK brand badge
+│   │   │   ├── CustomCursor.tsx      # Kinetic spring cursor with telemetry
+│   │   │   ├── InitialLoader.tsx     # Session-gated system bootloader (runs strictly once)
+│   │   │   ├── LabelSlideButton.tsx  # Originkit rolling text & directional vector button
+│   │   │   ├── Typewriter.tsx        # Kinetic typewriter subheading
+│   │   │   └── PageTransition.tsx    # Clean horizontal spatial glide
+│   │   │
+│   │   ├── sections/             # Stage Viewport Sections
+│   │   │   ├── HeroSection.tsx       # Overview hero narrative & quick-action triggers
+│   │   │   ├── AboutSection.tsx      # Technical foundation & ASCII face reveal
+│   │   │   ├── ProjectsSection.tsx   # 4 Verified production architectures with metrics
+│   │   │   ├── GallerySection.tsx    # 3D infinite corridor viewer section
+│   │   │   ├── ExperienceSection.tsx # IBM experience, VNR VJIET & Stanford certifications
+│   │   │   ├── SkillsSection.tsx     # Unified 3D sticker deck & CLI terminal lab
+│   │   │   └── ContactSection.tsx    # Direct contact channels & metadata footer
+│   │   │
+│   │   ├── webgl/                # Interactive Canvas & WebGL Shaders
+│   │   │   ├── AsciiReveal.tsx       # Neural ASCII matrix with cursor/touch mask
+│   │   │   ├── StickerPeel.tsx       # 3D Bilinear skinning sticker peel deck (Deferred WebGL)
+│   │   │   ├── GalleryTunnel.tsx     # Infinite WebGL corridor tunnel with acceleration
+│   │   │   ├── RoundCarousel.tsx     # 3D Rotating cylinder carousel
+│   │   │   └── ButterflyDrift.tsx    # GPU procedural butterfly particle swarm
+│   │   │
+│   │   ├── three/                # React Three Fiber 3D Scene Components
+│   │   │   ├── SceneMount.tsx        # Dynamic SSR client boundary
+│   │   │   ├── Scene.tsx             # Three.js canvas setup & studio lighting
+│   │   │   ├── Character.tsx         # 3D Avatar rigging & bone parallax
+│   │   │   ├── CameraController.tsx  # Dynamic camera controller
+│   │   │   └── EnvironmentSetup.tsx  # Cinematic 3-point lighting rig
+│   │   │
+│   │   └── terminal/             # CLI Diagnostics Subsystem
+│   │       └── TerminalWidget.tsx    # Live keyboard-driven terminal emulator
+│   │
+│   ├── data/                     # Typed Static Content & Metadata
+│   │   ├── projects.ts           # Architecture specifications & benchmarks
+│   │   ├── skills.ts             # Technical taxonomy, stickers & impact metrics
+│   │   ├── experience.ts         # IBM, VNR VJIET & Stanford records
+│   │   ├── galleryImages.ts      # Vector SVG architecture blueprints
+│   │   └── stickerImages.ts      # Vector SVG sticker badges
+│   │
+│   └── types/                    # Domain TypeScript Schemas
+│       ├── project.ts            # Project interfaces & benchmarks schema
+│       ├── skills.ts             # Sticker & skill taxonomy types
+│       ├── experience.ts         # Experience & academic record types
+│       └── terminal.ts           # Command log & parser interfaces
 │
 ├── DESIGN.md                     # Design tokens, color system, typography & spacing rules
+├── ARCHITECTURE.md               # Technical architecture & directory organization
 ├── README.md                     # Getting started guide & feature overview
 └── package.json                  # Dependencies, scripts, engine specifications
 ```
 
 ---
 
-### A. GSAP Pixelated Grid Section Transitions (`PixelSectionTransition.tsx` — sectionTransition03)
-- **Dynamic CSS Pixel Grid**: Injects dynamic pixel grids across all `[data-st-03]` sections with auto-calculated row counts to ensure square pixel aspect ratios.
-- **Hardware-Accelerated Scrub**: Two-phase GSAP `ScrollTrigger` scrubbing glowing cybernetic teal (`#00ADB5`) & slate tiles that dynamically stagger into view across section fold boundaries.
-- **Deterministic Stagger**: Uses pseudo-random hash stagger `(rowFromEdge + hash(index) * spread) / maxDelay` for organic matrix dissolve.
-- **Lifecycle & Safety**: Scoped triggers with automatic `ScrollTrigger.refresh()` upon loader completion.
+## 3. Core Technical Subsystems
+
+### A. Horizontal Spatial Stage Transitions (`PageTransition.tsx`)
+- Hardware-accelerated GPU transforms (`x: 36px -> 0`, `opacity: 0 -> 1`, `cubic-bezier(0.16, 1, 0.3, 1)`).
+- Native View Transitions API integration via `document.startViewTransition()` in `Navbar.tsx`.
+- Subtle top ambient progress hairline (`#7ba05b`).
 
 ### B. 3D WebGL Avatar Engine (`src/components/three/`)
-- **Skeletal cursor tracking**: head/neck bone look-at with exponential decay (`LOOK_DAMPING = 4.5`).
-- **Animation Mixer**: dedicated `THREE.AnimationMixer` over the `SkeletonUtils.clone` of the GLB scene.
-- **Context preservation**: the Canvas stays mounted for the whole session; scrolling past the hero flips `frameloop` to `"never"` (zero draw calls) instead of unmounting, which previously destroyed/recreated the WebGL context.
+- Dynamic SSR client boundary via `SceneMount.tsx` (`ssr: false`).
+- Skeletal cursor tracking (`mixamorigNeck`, `mixamorigHead`) with exponential decay smoothing.
+- Self-contained 3-point studio lighting calibrated to the Emerald Sophistication palette.
 
-### C. Procedural Shader Swarm (`ButterflyDrift.tsx`)
-- Pure WebGL 12-float stride vertex/fragment pipeline at `-z-10`, density 20.
-- Suspends its RAF loop on `visibilitychange` (hidden tab); renders one static frame under `prefers-reduced-motion`.
+### C. Deferred WebGL 3D Sticker Peel (`src/components/webgl/StickerPeel.tsx`)
+- Instant static base layer renders immediately on frame 0, completely eliminating mount lag and blank flashes during route transitions.
+- Lazily activates WebGL context on pointer interaction or 380ms post-mount, maintaining 120 FPS navigation.
 
-### D. Shockwave Ripple Navigation Teleporter (`RippleTransition.tsx`)
-- Intercepts in-page anchors, spawns radial shockwaves from click coordinates, glides viewport to target. `#top` performs exactly one `scrollTo(0)` call (double-scroll bug fixed in v1.1.0).
-
-### E. Originkit Interactive Components
-- **LiquidCarveButton**: SVG goo-filter CTA (cursor-tracking blob carves the fill). Instances: Hero “Explore Projects” and Footer primary email action — both themed to the palette (light fill `#EEEEEE`, dark text, teal blob).
-- **Typewriter / RotatingText**: kinetic hero subheading and badge.
-
-### F. Scoped Interactive Developer CLI (`TerminalWidget.tsx`)
-- Container-scoped auto-scroll never moves the window. Supports: `projects`, `skills`, `education`, `experience`, `certifications`, `contact`, `clear`, `help`. Root div no longer carries a duplicate `id="terminal"` (the parent section owns it).
-
-### G. Boot Loader Contract (`InitialLoader.tsx`)
-- Sets `document.body.dataset.loaderActive = "true"` while scroll is locked; on completion clears it and dispatches the `jrk:loader-complete` window event. The event currently has no subscribers — it is kept as the documented hook for any future scroll-position-dependent system that must wait for final layout.
+### D. Scoped Interactive Developer CLI (`src/components/terminal/TerminalWidget.tsx`)
+- Container-scoped scroll navigation with history buffer (Up/Down arrow navigation).
+- Custom event dispatcher for one-click preset command buttons.
 
 ---
 

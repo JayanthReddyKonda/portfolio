@@ -40,16 +40,14 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
         key={pathname}
         initial={{
           opacity: reduceMotion ? 1 : 0,
-          x: reduceMotion ? 0 : 40,
-          filter: reduceMotion ? "none" : "blur(4px)",
+          x: reduceMotion ? 0 : 36,
         }}
         animate={{
           opacity: 1,
           x: 0,
-          filter: "blur(0px)",
         }}
         transition={{
-          duration: reduceMotion ? 0.15 : 0.42,
+          duration: reduceMotion ? 0.15 : 0.38,
           ease: [0.16, 1, 0.3, 1] as const,
         }}
         className="relative z-10 w-full"

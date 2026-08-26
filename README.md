@@ -6,7 +6,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 
-An award-winning, production-grade interactive engineering portfolio for **Jayanth Reddy Konda** — AI/ML Systems Engineer & Backend Architect. Features horizontal 3D stage sliding transitions with native View Transitions API integration, an interactive 3D WebGL Avatar rig, infinite 3D architecture gallery corridor, 3D bilinear skinning sticker peel deck, and a real-time developer CLI diagnostics terminal.
+An award-winning, production-grade interactive engineering portfolio for **Jayanth Reddy Konda** — AI/ML Systems Engineer & Distributed Backend Architect. Features horizontal spatial stage transitions, an interactive 3D WebGL Avatar rig, infinite 3D architecture gallery corridor, 3D bilinear skinning sticker peel deck with deferred WebGL initialization, and a real-time developer CLI diagnostics terminal.
 
 ---
 
@@ -25,9 +25,9 @@ An award-winning, production-grade interactive engineering portfolio for **Jayan
 src/
 ├── app/                           # Next.js App Router (16.3.2)
 │   ├── layout.tsx                 # Root layout with metadata, cursor & particles
-│   ├── template.tsx               # Per-route 3D stage transition boundary
+│   ├── template.tsx               # Per-route spatial stage transition boundary
 │   ├── page.tsx                   # Stage: Overview / 3D Avatar Hero
-│   ├── globals.css                # Obsidian & Teal design tokens + View Transitions
+│   ├── globals.css                # Emerald Sophistication design tokens & View Transitions
 │   ├── about/page.tsx             # Stage: Profile & Neural ASCII Matrix
 │   ├── work/page.tsx              # Stage: Production Systems & Benchmarks
 │   ├── gallery/page.tsx           # Stage: 3D Architecture Gallery Tunnel
@@ -39,12 +39,12 @@ src/
 │
 ├── components/
 │   ├── core/                      # Atomic UI Primitives
-│   │   ├── Navbar.tsx             # Floating capsule navbar with JRK LiquidCarve button
+│   │   ├── Navbar.tsx             # Floating glass capsule navbar with JRK brand badge
 │   │   ├── CustomCursor.tsx       # Kinetic spring cursor with dynamic page telemetry
 │   │   ├── InitialLoader.tsx      # Session-gated system bootloader (runs strictly once)
-│   │   ├── LiquidCarveButton.tsx  # Physical glass refraction action button
+│   │   ├── LabelSlideButton.tsx   # Originkit rolling text & directional vector button
 │   │   ├── Typewriter.tsx         # Kinetic typewriter subheading
-│   │   └── PageTransition.tsx     # Horizontal 3D stage slide & cyber shutter wipe
+│   │   └── PageTransition.tsx     # Clean horizontal spatial glide & ambient progress hairline
 │   │
 │   ├── sections/                  # Discrete Page Section Orchestrators
 │   │   ├── HeroSection.tsx        # Overview hero narrative & quick-action triggers
@@ -57,15 +57,16 @@ src/
 │   │
 │   ├── webgl/                     # Canvas & WebGL Interactive Shaders
 │   │   ├── AsciiReveal.tsx        # Neural ASCII matrix with cursor/touch mask
-│   │   ├── StickerPeel.tsx        # 3D Bilinear skinning sticker peel deck
+│   │   ├── StickerPeel.tsx        # 3D Bilinear skinning sticker peel deck (Deferred WebGL)
 │   │   ├── GalleryTunnel.tsx      # Infinite WebGL corridor tunnel with acceleration
+│   │   ├── RoundCarousel.tsx      # 3D Rotating cylinder carousel
 │   │   └── ButterflyDrift.tsx     # GPU procedural butterfly particle swarm
 │   │
 │   ├── three/                     # React Three Fiber 3D Scene Components
 │   │   ├── SceneMount.tsx         # Dynamic SSR client boundary
-│   │   ├── Scene.tsx              # Three.js canvas setup & fog rendering
+│   │   ├── Scene.tsx              # Three.js canvas setup & studio lighting
 │   │   ├── Character.tsx          # 3D Avatar rigging & bone parallax
-│   │   ├── CameraController.tsx   # Dynamic mouse-tracking camera controller
+│   │   ├── CameraController.tsx   # Dynamic camera controller
 │   │   └── EnvironmentSetup.tsx   # Cinematic 3-point lighting rig
 │   │
 │   └── terminal/                  # CLI Diagnostics Subsystem
@@ -92,24 +93,23 @@ src/
 
 ## ⚡ Core Technical Capabilities
 
-### 1. Native View Transitions API & Horizontal 3D Stage Slide
-- **Compositor-Level Morphs**: Triggered via `document.startViewTransition()` for smooth 60fps transitions.
-- **Horizontal Cyber Shutter**: 4 horizontal shutter bands cascade across the viewport with vertical cyan laser guides.
-- **3D Perspective Unfold**: Hardware-accelerated GPU transforms (`x: 50px -> 0`, `rotateY: -3deg -> 0`, `scale: 0.98 -> 1`, cubic-bezier `[0.16, 1, 0.3, 1]`).
-- **Live Transmission HUD**: Telemetry badge flashes destination stage in transit.
+### 1. Native View Transitions & Hardware-Accelerated Spatial Glide
+- **Compositor-Level Morphs**: Triggered via `document.startViewTransition()` for fluid page morphs.
+- **Horizontal Spatial Glide**: Hardware-accelerated GPU transforms (`x: 36px -> 0`, `opacity: 0 -> 1`, cubic-bezier `[0.16, 1, 0.3, 1]`).
+- **Top Ambient Hairline**: Subtle `#7ba05b` progress hairline indicates transition progress.
 
-### 2. 3D WebGL Avatar Rig (`src/components/three/`)
-- **Skeletal Cursor Parallax**: Smooth bone rotation (`mixamorigNeck`, `mixamorigHead`) with exponential decay smoothing (`LOOK_DAMPING = 4.5`).
-- **Dynamic Framing**: Clamped viewport positioning that renders cleanly on Overview `/` and stays responsive on mobile.
+### 2. Interactive 3D Avatar Hero Canvas
+- **Skeletal Look-At Tracking**: Real-time cursor tracking following mixamo neck and head bones.
+- **Dynamic Lighting**: Self-contained 3-point key, fill, and rim lighting rig in Emerald palette.
 
-### 3. 3D Bilinear Skinning Sticker Deck (`src/components/webgl/StickerPeel.tsx`)
-- Physical mesh peeling simulation running in WebGL with dynamic specular highlights and shadow projection.
+### 3. High-Performance 3D WebGL Sticker Peel Deck
+- **Deferred WebGL Context Activation**: Instant 0ms entrance latency with zero dropped frames on initial page navigation; lazily initializes WebGL on pointer interaction or post-transition.
+- **Physical 2D Bilinear Skinning**: Realistic fold curvature with dual-face SVG rendering and cast shadow projection.
 
-### 4. Infinite WebGL Architecture Gallery Tunnel (`src/components/webgl/GalleryTunnel.tsx`)
-- 3D infinite corridor displaying local vector SVG system blueprints with drag-and-hold acceleration boost.
-
-### 5. Interactive CLI Diagnostics Terminal (`src/components/terminal/TerminalWidget.tsx`)
-- Live keyboard-driven terminal emulator with command history, tab completion, and instant quick-action execution.
+### 4. Interactive Developer CLI Terminal
+- Real system commands (`help`, `projects`, `skills`, `education`, `experience`, `certifications`, `contact`, `clear`).
+- History navigation buffer with Up/Down arrow keys.
+- Custom event dispatcher for one-click button execution.
 
 ---
 

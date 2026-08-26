@@ -66,12 +66,11 @@ All buttons across the portfolio strictly utilize `src/components/core/LabelSlid
 ## 4. Stage Transitions Architecture
 
 - **Horizontal Spatial Glide**:
-  - Speed: `0.42s`
+  - Speed: `0.38s`
   - Easing: `cubic-bezier(0.16, 1, 0.3, 1)`
-  - Travel: `x: 40px -> 0px`
+  - Travel: `x: 36px -> 0px`
   - Opacity: `0 -> 1`
-  - Blur: `4px -> 0px`
-  - Subtle top progress hairline: `#7ba05b` with `0.45s` exit fade.
+  - Top progress hairline: `#7ba05b` with `0.45s` exit fade.
 - **View Transitions API**:
   - `document.startViewTransition()` integrated for native instant router transitions.
 

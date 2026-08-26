@@ -38,13 +38,14 @@ const PRESET_COMMANDS = [
 export function SkillsSection() {
   const reduceMotion = useReducedMotion() ?? false;
 
-  const reveal = (delay = 0) => ({
-    initial: { opacity: 0, y: reduceMotion ? 0 : 20 },
+  const reveal = {
+    initial: { opacity: 0, y: reduceMotion ? 0 : 16 },
     animate: { opacity: 1, y: 0 },
-    transition: reduceMotion
-      ? { duration: 0 }
-      : { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay },
-  });
+    transition: {
+      duration: reduceMotion ? 0 : 0.45,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  };
 
   const runCommand = (command: string) => {
     if (typeof window !== "undefined") {
@@ -66,7 +67,7 @@ export function SkillsSection() {
         {/* Section Header */}
         <div className="mb-10 max-w-3xl">
           <motion.div
-            {...reveal(0)}
+            {...reveal}
             className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-[#7ba05b]"
           >
             <TerminalIcon className="size-3.5 text-[#7ba05b]" />
@@ -75,7 +76,7 @@ export function SkillsSection() {
 
           <motion.h2
             id="skills-heading"
-            {...reveal(0.08)}
+            {...reveal}
             className="text-balance text-3xl font-bold tracking-tight text-[#f4f1eb] sm:text-4xl lg:text-5xl"
           >
             Interactive Skills Lab &amp;{" "}
@@ -85,7 +86,7 @@ export function SkillsSection() {
           </motion.h2>
 
           <motion.p
-            {...reveal(0.14)}
+            {...reveal}
             className="mt-4 text-pretty font-mono text-sm text-[#f4f1eb]/80 sm:text-base"
           >
             Peel interactive 3D WebGL stickers to explore core engineering domains,
@@ -94,7 +95,7 @@ export function SkillsSection() {
         </div>
 
         {/* Part 1: 3D Sticker Peel Deck */}
-        <motion.div {...reveal(0.18)} className="mb-10">
+        <motion.div {...reveal} className="mb-10">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
             {STICKERS.map((stk) => (
               <div
@@ -132,7 +133,7 @@ export function SkillsSection() {
         </motion.div>
 
         {/* Part 2: Integrated CLI Terminal with LabelSlideButton Quick Bar */}
-        <motion.div {...reveal(0.22)}>
+        <motion.div {...reveal}>
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#f4f1eb]/50">

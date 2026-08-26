@@ -54,12 +54,12 @@ const CAMERA_DISTANCE = 1200;
 const CAMERA_NEAR = 100;
 const CAMERA_FAR = 2000;
 const STICKER_DEPTH = 0.003;
-const CANVAS_SCALE = 4;
+const CANVAS_SCALE = 2;
 
-const BONE_GRID_X = 24;
-const BONE_GRID_Y = 24;
-const SEGMENTS_W = 60;
-const SEGMENTS_H = 48;
+const BONE_GRID_X = 14;
+const BONE_GRID_Y = 14;
+const SEGMENTS_W = 28;
+const SEGMENTS_H = 28;
 
 const FIXED_CURL_RADIUS = 0.15;
 const FIXED_CURL_FACTOR = 0.6;
@@ -682,7 +682,17 @@ export function StickerPeel({
     [curlAmountMotion, startRenderLoop, stopRenderLoop]
   );
 
+  const [isReady, setIsReady] = React.useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 380);
+    return () => clearTimeout(timer);
+  }, []);
+
   const handlePointerEnter = useCallback(() => {
+    setIsReady(true);
     isHoveringRef.current = true;
     if (!isPressedRef.current) {
       animateCurlTo(hoverPeel / 100);
@@ -696,6 +706,7 @@ export function StickerPeel({
   }, [animateCurlTo]);
 
   const handlePointerDown = useCallback(() => {
+    setIsReady(true);
     isPressedRef.current = true;
     animateCurlTo(pressPeel / 100);
   }, [pressPeel, animateCurlTo]);
@@ -710,6 +721,7 @@ export function StickerPeel({
   }, [hoverPeel, animateCurlTo]);
 
   useEffect(() => {
+    if (!isReady) return;
     const res = setupScene();
     if (res) {
       loadTexture();
@@ -724,7 +736,7 @@ export function StickerPeel({
         }
       }
     };
-  }, [setupScene, loadTexture, stopRenderLoop]);
+  }, [isReady, setupScene, loadTexture, stopRenderLoop]);
 
   const offsetPercent = ((CANVAS_SCALE - 1) / 2) * 100;
 
@@ -742,6 +754,14 @@ export function StickerPeel({
         ...style,
       }}
     >
+      {/* Instant crisp SVG base layer preventing WebGL async mount blank-flash */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={resolvedImageUrl}
+        alt=""
+        draggable={false}
+        className="absolute inset-0 size-full object-contain pointer-events-none"
+      />
       <canvas
         ref={canvasRef}
         style={{

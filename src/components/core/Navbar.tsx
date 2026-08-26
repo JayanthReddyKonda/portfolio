@@ -72,7 +72,6 @@ const NAV_LINKS = [
   { label: "Gallery", href: "/gallery" },
   { label: "Experience", href: "/experience" },
   { label: "Skills Lab", href: "/skills" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 export function Navbar() {
@@ -117,11 +116,10 @@ export function Navbar() {
     >
       <nav
         aria-label="Primary Navigation"
-        className={`mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full border px-4 py-2 transition-all duration-300 sm:px-6 ${
-          scrolled
+        className={`mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full border px-4 py-2 transition-all duration-300 sm:px-6 ${scrolled
             ? "border-[#7ba05b]/25 bg-[#0d4c3c]/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
             : "border-white/10 bg-[#0d4c3c]/60 backdrop-blur-md"
-        }`}
+          }`}
       >
         {/* Brand / Logo: JRK in LabelSlideButton */}
         <LabelSlideButton
@@ -142,11 +140,10 @@ export function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleNavigation(e, link.href)}
-                className={`relative px-3 py-1.5 text-xs uppercase font-mono tracking-[0.18em] transition-colors duration-200 ${
-                  active
+                className={`relative px-3 py-1.5 text-xs uppercase font-mono tracking-[0.18em] transition-colors duration-200 ${active
                     ? "text-[#7ba05b] font-bold"
                     : "text-[#f4f1eb]/70 hover:text-[#f4f1eb]"
-                }`}
+                  }`}
               >
                 {link.label}
                 {active && (
@@ -237,11 +234,10 @@ export function Navbar() {
                       setMenuOpen(false);
                       handleNavigation(e, link.href);
                     }}
-                    className={`flex items-center justify-between rounded-xl px-4 py-2.5 text-xs uppercase tracking-wider transition-colors ${
-                      active
+                    className={`flex items-center justify-between rounded-xl px-4 py-2.5 text-xs uppercase tracking-wider transition-colors ${active
                         ? "bg-[#7ba05b]/20 font-bold text-[#7ba05b]"
                         : "text-[#f4f1eb]/80 hover:bg-white/5 hover:text-[#f4f1eb]"
-                    }`}
+                      }`}
                   >
                     <span>{link.label}</span>
                     {active && <span className="size-1.5 rounded-full bg-[#7ba05b]" />}

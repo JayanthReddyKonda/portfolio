@@ -22,7 +22,7 @@ const DEFAULTS = {
   boost: 120,
   fade: 95,
   label: true,
-  labelText: "Hold to Accelerate ⚡",
+  labelText: "Hold to Accelerate",
   labelFill: "#7ba05b",
   labelColor: "#0d4c3c",
   labelFont: { fontFamily: "var(--font-geist-mono), monospace", fontSize: 13, fontWeight: 600 } as CSSProperties,
