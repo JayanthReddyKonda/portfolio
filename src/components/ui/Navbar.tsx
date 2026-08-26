@@ -10,9 +10,10 @@
  * - Responsive mobile drawer with smooth blur overlay.
  */
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Menu, X, ArrowUpRight, FileDown } from "lucide-react";
+import { LiquidCarveButton } from "./LiquidCarveButton";
 
 /** GitHub SVG icon */
 function GithubIcon({ className }: { className?: string }) {
@@ -144,13 +145,15 @@ export function Navbar() {
           </div>
 
           {/* Get in Touch CTA */}
-          <a
+          <LiquidCarveButton
             href="mailto:kondajayanthreddy@gmail.com"
-            className="hidden sm:inline-flex h-8 items-center gap-1 rounded-full border border-white/15 bg-white/10 px-3.5 text-xs font-medium text-foreground transition-all hover:border-white/30 hover:bg-white/20"
+            variant="accent"
+            size="sm"
+            className="hidden sm:inline-flex"
+            icon={<ArrowUpRight className="size-3" />}
           >
-            <span>Contact</span>
-            <ArrowUpRight className="size-3" />
-          </a>
+            Contact
+          </LiquidCarveButton>
 
           {/* Mobile Menu Toggle Button */}
           <button

@@ -10,6 +10,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { ExternalLink, Activity, ShieldCheck, TrendingUp, HeartPulse, Lock, CheckCircle2 } from "lucide-react";
+import { LiquidCarveButton } from "./LiquidCarveButton";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -118,8 +119,6 @@ export function ProjectsSection() {
   return (
     <section
       id="work"
-      data-st-03="20"
-      data-st-spread="5"
       aria-labelledby="projects-heading"
       className="relative min-h-svh px-6 py-20 sm:px-10 sm:py-24 lg:px-16"
     >
@@ -223,25 +222,28 @@ export function ProjectsSection() {
                         ))}
                       </div>
 
-                      <div className="flex items-center gap-3 pt-2">
-                        <a
+                      <div className="flex flex-wrap items-center gap-3 pt-2">
+                        <LiquidCarveButton
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex h-10 items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 text-xs font-semibold text-foreground transition-all hover:border-white/30 hover:bg-white/20"
+                          variant="secondary"
+                          size="sm"
+                          icon={<GithubIcon className="size-3.5" />}
+                          iconPosition="left"
                         >
-                          <GithubIcon className="size-4" />
-                          <span>View on GitHub</span>
-                        </a>
-                        <a
+                          View Repository
+                        </LiquidCarveButton>
+                        <LiquidCarveButton
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex h-10 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 text-xs font-medium text-muted transition-all hover:border-white/20 hover:text-foreground"
+                          variant="ghost"
+                          size="sm"
+                          icon={<ExternalLink className="size-3.5" />}
                         >
-                          <ExternalLink className="size-4" />
-                          <span>Details</span>
-                        </a>
+                          Architecture Specs
+                        </LiquidCarveButton>
                       </div>
                     </div>
                   </div>

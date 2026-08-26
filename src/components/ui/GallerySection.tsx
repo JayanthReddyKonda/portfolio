@@ -23,7 +23,6 @@ export function GallerySection() {
   return (
     <section
       id="gallery"
-      data-st-03="20"
       aria-labelledby="gallery-heading"
       className="relative min-h-svh px-6 py-20 sm:px-10 sm:py-24 lg:px-16"
     >

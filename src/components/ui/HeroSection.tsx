@@ -81,8 +81,6 @@ export function HeroSection() {
   return (
     <section
       id="top"
-      data-st-03="20"
-      data-st-spread="5"
       aria-labelledby="hero-heading"
       className="relative flex min-h-svh flex-col justify-end px-6 pb-12 pt-28 sm:px-10 sm:pb-16 lg:px-16"
     >
@@ -147,53 +145,45 @@ export function HeroSection() {
             className="mt-8 flex flex-wrap items-center gap-3.5"
           >
             <LiquidCarveButton
-              link="#work"
-              label="Explore Projects"
-              padding="10px 24px"
-              fill="#EEEEEE"
-              textColor="#222831"
-              blobColor="#00ADB5"
-              blobSize={65}
-              icon={{
-                type: "symbol",
-                symbol: "→",
-                size: 16,
-                color: "#222831",
-                side: "right",
-              }}
-              addIcon={true}
-              font={{
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontWeight: 600,
-                fontSize: "13px",
-                letterSpacing: "0.05em",
-              }}
-            />
+              href="#work"
+              variant="accent"
+              size="md"
+              icon={<span>→</span>}
+            >
+              Explore Projects
+            </LiquidCarveButton>
 
-            <a
+            <LiquidCarveButton
               href="#terminal"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 text-sm font-medium text-foreground backdrop-blur-md transition-colors hover:border-white/20 hover:bg-white/10"
+              variant="secondary"
+              size="md"
+              icon={<Terminal className="size-4 text-[#00ADB5]" />}
+              iconPosition="left"
             >
-              <Terminal className="size-4 text-[#00ADB5]" />
-              <span>CLI Terminal</span>
-            </a>
+              CLI Terminal
+            </LiquidCarveButton>
 
-            <a
+            <LiquidCarveButton
               href="/resume.pdf"
-              download="Jayanth_Reddy_Konda_Resume.pdf"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-[#00ADB5]/30 bg-[#00ADB5]/10 px-5 text-sm font-medium text-[#00ADB5] backdrop-blur-md transition-all hover:border-[#00ADB5]/60 hover:bg-[#00ADB5]/20 hover:shadow-[0_0_16px_rgba(0,173,181,0.3)]"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+              size="md"
+              icon={<FileDown className="size-4 text-[#00ADB5]" />}
+              iconPosition="left"
             >
-              <FileDown className="size-4" />
-              <span>Get Resume</span>
-            </a>
+              Get Resume
+            </LiquidCarveButton>
 
-            <a
+            <LiquidCarveButton
               href="#experience"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 text-sm font-medium text-muted backdrop-blur-md transition-colors hover:border-white/20 hover:text-foreground hover:bg-white/10"
+              variant="ghost"
+              size="md"
+              icon={<FileText className="size-4" />}
+              iconPosition="left"
             >
-              <FileText className="size-4" />
-              <span>Experience</span>
-            </a>
+              Experience
+            </LiquidCarveButton>
 
             <div className="flex items-center gap-2 pl-1">
               {SOCIAL_LINKS.map((item) => {

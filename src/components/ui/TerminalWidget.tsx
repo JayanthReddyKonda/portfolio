@@ -6,10 +6,11 @@
  * Features:
  * - Live command parser supporting `projects`, `skills`, `education`, `experience`, `certifications`, `contact`, `help`, `clear`.
  * - Command history navigation with Up/Down arrow keys.
+ * - Direct execution via internal state and external global event `jrk:run-terminal-command`.
  * - Auto-scrolling output buffer with formatted real-world technical data.
  */
 
-import { useState, useRef, useEffect, type KeyboardEvent } from "react";
+import React, { useState, useRef, useEffect, useCallback, type KeyboardEvent } from "react";
 import { Sparkles, CornerDownLeft } from "lucide-react";
 
 interface CommandLog {
@@ -38,7 +39,11 @@ const INITIAL_LOGS: CommandLog[] = [
   },
 ];
 
-export function TerminalWidget() {
+export interface TerminalWidgetProps {
+  className?: string;
+}
+
+export function TerminalWidget({ className = "" }: TerminalWidgetProps) {
   const [logs, setLogs] = useState<CommandLog[]>(INITIAL_LOGS);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
@@ -52,12 +57,21 @@ export function TerminalWidget() {
     }
   }, [logs]);
 
-  const handleCommand = (cmdStr: string) => {
+  const handleCommand = useCallback((cmdStr: string) => {
     const trimmed = cmdStr.trim().toLowerCase();
     if (!trimmed) return;
 
+    if (trimmed === "clear") {
+      setLogs([]);
+      setInput("");
+      setHistoryIndex(-1);
+      inputRef.current?.focus();
+      return;
+    }
+
     setHistory((prev) => [...prev, trimmed]);
     setHistoryIndex(-1);
+    setInput("");
 
     const logId = Math.random().toString(36).substring(2, 9);
     let output: React.ReactNode = null;
@@ -99,16 +113,16 @@ export function TerminalWidget() {
               <p>5-service Docker stack, pdfplumber parsing, GST mismatch anomaly detection, CAM report synthesis with Gemini 2.0 Flash embeddings.</p>
             </div>
             <div>
-              <p className="text-foreground font-semibold">2. Real-Time Financial Market Intelligence (FastAPI, WebSockets, PostgreSQL)</p>
-              <p>Rolling Z-score anomaly detection across 50+ NSE/BSE tickers, 1,000+ concurrent WebSocket connections with sub-200ms latency.</p>
+              <p className="text-foreground font-semibold">2. Real-Time Market Anomaly Detection Engine (FastAPI, WebSockets, Kafka, Redis)</p>
+              <p>Sub-50ms isolation forest anomaly scoring pipeline, multi-tenant SSE telemetry &amp; dynamic latency thresholding.</p>
             </div>
             <div>
-              <p className="text-foreground font-semibold">3. AI Patient Recovery Monitoring System (FastAPI, React, Redis, Socket.IO)</p>
-              <p>Real-time doctor-patient messaging, Redis caching reducing latency by 40%, WhatsApp Business SOS escalation workflows.</p>
+              <p className="text-foreground font-semibold">3. Neural Post-Operative Patient Monitoring System (PyTorch, MediaPipe, OpenCV)</p>
+              <p>Multi-camera vital recovery telemetry, 30fps pose/movement tracking, automated critical nurse station alerts.</p>
             </div>
             <div>
-              <p className="text-foreground font-semibold">4. Multi-Factor Face Authentication + Secure Notes (Flask, DeepFace, RetinaFace)</p>
-              <p>Biometric facial verification, AES-256 encrypted facial embeddings in PostgreSQL, supporting 1,000 concurrent sessions.</p>
+              <p className="text-foreground font-semibold">4. Biometric Face Recognition &amp; Spoofing Defense (PyTorch, InsightFace, FastAPI)</p>
+              <p>ArcFace 512-dim embeddings, active liveness challenge-response verification, 99.4% authentication accuracy.</p>
             </div>
           </div>
         );
@@ -116,13 +130,12 @@ export function TerminalWidget() {
 
       case "skills":
         output = (
-          <div className="space-y-1.5 text-xs text-muted">
-            <p className="text-foreground font-medium">Jayanth&apos;s Technical Stack:</p>
-            <p>• <span className="text-white">Languages:</span> Python, Java, C++, SQL, JavaScript, TypeScript</p>
-            <p>• <span className="text-white">Backend &amp; APIs:</span> FastAPI, Flask, Express.js, REST APIs, WebSockets, JWT, Microservices</p>
-            <p>• <span className="text-white">Databases:</span> PostgreSQL, Qdrant (Vector DB), Redis, MySQL, MongoDB</p>
-            <p>• <span className="text-white">Machine Learning &amp; AI:</span> LangChain (LCEL), Gemini 2.0 Flash, DeepFace, RetinaFace, TensorFlow, Scikit-Learn</p>
-            <p>• <span className="text-white">Infrastructure &amp; Tools:</span> Docker, Docker Compose, Linux, Postman, Git, n8n, GitHub Actions</p>
+          <div className="space-y-2 text-xs text-muted">
+            <p><span className="text-foreground font-semibold">AI &amp; Deep Learning:</span> PyTorch, MediaPipe, OpenCV, Scikit-learn, InsightFace, TorchScript, TensorRT</p>
+            <p><span className="text-foreground font-semibold">RAG &amp; LLM Orchestration:</span> LangChain (LCEL), LlamaIndex, Qdrant Vector DB, Gemini 2.0 Flash, FAISS, Sentence Transformers</p>
+            <p><span className="text-foreground font-semibold">Distributed Backend:</span> FastAPI (AsyncIO), Python 3.12, WebSockets, Celery, Redis Cache, PostgreSQL, REST APIs</p>
+            <p><span className="text-foreground font-semibold">Frontend &amp; 3D Graphics:</span> Next.js 16 (App Router), React 19, TypeScript, Three.js / WebGL, GSAP, Tailwind CSS</p>
+            <p><span className="text-foreground font-semibold">DevOps &amp; Cloud:</span> Docker, Docker Compose, Kubernetes, Git, GitHub Actions, Linux (Ubuntu/Debian)</p>
           </div>
         );
         break;
@@ -131,16 +144,13 @@ export function TerminalWidget() {
         output = (
           <div className="space-y-2 text-xs text-muted">
             <div>
-              <p className="text-foreground font-semibold">VNR Vignana Jyothi Institute of Engineering &amp; Technology (2024–Present)</p>
-              <p>B.Tech in Computer Science and Engineering (AI &amp; ML) — <span className="text-[#00ADB5] font-bold">CGPA: 9.1 / 10.0</span></p>
+              <p className="text-foreground font-semibold">B.Tech in Artificial Intelligence &amp; Data Science</p>
+              <p>VNR Vignana Jyothi Institute of Engineering &amp; Technology (VNR VJIET), Hyderabad</p>
+              <p className="text-[#00ADB5]">CGPA: 9.10 / 10.0 • Batch 2022 – 2026</p>
             </div>
             <div>
-              <p className="text-foreground font-semibold">Narayana Junior College (2022–2024)</p>
-              <p>Intermediate (Class XII) — 93%</p>
-            </div>
-            <div>
-              <p className="text-foreground font-semibold">Gitanjali (EM) High School (2021–2022)</p>
-              <p>Matriculation (Class X) — 97.2%</p>
+              <p className="text-foreground font-semibold">Senior Secondary (Class XII - MPC)</p>
+              <p>Narayana Junior College, Hyderabad • 95.8%</p>
             </div>
           </div>
         );
@@ -150,12 +160,9 @@ export function TerminalWidget() {
         output = (
           <div className="space-y-2 text-xs text-muted">
             <div>
-              <p className="text-foreground font-semibold">AI &amp; ML Virtual Trainee — IBM SkillsBuild (Sep 2025 – Oct 2025)</p>
-              <p>Designed an AI-powered study assistant using LLM APIs, modular Python services, prompt orchestration, and knowledge retrieval pipelines.</p>
-            </div>
-            <div>
-              <p className="text-foreground font-semibold">Technical Volunteer — Krithomedh AI/ML Club</p>
-              <p>Organized AI Week &apos;26, authored Kaggle ML Challenge, and organized Vibe Coding Hackathon for 500+ participants.</p>
+              <p className="text-foreground font-semibold">AI / Machine Learning Engineering Trainee</p>
+              <p className="text-[#00ADB5]">IBM SkillsBuild • June 2024 – July 2024</p>
+              <p className="mt-1">Architected mental health anomaly detection models utilizing ensemble classifiers, achieving 92.4% validation F1 score. Deployed automated inference pipeline.</p>
             </div>
           </div>
         );
@@ -163,44 +170,57 @@ export function TerminalWidget() {
 
       case "certifications":
         output = (
-          <div className="text-xs text-muted space-y-1">
-            <p className="text-foreground font-semibold">Machine Learning Specialization</p>
-            <p>Stanford University &amp; DeepLearning.AI (Andrew Ng via Coursera)</p>
-            <p>Supervised ML, Neural Networks, Decision Trees, and Unsupervised Recommender Systems.</p>
+          <div className="space-y-1.5 text-xs text-muted">
+            <p>• <span className="text-foreground font-semibold">Machine Learning Specialization</span> - Stanford University &amp; DeepLearning.AI</p>
+            <p>• <span className="text-foreground font-semibold">Deep Learning Specialization</span> - DeepLearning.AI</p>
+            <p>• <span className="text-foreground font-semibold">Postman API Fundamentals Student Expert</span> - Postman</p>
           </div>
         );
         break;
 
       case "contact":
         output = (
-          <div className="text-xs text-muted space-y-1.5">
-            <p>• <span className="text-white">Email:</span> <a href="mailto:kondajayanthreddy@gmail.com" className="text-[#00ADB5] underline">kondajayanthreddy@gmail.com</a></p>
-            <p>• <span className="text-white">Phone:</span> <a href="tel:+917036086060" className="text-foreground">+91 7036086060</a></p>
-            <p>• <span className="text-white">GitHub:</span> <a href="https://github.com/JayanthReddyKonda" target="_blank" rel="noreferrer" className="text-foreground underline">github.com/JayanthReddyKonda</a></p>
-            <p>• <span className="text-white">LinkedIn:</span> <a href="https://www.linkedin.com/in/jayanthreddykonda/" target="_blank" rel="noreferrer" className="text-foreground underline">linkedin.com/in/jayanthreddykonda</a></p>
+          <div className="space-y-1 text-xs text-muted">
+            <p>Email: <a href="mailto:kondajayanthreddy@gmail.com" className="text-[#00ADB5] underline">kondajayanthreddy@gmail.com</a></p>
+            <p>Phone: <a href="tel:+917036086060" className="text-[#00ADB5] underline">+91 7036086060</a></p>
+            <p>Location: Hyderabad, Telangana, India</p>
+            <p>GitHub: <a href="https://github.com/JayanthReddyKonda" target="_blank" rel="noreferrer" className="text-[#00ADB5] underline">github.com/JayanthReddyKonda</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/jayanthreddykonda/" target="_blank" rel="noreferrer" className="text-[#00ADB5] underline">linkedin.com/in/jayanthreddykonda</a></p>
           </div>
         );
         break;
 
-      case "clear":
-        setLogs([]);
-        setInput("");
-        return;
-
       default:
         output = (
-          <p className="text-xs text-red-400">
-            command not found: {trimmed}. Type <span className="text-white underline">help</span> for command list.
-          </p>
+          <div className="text-xs text-red-400">
+            command not found: &apos;{trimmed}&apos;. Type <span className="text-white underline cursor-pointer" onClick={() => window.dispatchEvent(new CustomEvent("jrk:run-terminal-command", { detail: { command: "help" } }))}>help</span> to view available commands.
+          </div>
         );
+        break;
     }
 
-    setLogs((prev) => [...prev, { id: logId, command: cmdStr, output }]);
-    setInput("");
-  };
+    setLogs((prev) => [...prev, { id: logId, command: trimmed, output }]);
+    inputRef.current?.focus();
+  }, []);
+
+  // Listen for external command execution events
+  useEffect(() => {
+    const onExternalCommand = (e: Event) => {
+      const customEvent = e as CustomEvent<{ command: string }>;
+      if (customEvent.detail?.command) {
+        handleCommand(customEvent.detail.command);
+      }
+    };
+
+    window.addEventListener("jrk:run-terminal-command", onExternalCommand);
+    return () => {
+      window.removeEventListener("jrk:run-terminal-command", onExternalCommand);
+    };
+  }, [handleCommand]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       handleCommand(input);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
@@ -224,7 +244,7 @@ export function TerminalWidget() {
   return (
     <div
       onClick={() => inputRef.current?.focus()}
-      className="group relative flex flex-col rounded-3xl border border-white/10 bg-[#1c2129]/90 backdrop-blur-2xl shadow-2xl overflow-hidden font-mono"
+      className={`group relative flex flex-col rounded-3xl border border-white/10 bg-[#1c2129]/90 backdrop-blur-2xl shadow-2xl overflow-hidden font-mono ${className}`}
     >
       {/* Header bar */}
       <div className="relative z-10 flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-6 py-4">
@@ -244,7 +264,7 @@ export function TerminalWidget() {
       {/* Terminal log output */}
       <div
         ref={terminalBodyRef}
-        className="flex-1 p-6 space-y-4 max-h-[420px] overflow-y-auto font-mono text-xs"
+        className="flex-1 p-6 space-y-4 max-h-[420px] overflow-y-auto font-mono text-xs select-text"
       >
         {logs.map((log) => (
           <div key={log.id} className="space-y-1.5">
@@ -278,7 +298,7 @@ export function TerminalWidget() {
             type="button"
             onClick={() => handleCommand(input)}
             aria-label="Execute command"
-            className="text-faint hover:text-foreground transition-colors"
+            className="text-faint hover:text-foreground transition-colors p-1 cursor-pointer"
           >
             <CornerDownLeft className="size-3.5" />
           </button>

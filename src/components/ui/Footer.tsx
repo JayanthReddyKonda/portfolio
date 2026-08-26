@@ -80,36 +80,23 @@ export function Footer() {
             <div className="flex flex-wrap items-center gap-4 pt-2">
               {/* Primary CTA: liquid carve button */}
               <LiquidCarveButton
-                link="mailto:kondajayanthreddy@gmail.com"
-                label="kondajayanthreddy@gmail.com"
-                padding="14px 26px"
-                fill="#EEEEEE"
-                textColor="#222831"
-                blobColor="#00ADB5"
-                blobSize={70}
-                icon={{
-                  type: "symbol",
-                  symbol: "→",
-                  size: 16,
-                  color: "#222831",
-                  side: "right",
-                }}
-                addIcon={true}
-                font={{
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  fontWeight: 600,
-                  fontSize: "13px",
-                  letterSpacing: "0.04em",
-                }}
-              />
-
-              <a
-                href="tel:+917036086060"
-                className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-5 py-3.5 text-sm font-medium text-muted backdrop-blur-md transition-colors hover:border-white/20 hover:text-foreground"
+                href="mailto:kondajayanthreddy@gmail.com"
+                variant="accent"
+                size="lg"
+                icon={<span>→</span>}
               >
-                <Phone className="size-4 text-[#00ADB5]" />
-                <span>+91 7036086060</span>
-              </a>
+                kondajayanthreddy@gmail.com
+              </LiquidCarveButton>
+
+              <LiquidCarveButton
+                href="tel:+917036086060"
+                variant="secondary"
+                size="lg"
+                icon={<Phone className="size-4 text-[#00ADB5]" />}
+                iconPosition="left"
+              >
+                +91 7036086060
+              </LiquidCarveButton>
             </div>
           </div>
 

@@ -28,8 +28,6 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
-      data-st-03="20"
-      data-st-spread="5"
       aria-labelledby="experience-heading"
       className="relative min-h-svh px-6 py-20 sm:px-10 sm:py-24 lg:px-16"
     >
