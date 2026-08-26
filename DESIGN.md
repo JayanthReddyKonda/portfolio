@@ -168,3 +168,9 @@ Reveal on scroll via `whileInView` once, same rise/fade language.
 Every shipped screen passes: real-browser check at 375 / 768 / 1280 px, keyboard-only
 nav pass, reduced-motion pass, and `npm run build` + eslint clean. Visual QA evidence
 before any "done" claim on future phases.
+
+## 9. Component Inventory (v1.5.0)
+
+- **LiquidCarveButton** (Hero + Footer CTAs): light `#EEEEEE` fill, `#222831` text,
+  teal `#00ADB5` blob, mono 13px/600 label, `→` symbol right.
+- **InitialLoader**: see §3. **Spiral Veil**: see HANDOFF §3A.

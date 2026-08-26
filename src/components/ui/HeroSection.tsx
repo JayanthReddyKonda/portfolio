@@ -111,7 +111,7 @@ export function HeroSection() {
             Jayanth Reddy Konda.
           </motion.h1>
 
-          {/* Kinetic Kinetic Subheading with Originkit Typewriter */}
+          {/* Kinetic Subheading with Originkit Typewriter */}
           <motion.div
             {...reveal(0.3)}
             className="mt-6 text-[clamp(1.15rem,2.2vw,1.55rem)] font-medium leading-snug tracking-tight text-foreground/95"

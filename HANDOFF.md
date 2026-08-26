@@ -2,7 +2,7 @@
 
 **Project**: Interactive 3D Developer Portfolio — Jayanth Reddy Konda
 **Profile**: AI/ML Systems & Backend Architect (VNR VJIET • CGPA: 9.1)
-**Version**: 1.2.1 (Production-Ready — Responsive & Touch Optimization)
+**Version**: 1.5.0 (Production-Ready — Palette Retheme, Spiral Veil, Touch Reveal)
 **Framework**: Next.js 16.3.2 (App Router, Turbopack) • React 19.2.8 • Three.js 0.185.1 • GSAP 3.15.0 • Tailwind CSS v4
 
 ---
@@ -53,7 +53,8 @@ portfolio/
 │           ├── Footer.tsx                 # Contact CTA (#contact); plain anchors for hash nav
 │           ├── HeroSection.tsx            # Hero typography, liquid carve button, CTAs
 │           ├── InitialLoader.tsx          # 0→100% loader; dispatches `jrk:loader-complete` event
-│           ├── LiquidCarveButton.tsx      # SVG Gaussian blur organic surface tension button
+│           ├── LiquidCarveButton.tsx      # Liquid-goo CTA — used in Hero (Explore Projects)
+│           │                              #   and Footer (primary email action)
 │           ├── Navbar.tsx                 # Frosted glass capsule with live beacon & resume download
 │           ├── PixelSectionTransition.tsx # GSAP ScrollTrigger pixel grid transition (see §3A)
 │           ├── ProjectsSection.tsx        # 4 production-grade systems case studies
@@ -77,6 +78,7 @@ portfolio/
 - **Zero-cost when idle**: veils are `visibility: hidden` outside the seam window; no GSAP, no per-frame JS animation, fully scroll-reversible, `z-[44]/z-[45]` (below navbar/cursor).
 - **Coverage**: hero→about→work→experience→terminal→contact seams all spiral.
 - **Accessibility**: `prefers-reduced-motion` renders nothing.
+- **Inertia smoothing**: rendered progress glides toward the scroll target (`SMOOTHING = 0.085`), plus per-segment `cubic-bezier(0.7, 0, 0.3, 1)` easing inside the keyframes and a translucent teal rim veil trailing the dark square — the premium feel layer.
 - **CRITICAL RULE (still applies)**: never call `ScrollTrigger.getAll().forEach(kill)` / `ScrollTrigger.killAll()` anywhere in the app; all GSAP contexts stay scoped via `gsap.context()` / `useGSAP`.
 
 ### B. 3D WebGL Avatar Engine (`src/components/three/`)
@@ -91,10 +93,14 @@ portfolio/
 ### D. Shockwave Ripple Navigation Teleporter (`RippleTransition.tsx`)
 - Intercepts in-page anchors, spawns radial shockwaves from click coordinates, glides viewport to target. `#top` performs exactly one `scrollTo(0)` call (double-scroll bug fixed in v1.1.0).
 
-### E. Scoped Interactive Developer CLI (`TerminalWidget.tsx`)
+### E. Originkit Interactive Components
+- **LiquidCarveButton**: SVG goo-filter CTA (cursor-tracking blob carves the fill). Instances: Hero “Explore Projects” and Footer primary email action — both themed to the palette (light fill `#EEEEEE`, dark text, teal blob).
+- **Typewriter / RotatingText**: kinetic hero subheading and badge.
+
+### F. Scoped Interactive Developer CLI (`TerminalWidget.tsx`)
 - Container-scoped auto-scroll never moves the window. Supports: `projects`, `skills`, `education`, `experience`, `certifications`, `contact`, `clear`, `help`. Root div no longer carries a duplicate `id="terminal"` (the parent section owns it).
 
-### F. Boot Loader Contract (`InitialLoader.tsx`)
+### G. Boot Loader Contract (`InitialLoader.tsx`)
 - Sets `document.body.dataset.loaderActive = "true"` while scroll is locked; on completion clears it and dispatches the `jrk:loader-complete` window event. The event currently has no subscribers — it is kept as the documented hook for any future scroll-position-dependent system that must wait for final layout.
 
 ---
