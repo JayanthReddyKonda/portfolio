@@ -1,19 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { Navbar } from "@/components/core/Navbar";
+import { CustomCursor } from "@/components/core/CustomCursor";
+import { ButterflyDrift } from "@/components/webgl/ButterflyDrift";
 
 export const metadata: Metadata = {
-  title: "Jayanth Reddy Konda — AI/ML Systems & Backend Architect",
+  title: "Portfolio JRK",
   description:
     "Portfolio of Jayanth Reddy Konda: AI/ML Systems Engineer specializing in FastAPI, Vector RAG (Qdrant), Distributed Microservices, and Biometric Vision.",
   keywords: [
@@ -46,16 +38,38 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#222831",
+  themeColor: "#0d4c3c",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
+      className="h-full antialiased scroll-smooth"
+      style={{
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      }}
     >
-      <body className="min-h-full bg-background font-sans text-foreground selection:bg-[#00ADB5] selection:text-black">
+      <body className="min-h-full bg-background font-sans text-foreground selection:bg-[#7ba05b] selection:text-[#0d4c3c]">
+        <ButterflyDrift
+          background="#0d4c3c"
+          baseColor="#7ba05b"
+          accentColor="#a4c982"
+          density={18}
+          size={50}
+          speed={24}
+          flap={36}
+          wander={30}
+          hover={140}
+          reach={25}
+          vignette={40}
+        />
+        <CustomCursor />
+        <Navbar />
         {children}
       </body>
     </html>

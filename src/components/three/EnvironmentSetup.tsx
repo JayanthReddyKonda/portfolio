@@ -32,7 +32,7 @@ export function EnvironmentSetup() {
         angle={0.6}
         penumbra={0.8}
         intensity={25}
-        color="#00ADB5"
+        color="#7ba05b"
       />
 
       {/* Front Accent Spot aimed at the character area */}

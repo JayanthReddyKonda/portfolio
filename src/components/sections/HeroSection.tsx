@@ -1,0 +1,195 @@
+"use client";
+
+/**
+ * @file HeroSection.tsx
+ * @description Masterpiece Hero Viewport in Emerald Sophistication theme.
+ * 
+ * Features:
+ * - Fluid display typography with responsive clamp sizing.
+ * - Live Engine Room status indicator with emerald pulse animation.
+ * - Originkit Typewriter kinetic titles.
+ * - LabelSlideButton on primary action triggers.
+ * - Verified social transmission lines (GitHub, LinkedIn, Email).
+ */
+
+import { motion, useReducedMotion } from "framer-motion";
+import { Typewriter } from "@/components/core/Typewriter";
+import { LabelSlideButton } from "@/components/core/LabelSlideButton";
+
+function GithubIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  );
+}
+
+function LinkedinIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function MailIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  );
+}
+
+const SOCIAL_LINKS = [
+  {
+    label: "GitHub",
+    href: "https://github.com/JayanthReddyKonda",
+    icon: GithubIcon,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/jayanthreddykonda/",
+    icon: LinkedinIcon,
+  },
+  {
+    label: "Email",
+    href: "mailto:kondajayanthreddy@gmail.com",
+    icon: MailIcon,
+  },
+] as const;
+
+export function HeroSection() {
+  const reduceMotion = useReducedMotion() ?? false;
+
+  const reveal = (delay: number) => ({
+    initial: { opacity: 0, y: reduceMotion ? 0 : 24 },
+    animate: { opacity: 1, y: 0 },
+    transition: reduceMotion
+      ? { duration: 0 }
+      : { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const, delay },
+  });
+
+  return (
+    <section
+      id="top"
+      aria-labelledby="hero-heading"
+      className="relative flex min-h-svh flex-col justify-end px-6 pb-12 pt-28 sm:px-10 sm:pb-16 lg:px-16"
+    >
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="max-w-xl lg:max-w-[54%] xl:max-w-[50%]">
+          {/* Status Eyebrow Pill */}
+          <motion.div
+            {...reveal(0.1)}
+            className="mb-6 inline-flex max-w-full flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-[#7ba05b]/30 bg-[#2d5a4a]/40 px-4 py-1.5 backdrop-blur-md"
+          >
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#7ba05b] opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-[#7ba05b]" />
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#f4f1eb]/90 sm:text-xs sm:tracking-[0.2em]">
+              AI/ML SYSTEMS &amp; BACKEND ARCHITECT • HYDERABAD
+            </span>
+          </motion.div>
+
+          {/* Main Display Name */}
+          <motion.h1
+            id="hero-heading"
+            {...reveal(0.2)}
+            className="text-[clamp(2.6rem,9vw,6.5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-[#f4f1eb]"
+          >
+            Jayanth Reddy Konda.
+          </motion.h1>
+
+          {/* Kinetic Subheading with Originkit Typewriter */}
+          <motion.div
+            {...reveal(0.3)}
+            className="mt-6 text-[clamp(1.15rem,2.2vw,1.55rem)] font-medium leading-snug tracking-tight text-[#f4f1eb]/95"
+          >
+            <span className="text-[#f4f1eb]/70">Architecting </span>
+            <Typewriter
+              texts={[
+                "FastAPI & Qdrant RAG Pipelines",
+                "Distributed Real-Time Microservices",
+                "Biometric Vision Authentication Systems",
+                "Sub-200ms Financial Market Streams",
+              ]}
+              typeSpeed={0.05}
+              holdTime={1.8}
+              typedColor="#7ba05b"
+              cursorColor="#7ba05b"
+            />
+          </motion.div>
+
+          {/* Summary Narrative */}
+          <motion.p
+            {...reveal(0.4)}
+            className="mt-4 text-base leading-relaxed text-[#f4f1eb]/80 sm:text-lg"
+          >
+            Building AI-driven financial underwriting engines, real-time market anomaly pipelines,
+            patient recovery monitoring architectures, and biometric face authentication systems.
+          </motion.p>
+
+          {/* Primary Action Buttons & Social Channels */}
+          <motion.div
+            {...reveal(0.5)}
+            className="mt-8 flex flex-wrap items-center gap-3.5"
+          >
+            <LabelSlideButton
+              href="/work"
+              label="Explore Projects"
+              variant="accent"
+              size="md"
+            />
+
+            <LabelSlideButton
+              href="/skills"
+              label="CLI Terminal"
+              variant="secondary"
+              size="md"
+            />
+
+            <LabelSlideButton
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              label="Get Resume"
+              variant="primary"
+              size="md"
+            />
+
+            <LabelSlideButton
+              href="/experience"
+              label="Experience"
+              variant="ghost"
+              size="md"
+            />
+
+            <div className="flex items-center gap-2 pl-1">
+              {SOCIAL_LINKS.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.label}
+                    className="inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-[#2d5a4a]/40 text-[#f4f1eb]/80 transition-all duration-200 hover:border-[#7ba05b]/60 hover:bg-[#7ba05b]/20 hover:text-[#f4f1eb] active:scale-95 cursor-pointer"
+                  >
+                    <Icon className="size-4" />
+                  </a>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default HeroSection;

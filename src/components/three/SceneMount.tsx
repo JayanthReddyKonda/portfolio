@@ -1,11 +1,11 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 
 /**
  * Suppress the noisy `THREE.Clock: This module has been deprecated`
- * warning emitted by drei's internal animation helpers. Guarded by a window
- * flag so HMR / double module evaluation never stacks filter wrappers.
+ * warning emitted by drei's internal animation helpers.
  */
 if (typeof window !== "undefined") {
   const w = window as typeof window & { __threeClockWarnPatched?: boolean };
@@ -24,16 +24,18 @@ if (typeof window !== "undefined") {
   }
 }
 
-/**
- * Client-only mount gate for the 3D scene.
- *
- * Next.js rule: `ssr: false` is only allowed inside Client Components —
- * this file is the boundary. Three.js never enters the server bundle or
- * the initial hydration cost; it streams in after first paint.
- */
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
 
+const emptySubscribe = () => () => {};
+
 export function SceneMount() {
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+
+  if (!isClient) return null;
   return <Scene />;
 }
 

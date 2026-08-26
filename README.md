@@ -1,135 +1,135 @@
-# Jayanth Reddy Konda — Portfolio
+# Jayanth Reddy Konda — Production Portfolio Platform
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.3.2-black?logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.8-blue?logo=react)](https://react.dev/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.185.1-black?logo=threedotjs)](https://threejs.org/)
-[![GSAP](https://img.shields.io/badge/GSAP-3.15.0-88CE02?logo=greensock)](https://gsap.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 
-An award-winning, state-of-the-art interactive portfolio for **Jayanth Reddy Konda** — AI/ML Systems Engineer & Backend Architect. Features an interactive 3D avatar rig, GSAP pixelated grid transitions, Originkit butterfly shader swarm, real-time ASCII face reveal canvas, interactive CLI diagnostics terminal, and deep architectural case studies.
+An award-winning, production-grade interactive engineering portfolio for **Jayanth Reddy Konda** — AI/ML Systems Engineer & Backend Architect. Features horizontal 3D stage sliding transitions with native View Transitions API integration, an interactive 3D WebGL Avatar rig, infinite 3D architecture gallery corridor, 3D bilinear skinning sticker peel deck, and a real-time developer CLI diagnostics terminal.
 
 ---
 
-## Live Profile & Channels
+## 🌐 Live Transmission & Channels
 - **GitHub**: [github.com/JayanthReddyKonda](https://github.com/JayanthReddyKonda)
 - **LinkedIn**: [linkedin.com/in/jayanthreddykonda](https://www.linkedin.com/in/jayanthreddykonda/)
 - **Email**: [kondajayanthreddy@gmail.com](mailto:kondajayanthreddy@gmail.com)
-- **Location**: Hyderabad, Telangana, India
+- **Phone**: [+91 7036086060](tel:+917036086060)
+- **Location**: Hyderabad, Telangana, India (UTC+5:30)
 
 ---
 
-## Key Features & Architecture
+## 🏛️ Production-Grade Project Architecture
 
-### 1. 3D WebGL Avatar Engine (`src/components/three/`)
-- **Real-Time Skeletal Cursor Parallax**: Tracks pointer movement to rotate neck (`mixamorigNeck`) and head (`mixamorigHead`) bones with exponential decay smoothing (`LOOK_DAMPING = 4.5`).
-- **Animation Crossfading**: Dedicated Three.js `AnimationMixer` orchestrating smooth animation clips with React 19 compiler immutability compliance.
-- **Dynamic Framing & Scroll Dissolve**: Viewport-clamped positioning (`Math.min(viewport.width * 0.20, 2.1)`) that dissolves smoothly into deep content sections without obscuring text.
-
-### 2. "Luminous Wipe" Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
-- Crossing any section boundary sweeps a glowing teal (`#00ADB5`) scanner-beam line across the viewport with a brief cinematic dim — driven purely by inline `transform`/`opacity` writes from a rAF scroll listener, no keyframes, fully reversible, reduced-motion aware.
-
-### 2b. Touch-Reveal ASCII Portrait (`src/components/ui/AsciiReveal.tsx`)
-- The ASCII face reveal responds to both hover **and** touch: pressing and dragging a finger drives the multi-blob reveal (`pointerdown` capture + `touch-action: none`), and lifting off triggers a graceful 450ms dissolve back to the ASCII matrix instead of a hard snap.
-
-### 3. Originkit Butterfly Drift Background (`src/components/ui/ButterflyDrift.tsx`)
-- **GPU Procedural Swarm**: Pure WebGL shader-based butterfly flock drifting organically behind all sections.
-- **Interactive Cursor Physics**: Wing flap frequency, cruise speed, and repel thrust respond dynamically to pointer velocity.
-
-### 4. Shockwave Ripple Navigation Teleporter (`src/components/ui/RippleTransition.tsx`)
-- Intercepts anchor navigation (`#about`, `#work`, `#experience`, `#terminal`, `#contact`) and creates expanding radial shockwaves from click coordinates with smooth glide transitions.
-
-### 5. Originkit ASCII Face Reveal Engine (`src/components/ui/AsciiReveal.tsx`)
-- High-density ASCII matrix sampling source pixels in real-time.
-- Multi-blob spring physics cursor tracking that organically dissolves matrix characters to reveal high-definition portraits with gaussian softness blending.
-
-### 6. Originkit Liquid-Goo CTA Buttons (`LiquidCarveButton.tsx`)
-- SVG gaussian-blur goo buttons whose blob tracks the cursor, carving organic surface tension — used on the Hero primary action and the Footer email CTA, themed to the site palette.
-
-### 7. Interactive Developer CLI Terminal (`src/components/ui/TerminalWidget.tsx`)
-- Live terminal session (`jayanth@engine-room:~`) supporting tab history, arrow navigation, and rich formatted outputs for:
-  - `projects` — Deep-dive summary of 4 production systems
-  - `skills` — Languages, Backend, Vector DBs, ML & Infra
-  - `education` — VNR VJIET (CGPA: 9.1 / 10.0), Intermediate (93%), Matriculation (97.2%)
-  - `experience` — IBM SkillsBuild AI/ML Trainee & Krithomedh Club
-  - `certifications` — Stanford University & DeepLearning.AI ML Specialization
-  - `contact` — Direct transmission channels
-  - `help` / `clear` — Diagnostic utilities
-
-### 8. Production AI & Distributed Systems Showcase (`src/components/ui/ProjectsSection.tsx`)
-1. **AI-Powered Corporate Credit Intelligence Platform** (FastAPI, React 19, PostgreSQL, Qdrant, Gemini 2.0 Flash, LangChain LCEL)
-2. **Real-Time Financial Market Intelligence Platform** (FastAPI, WebSockets, PostgreSQL, rolling Z-score, spaCy, 50+ Tickers)
-3. **AI-Powered Patient Recovery Monitoring System** (FastAPI, React, Redis, Socket.IO, WhatsApp API)
-4. **Multi-Factor Face Authentication + Secure Notes System** (Flask, DeepFace, RetinaFace, AES-256, PostgreSQL)
-
-### 9. Performance & Reliability Engineering (v1.2.0 Full System Audit)
-- **Scoped GSAP contexts only** — no global `ScrollTrigger.kill()` anywhere; every GSAP system (pixel transitions, camera rig) owns its triggers via `gsap.context` / `useGSAP`.
-- **Loader-aware initialization** — scroll-position-dependent systems wait for the `jrk:loader-complete` event instead of arbitrary timeouts, so GSAP never measures a scroll-locked page.
-- **WebGL context preservation** — the 3D canvas stays mounted and gates its render loop (`frameloop="never"`) when the hero is off-screen: zero draw calls, zero context churn.
-- **Shader swarm lifecycle** — butterfly background suspends on tab hide and renders a single static frame under `prefers-reduced-motion`.
-- **rAF-throttled scroll handlers** — cursor section detection coalesces layout reads to one pass per frame.
-- **Reduced-motion respected everywhere** — loader, reveals, transitions, swarm, and avatar all collapse under `prefers-reduced-motion`.
-
-### 10. Responsive & Touch Engineering (v1.2.0)
-- **Mobile viewport units** — sections use `min-h-svh` / `100svh` so heights track the mobile URL-bar viewport (no jump-on-scroll); `vh` fallbacks retained.
-- **iOS input zoom prevented** — the CLI terminal prompt renders at ≥16px on touch (`text-base sm:text-xs`).
-- **44px touch targets** — navbar menu toggle and resume button meet touch-target minimums on mobile; desktop sizes preserved via `sm:` overrides.
-- **Adaptive GPU budgets** — 3D avatar DPR clamps to 1.2 below 768px; butterfly swarm density halves below 768px.
-- **Fluid typography** — hero display type uses a safe `clamp(2.6rem, 9vw, 6.5rem)` floor; eyebrow pills wrap instead of overflowing at 320px.
-- **Layout stacking verified** — About/Projects/Experience bento grids collapse to single-column below `lg`; metrics run `2-col → sm:4-col`; hero CTAs wrap; footer rhythm tightens on mobile.
-- **Touch semantics** — custom cursor disabled on coarse pointers and below `md`; tap highlight suppressed globally; all hover effects have non-hover-safe fallbacks.
-
----
-
-## Tech Stack
-
-| Layer | Technology | Version | Purpose |
-|---|---|---|---|
-| **Framework** | Next.js (App Router, Turbopack) | `16.3.2` | Core SSR/SSG & routing engine |
-| **UI Library** | React | `19.2.8` | Component rendering & state |
-| **Compiler** | React Compiler (`babel-plugin-react-compiler`) | `1.0.0` | Automatic memoization & immutability |
-| **3D Rendering** | Three.js + React Three Fiber + Drei | `0.185.1` / `9.7.0` | WebGL 3D scene & GLTF character rig |
-| **Animations** | Motion (Framer Motion) + GSAP ScrollTrigger | `13.1.1` / `3.15.0` | Choreographed transitions & parallax |
-| **Styling** | Tailwind CSS | `v4` | High-performance atomic styling |
-| **Icons** | Lucide React | `1.34.0` | Vector icon system |
-| **Typography** | Geist Sans + Geist Mono | `next/font` | Display and monospace typefaces |
-
----
-
-## Getting Started
-
-### Prerequisites
-- Node.js 18.18+ or 20+
-- npm, pnpm, or bun
-
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/JayanthReddyKonda/portfolio.git
-cd portfolio
-
-# Install dependencies
-npm install
-
-# Run the local development server
-npm run dev
+```
+src/
+├── app/                           # Next.js App Router (16.3.2)
+│   ├── layout.tsx                 # Root layout with metadata, cursor & particles
+│   ├── template.tsx               # Per-route 3D stage transition boundary
+│   ├── page.tsx                   # Stage: Overview / 3D Avatar Hero
+│   ├── globals.css                # Obsidian & Teal design tokens + View Transitions
+│   ├── about/page.tsx             # Stage: Profile & Neural ASCII Matrix
+│   ├── work/page.tsx              # Stage: Production Systems & Benchmarks
+│   ├── gallery/page.tsx           # Stage: 3D Architecture Gallery Tunnel
+│   ├── experience/page.tsx        # Stage: IBM Experience & Stanford Credentials
+│   ├── skills/page.tsx            # Stage: 3D Sticker Peel Deck & Live CLI
+│   ├── contact/page.tsx           # Stage: Direct Outreach & Transmission Lines
+│   ├── projects/page.tsx          # Route Alias -> /work
+│   └── terminal/page.tsx          # Route Alias -> /skills
+│
+├── components/
+│   ├── core/                      # Atomic UI Primitives
+│   │   ├── Navbar.tsx             # Floating capsule navbar with JRK LiquidCarve button
+│   │   ├── CustomCursor.tsx       # Kinetic spring cursor with dynamic page telemetry
+│   │   ├── InitialLoader.tsx      # Session-gated system bootloader (runs strictly once)
+│   │   ├── LiquidCarveButton.tsx  # Physical glass refraction action button
+│   │   ├── Typewriter.tsx         # Kinetic typewriter subheading
+│   │   └── PageTransition.tsx     # Horizontal 3D stage slide & cyber shutter wipe
+│   │
+│   ├── sections/                  # Discrete Page Section Orchestrators
+│   │   ├── HeroSection.tsx        # Overview hero narrative & quick-action triggers
+│   │   ├── AboutSection.tsx       # Technical foundation & ASCII face reveal
+│   │   ├── ProjectsSection.tsx    # 4 Verified production architectures with metrics
+│   │   ├── GallerySection.tsx     # 3D infinite corridor viewer section
+│   │   ├── ExperienceSection.tsx  # IBM experience, VNR VJIET & Stanford certifications
+│   │   ├── SkillsSection.tsx      # Unified 3D sticker deck & CLI terminal lab
+│   │   └── ContactSection.tsx     # Direct contact channels & metadata footer
+│   │
+│   ├── webgl/                     # Canvas & WebGL Interactive Shaders
+│   │   ├── AsciiReveal.tsx        # Neural ASCII matrix with cursor/touch mask
+│   │   ├── StickerPeel.tsx        # 3D Bilinear skinning sticker peel deck
+│   │   ├── GalleryTunnel.tsx      # Infinite WebGL corridor tunnel with acceleration
+│   │   └── ButterflyDrift.tsx     # GPU procedural butterfly particle swarm
+│   │
+│   ├── three/                     # React Three Fiber 3D Scene Components
+│   │   ├── SceneMount.tsx         # Dynamic SSR client boundary
+│   │   ├── Scene.tsx              # Three.js canvas setup & fog rendering
+│   │   ├── Character.tsx          # 3D Avatar rigging & bone parallax
+│   │   ├── CameraController.tsx   # Dynamic mouse-tracking camera controller
+│   │   └── EnvironmentSetup.tsx   # Cinematic 3-point lighting rig
+│   │
+│   └── terminal/                  # CLI Diagnostics Subsystem
+│       └── TerminalWidget.tsx     # Live keyboard-driven terminal emulator
+│
+├── data/                          # Typed Static Content & Metadata
+│   ├── projects.ts                # Verified architecture specs & benchmarks
+│   ├── skills.ts                  # Technical taxonomy, stickers & impact metrics
+│   ├── experience.ts              # IBM, VNR VJIET & Stanford records
+│   ├── galleryImages.ts           # Vector SVG architecture blueprints
+│   └── stickerImages.ts           # Vector SVG sticker badges (PyTorch, FastAPI, etc.)
+│
+├── types/                         # Global TypeScript Schemas & Interfaces
+│   ├── project.ts                 # Project interfaces & benchmarks schema
+│   ├── skills.ts                  # Sticker & skill taxonomy types
+│   ├── experience.ts              # Experience & academic record types
+│   └── terminal.ts                # Command log & parser interfaces
+│
+└── lib/                           # Shared Utilities
+    └── utils.ts                   # Class name merger & animation ease curves
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+---
 
-### Production Build & Linting
+## ⚡ Core Technical Capabilities
+
+### 1. Native View Transitions API & Horizontal 3D Stage Slide
+- **Compositor-Level Morphs**: Triggered via `document.startViewTransition()` for smooth 60fps transitions.
+- **Horizontal Cyber Shutter**: 4 horizontal shutter bands cascade across the viewport with vertical cyan laser guides.
+- **3D Perspective Unfold**: Hardware-accelerated GPU transforms (`x: 50px -> 0`, `rotateY: -3deg -> 0`, `scale: 0.98 -> 1`, cubic-bezier `[0.16, 1, 0.3, 1]`).
+- **Live Transmission HUD**: Telemetry badge flashes destination stage in transit.
+
+### 2. 3D WebGL Avatar Rig (`src/components/three/`)
+- **Skeletal Cursor Parallax**: Smooth bone rotation (`mixamorigNeck`, `mixamorigHead`) with exponential decay smoothing (`LOOK_DAMPING = 4.5`).
+- **Dynamic Framing**: Clamped viewport positioning that renders cleanly on Overview `/` and stays responsive on mobile.
+
+### 3. 3D Bilinear Skinning Sticker Deck (`src/components/webgl/StickerPeel.tsx`)
+- Physical mesh peeling simulation running in WebGL with dynamic specular highlights and shadow projection.
+
+### 4. Infinite WebGL Architecture Gallery Tunnel (`src/components/webgl/GalleryTunnel.tsx`)
+- 3D infinite corridor displaying local vector SVG system blueprints with drag-and-hold acceleration boost.
+
+### 5. Interactive CLI Diagnostics Terminal (`src/components/terminal/TerminalWidget.tsx`)
+- Live keyboard-driven terminal emulator with command history, tab completion, and instant quick-action execution.
+
+---
+
+## 🛠️ Verification & Build Commands
+
 ```bash
-# Type check without emitting
-npx tsc --noEmit
+# Run Development Server (Turbopack)
+npm run dev
 
-# Optimized production build
+# Run Production Linter (Strict React Compiler & TypeScript)
+npm run lint
+
+# Build Static Optimized Production Bundle (12/12 Prerendered Pages)
 npm run build
 
-# Strict ESLint check
-npm run lint
+# Start Production Server
+npm start
 ```
 
 ---
 
-## License
-MIT © Jayanth Reddy Konda
+## 📜 License
+MIT © [Jayanth Reddy Konda](https://github.com/JayanthReddyKonda)

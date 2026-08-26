@@ -12,7 +12,6 @@
 
 import { Canvas, useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { Loader } from "@react-three/drei";
 import { EnvironmentSetup } from "./EnvironmentSetup";
 import { Character } from "./Character";
 import { CameraController } from "./CameraController";
@@ -131,8 +130,8 @@ export default function Scene() {
           </Suspense>
         </Canvas>
       </div>
-
-      <Loader />
     </div>
   );
 }
+
+export { Scene };

@@ -1,16 +1,25 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
- * Design tokens — see DESIGN.md §2. Single dark theme ("Engine Room").
+ * Design tokens — Emerald Sophistication Theme.
+ * Palette:
+ *   --background:        #0d4c3c (Deep Forest Emerald)
+ *   --surface-sage:      #2d5a4a (Sage Emerald Slate)
+ *   --accent-moss:       #7ba05b (Moss Leaf Green Accent)
+ *   --foreground:        #f4f1eb (Alabaster Cream White)
  * ------------------------------------------------------------------------- */
 
 :root {
-  --background: #222831;
-  --foreground: #eeeeee;
-  --muted: rgba(238, 238, 238, 0.60);
-  --faint: rgba(238, 238, 238, 0.38);
-  --hairline: rgba(238, 238, 238, 0.10);
-  --glass: rgba(34, 40, 49, 0.55);
+  --background: #0d4c3c;
+  --surface: #123d32;
+  --surface-card: #1b4b3e;
+  --surface-sage: #2d5a4a;
+  --accent: #7ba05b;
+  --foreground: #f4f1eb;
+  --muted: rgba(244, 241, 235, 0.72);
+  --faint: rgba(244, 241, 235, 0.42);
+  --hairline: rgba(244, 241, 235, 0.14);
+  --glass: rgba(13, 76, 60, 0.82);
 
   --font-stack-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-stack-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
@@ -20,6 +29,10 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-card: var(--surface-card);
+  --color-surface-sage: var(--surface-sage);
+  --color-accent: var(--accent);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
@@ -28,7 +41,6 @@
   --font-sans: var(--font-stack-sans);
   --font-mono: var(--font-stack-mono);
 
-  /* Custom breakpoints for Originkit components */
   --breakpoint-iphone: 375px;
   --breakpoint-ipad: 768px;
   --breakpoint-ipad-landscape: 1024px;
@@ -50,54 +62,86 @@ body {
 }
 
 ::selection {
-  background: var(--foreground);
-  color: var(--background);
+  background: var(--accent);
+  color: #0d4c3c;
 }
 
-/* Custom Cursor: hide native cursor on pointer devices when custom cursor is active */
+/* Custom Cursor */
 .custom-cursor-active,
 .custom-cursor-active * {
   cursor: none !important;
 }
 
-/* Base layout for page sections (relative stacking for seam overlays) */
+/* Base layout for page sections */
 main {
   position: relative;
 }
 
-main>section {
+main > section {
   position: relative;
   min-height: 100vh;
-  /* svh tracks the mobile URL-bar viewport — no jump on scroll */
   min-height: 100svh;
   z-index: 1;
 }
 
-/* Hairline scrollbar, engine-room style */
+/* Hairline scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0a352a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--hairline);
+  background: #2d5a4a;
+  border-radius: 999px;
 }
 
-/* Focus discipline (DESIGN.md §6) */
+::-webkit-scrollbar-thumb:hover {
+  background: #7ba05b;
+}
+
+/* Focus discipline */
 :focus-visible {
-  outline: 1px solid var(--foreground);
+  outline: 1.5px solid var(--accent);
   outline-offset: 3px;
 }
 
 /* ---------------------------------------------------------------------------
- * "Luminous Wipe" section transition (PixelSectionTransition.tsx v7)
- * A teal scanner-beam sweep with cinematic dim, driven entirely by inline
- * styles via the --scroll custom property. No CSS keyframes needed —
- * the component writes transform/opacity directly for GPU compositing.
+ * Native View Transitions API Styles (Smooth Cross-Fade)
  * ------------------------------------------------------------------------- */
+::view-transition-old(root) {
+  animation: 250ms cubic-bezier(0.16, 1, 0.3, 1) both vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 350ms cubic-bezier(0.16, 1, 0.3, 1) both vt-fade-in;
+}
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.99);
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(1.01);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {
