@@ -300,7 +300,8 @@ export function AsciiReveal(props: AsciiImageProps) {
       ctx.drawImage(off, 0, 0);
 
       const img = imgRef.current;
-      if (!reveal || !pointer.current.inside || !img) return;
+      const revealing = pointer.current.inside || releasing;
+      if (!reveal || !revealing || !img) return;
 
       const { dpr } = getSize();
       const blobs = blobsRef.current;
@@ -326,7 +327,8 @@ export function AsciiReveal(props: AsciiImageProps) {
       mctx.fillStyle = "#FFFFFF";
       for (let i = 0; i < blobs.length; i++) {
         const t = blobs.length <= 1 ? 0 : i / (blobs.length - 1);
-        const radius = revealSize * dpr * (1 - t * 0.5);
+        const radius =
+          revealSize * dpr * (1 - t * 0.5) * Math.max(0, releaseAlpha);
         mctx.beginPath();
         mctx.arc(blobs[i].x, blobs[i].y, radius, 0, Math.PI * 2);
         mctx.fill();
@@ -340,12 +342,26 @@ export function AsciiReveal(props: AsciiImageProps) {
     }
 
     let isLooping = false;
+    // Graceful release: on pointer exit (mouse leave or finger lift) the
+    // reveal blobs shrink away over ~450ms instead of snapping back to ASCII.
+    let releasing = false;
+    let releaseAlpha = 1;
+    let releaseStart = 0;
+    const RELEASE_MS = 450;
 
     function loop() {
       if (!alive) return;
       updateBlobs();
+      if (releasing) {
+        releaseAlpha = 1 - (performance.now() - releaseStart) / RELEASE_MS;
+        if (releaseAlpha <= 0) {
+          releasing = false;
+          releaseAlpha = 0;
+          seededRef.current = false; // next interaction re-seeds at its origin
+        }
+      }
       paint();
-      if (pointer.current.inside) {
+      if (pointer.current.inside || releasing) {
         raf = requestAnimationFrame(loop);
       } else {
         isLooping = false;
@@ -372,9 +388,13 @@ export function AsciiReveal(props: AsciiImageProps) {
       }
     }
     function onLeave() {
+      if (!pointer.current.inside && !seededRef.current) return;
       pointer.current.inside = false;
-      seededRef.current = false;
-      paint();
+      // Begin the graceful dissolve rather than snapping back to ASCII.
+      releasing = true;
+      releaseAlpha = 1;
+      releaseStart = performance.now();
+      startLoop();
     }
 
     // Touch support: a pressed finger drives the reveal blobs. The canvas

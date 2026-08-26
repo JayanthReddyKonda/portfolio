@@ -30,7 +30,7 @@ An award-winning, state-of-the-art interactive portfolio for **Jayanth Reddy Kon
 - Crossing any section boundary scrubs a two-tone clip-path collapse (a rotating dark square over a closing grey iris) — driven purely by a CSS custom property and paused keyframes, no JS animation loop, fully reversible, reduced-motion aware.
 
 ### 2b. Touch-Reveal ASCII Portrait (`src/components/ui/AsciiReveal.tsx`)
-- The ASCII face reveal now responds to touch: pressing and dragging a finger over the canvas drives the reveal blobs (`pointerdown` capture + `touch-action: none`), with mouse hover behaviour unchanged.
+- The ASCII face reveal responds to both hover **and** touch: pressing and dragging a finger drives the multi-blob reveal (`pointerdown` capture + `touch-action: none`), and lifting off triggers a graceful 450ms dissolve back to the ASCII matrix instead of a hard snap.
 
 ### 3. Originkit Butterfly Drift Background (`src/components/ui/ButterflyDrift.tsx`)
 - **GPU Procedural Swarm**: Pure WebGL shader-based butterfly flock drifting organically behind all sections.
