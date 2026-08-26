@@ -27,7 +27,7 @@ An award-winning, state-of-the-art interactive portfolio for **Jayanth Reddy Kon
 - **Dynamic Framing & Scroll Dissolve**: Viewport-clamped positioning (`Math.min(viewport.width * 0.20, 2.1)`) that dissolves smoothly into deep content sections without obscuring text.
 
 ### 2. "Spiral Veil" CSS Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
-- Crossing any section boundary scrubs a two-tone clip-path spiral (dark + grey veils winding into the centre) — driven purely by a CSS custom property and paused keyframes, no JS animation loop, fully reversible, reduced-motion aware.
+- Crossing any section boundary scrubs a two-tone clip-path collapse (a rotating dark square over a closing grey iris) — driven purely by a CSS custom property and paused keyframes, no JS animation loop, fully reversible, reduced-motion aware.
 
 ### 2b. Touch-Reveal ASCII Portrait (`src/components/ui/AsciiReveal.tsx`)
 - The ASCII face reveal now responds to touch: pressing and dragging a finger over the canvas drives the reveal blobs (`pointerdown` capture + `touch-action: none`), with mouse hover behaviour unchanged.

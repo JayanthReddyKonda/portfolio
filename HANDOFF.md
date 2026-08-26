@@ -73,7 +73,7 @@ portfolio/
 
 ### A. "Spiral Veil" Section Transitions (`PixelSectionTransition.tsx` — v6)
 - **Pure-CSS clip-path scrub**: each section mounts a fixed two-tone veil (dark `#1c2129` over grey `#393E46`). A rAF-throttled listener writes a single `--scroll` (0→1) property on the section; the veils run `@keyframes st-spiral` (globals.css) with `animation-play-state: paused` and `animation-delay: calc(var(--scroll) * -1s)` — scroll position literally scrubs the keyframes.
-- **The spiral**: a 12-point polygon winds inward — outer square → mid ring → core — tightening into the centre point to reveal the next section. The grey under-veil trails the dark layer (`-0.88s` offset) for two-tone depth.
+- **The collapse**: the dark veil is a square that rotates and shrinks into the centre (`@keyframes st-rotate`); the grey under-veil is a circular iris closing behind it (`@keyframes st-iris`, `-0.92s` offset) — a two-stage reveal with exact constant-point interpolation.
 - **Zero-cost when idle**: veils are `visibility: hidden` outside the seam window; no GSAP, no per-frame JS animation, fully scroll-reversible, `z-[44]/z-[45]` (below navbar/cursor).
 - **Coverage**: hero→about→work→experience→terminal→contact seams all spiral.
 - **Accessibility**: `prefers-reduced-motion` renders nothing.

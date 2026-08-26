@@ -94,52 +94,39 @@ main>section {
 
 /* ---------------------------------------------------------------------------
  * "Spiral Veil" section transition (PixelSectionTransition.tsx v6)
- * A 12-point polygon winds inward: outer square → mid ring → core, each frame
- * tightening the spiral corridor until the veil collapses to the centre point.
- * Scrubbed purely by the section's `--scroll` custom property (0→1).
+ * Two stacked veils scrubbed by the section's `--scroll` custom property
+ * (0→1) via paused keyframes + negative animation-delay:
+ *   1. Dark veil: a square that rotates and collapses into the centre.
+ *   2. Grey under-veil: a circular iris that closes behind it.
+ * Both keyframes keep a constant point count, so interpolation is exact.
  * ------------------------------------------------------------------------- */
-@keyframes st-spiral {
+@keyframes st-rotate {
   0% {
-    clip-path: polygon(
-      0% 0%, 100% 0%, 100% 100%, 0% 100%,
-      0% 22%, 78% 22%, 78% 78%, 22% 78%,
-      22% 44%, 56% 44%, 56% 56%, 44% 56%, 44% 44%
-    );
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
-  20% {
-    clip-path: polygon(
-      0% 0%, 100% 0%, 100% 100%, 0% 100%,
-      0% 22%, 78% 22%, 78% 78%, 50% 78%,
-      50% 44%, 56% 44%, 56% 56%, 44% 56%, 44% 44%
-    );
+  25% {
+    clip-path: polygon(87.5% 12.5%, 87.5% 87.5%, 12.5% 87.5%, 12.5% 12.5%);
   }
-  40% {
-    clip-path: polygon(
-      0% 0%, 100% 0%, 100% 100%, 0% 100%,
-      0% 22%, 78% 22%, 78% 50%, 50% 50%,
-      50% 44%, 56% 44%, 56% 56%, 44% 56%, 44% 44%
-    );
+  50% {
+    clip-path: polygon(75% 75%, 25% 75%, 25% 25%, 75% 25%);
   }
-  60% {
-    clip-path: polygon(
-      0% 0%, 100% 0%, 100% 100%, 0% 100%,
-      0% 22%, 22% 22%, 22% 50%, 50% 50%,
-      50% 44%, 50% 44%, 50% 56%, 44% 56%, 44% 44%
-    );
-  }
-  80% {
-    clip-path: polygon(
-      0% 0%, 100% 0%, 100% 100%, 0% 100%,
-      0% 78%, 22% 78%, 22% 50%, 50% 50%,
-      50% 50%, 50% 50%, 50% 56%, 44% 56%, 44% 50%
-    );
+  75% {
+    clip-path: polygon(37.5% 62.5%, 37.5% 37.5%, 62.5% 37.5%, 62.5% 62.5%);
   }
   100% {
-    clip-path: polygon(
-      0% 0%, 0% 0%, 0% 0%, 0% 0%,
-      0% 0%, 0% 0%, 0% 0%, 0% 0%,
-      0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%
-    );
+    clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+  }
+}
+
+@keyframes st-iris {
+  0% {
+    clip-path: circle(120% at 50% 50%);
+  }
+  60% {
+    clip-path: circle(55% at 50% 50%);
+  }
+  100% {
+    clip-path: circle(0% at 50% 50%);
   }
 }
 

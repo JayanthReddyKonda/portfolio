@@ -66,22 +66,22 @@ export function SectionTransition() {
 
   return (
     <div ref={root} aria-hidden="true" className="contents">
-      {/* Grey under-veil: trails the dark layer for two-tone depth */}
+      {/* Grey under-veil: circular iris closes behind the rotating square */}
       <div
         className="st-veil pointer-events-none fixed inset-0 z-[44] invisible"
         style={{
           background: "#393E46",
-          animation: "st-spiral 1s linear both paused",
-          animationDelay: "calc(var(--scroll, 0) * -0.88s)",
+          animation: "st-iris 1s linear both paused",
+          animationDelay: "calc(var(--scroll, 0) * -0.92s)",
           willChange: "clip-path",
         }}
       />
-      {/* Dark main veil */}
+      {/* Dark main veil: rotating square collapse into the centre */}
       <div
         className="st-veil pointer-events-none fixed inset-0 z-[45] invisible"
         style={{
           background: "#1c2129",
-          animation: "st-spiral 1s linear both paused",
+          animation: "st-rotate 1s linear both paused",
           animationDelay: "calc(var(--scroll, 0) * -1s)",
           willChange: "clip-path",
         }}
