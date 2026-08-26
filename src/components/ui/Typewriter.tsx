@@ -28,20 +28,20 @@ export type TypewriterProps = {
 
 const COMPONENT_DEFAULTS = {
   prefix: "",
-  color: "#FFFFFF",
+  color: "#EEEEEE",
   texts: [
     "AI/ML Systems Engineer",
     "Distributed Backend Architect",
     "FastAPI & Qdrant Specialist",
     "Real-Time WebSockets Engineer",
   ],
-  typedColor: "#10b981",
+  typedColor: "#00ADB5",
   typeSpeed: 0.06,
   deleteSpeed: 0.04,
   holdTime: 1.6,
   showCursor: true,
   cursorChar: "_",
-  cursorColor: "#10b981",
+  cursorColor: "#00ADB5",
 };
 
 export function Typewriter(props: TypewriterProps) {

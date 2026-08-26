@@ -30,7 +30,7 @@ const INITIAL_LOGS: CommandLog[] = [
         <p className="text-muted/80">
           Specialization: FastAPI • Qdrant RAG • LangChain LCEL • Real-Time WebSockets • Biometric Vision
         </p>
-        <p className="text-emerald-400">
+        <p className="text-[#00ADB5]">
           Type <span className="text-white font-mono font-bold underline">help</span> to list diagnostic commands.
         </p>
       </div>
@@ -67,25 +67,25 @@ export function TerminalWidget() {
         output = (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs py-1">
             <div>
-              <span className="font-bold text-emerald-400">projects</span> - View 4 real production systems
+              <span className="font-bold text-[#00ADB5]">projects</span> - View 4 real production systems
             </div>
             <div>
-              <span className="font-bold text-emerald-400">skills</span> - Full languages &amp; AI framework stack
+              <span className="font-bold text-[#00ADB5]">skills</span> - Full languages &amp; AI framework stack
             </div>
             <div>
-              <span className="font-bold text-emerald-400">education</span> - VNR VJIET (CGPA 9.1) &amp; schools
+              <span className="font-bold text-[#00ADB5]">education</span> - VNR VJIET (CGPA 9.1) &amp; schools
             </div>
             <div>
-              <span className="font-bold text-emerald-400">experience</span> - IBM SkillsBuild AI/ML Trainee
+              <span className="font-bold text-[#00ADB5]">experience</span> - IBM SkillsBuild AI/ML Trainee
             </div>
             <div>
-              <span className="font-bold text-emerald-400">certifications</span> - Stanford University ML Spec
+              <span className="font-bold text-[#00ADB5]">certifications</span> - Stanford University ML Spec
             </div>
             <div>
-              <span className="font-bold text-emerald-400">contact</span> - Email, phone, GitHub &amp; LinkedIn
+              <span className="font-bold text-[#00ADB5]">contact</span> - Email, phone, GitHub &amp; LinkedIn
             </div>
             <div>
-              <span className="font-bold text-emerald-400">clear</span> - Reset terminal screen
+              <span className="font-bold text-[#00ADB5]">clear</span> - Reset terminal screen
             </div>
           </div>
         );
@@ -132,7 +132,7 @@ export function TerminalWidget() {
           <div className="space-y-2 text-xs text-muted">
             <div>
               <p className="text-foreground font-semibold">VNR Vignana Jyothi Institute of Engineering &amp; Technology (2024–Present)</p>
-              <p>B.Tech in Computer Science and Engineering (AI &amp; ML) — <span className="text-emerald-400 font-bold">CGPA: 9.1 / 10.0</span></p>
+              <p>B.Tech in Computer Science and Engineering (AI &amp; ML) — <span className="text-[#00ADB5] font-bold">CGPA: 9.1 / 10.0</span></p>
             </div>
             <div>
               <p className="text-foreground font-semibold">Narayana Junior College (2022–2024)</p>
@@ -174,7 +174,7 @@ export function TerminalWidget() {
       case "contact":
         output = (
           <div className="text-xs text-muted space-y-1.5">
-            <p>• <span className="text-white">Email:</span> <a href="mailto:kondajayanthreddy@gmail.com" className="text-emerald-400 underline">kondajayanthreddy@gmail.com</a></p>
+            <p>• <span className="text-white">Email:</span> <a href="mailto:kondajayanthreddy@gmail.com" className="text-[#00ADB5] underline">kondajayanthreddy@gmail.com</a></p>
             <p>• <span className="text-white">Phone:</span> <a href="tel:+917036086060" className="text-foreground">+91 7036086060</a></p>
             <p>• <span className="text-white">GitHub:</span> <a href="https://github.com/JayanthReddyKonda" target="_blank" rel="noreferrer" className="text-foreground underline">github.com/JayanthReddyKonda</a></p>
             <p>• <span className="text-white">LinkedIn:</span> <a href="https://www.linkedin.com/in/jayanthreddykonda/" target="_blank" rel="noreferrer" className="text-foreground underline">linkedin.com/in/jayanthreddykonda</a></p>
@@ -224,19 +224,19 @@ export function TerminalWidget() {
   return (
     <div
       onClick={() => inputRef.current?.focus()}
-      className="group relative flex flex-col rounded-3xl border border-white/10 bg-[#070707]/90 backdrop-blur-2xl shadow-2xl overflow-hidden font-mono"
+      className="group relative flex flex-col rounded-3xl border border-white/10 bg-[#1c2129]/90 backdrop-blur-2xl shadow-2xl overflow-hidden font-mono"
     >
       {/* Header bar */}
       <div className="relative z-10 flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-6 py-4">
         <div className="flex items-center gap-2.5">
           <div className="size-3 rounded-full bg-red-500/80" />
           <div className="size-3 rounded-full bg-yellow-500/80" />
-          <div className="size-3 rounded-full bg-emerald-500/80" />
+          <div className="size-3 rounded-full bg-[#00ADB5]/80" />
           <span className="ml-2 text-xs text-muted/80">jayanth@engine-room:~</span>
         </div>
 
         <div className="flex items-center gap-1.5 text-xs text-faint">
-          <Sparkles className="size-3.5 text-emerald-400" />
+          <Sparkles className="size-3.5 text-[#00ADB5]" />
           <span>Interactive CLI • Type &apos;help&apos;</span>
         </div>
       </div>
@@ -249,7 +249,7 @@ export function TerminalWidget() {
         {logs.map((log) => (
           <div key={log.id} className="space-y-1.5">
             <div className="flex items-center gap-2 text-foreground/90">
-              <span className="text-emerald-400 font-bold">➜</span>
+              <span className="text-[#00ADB5] font-bold">➜</span>
               <span className="text-muted/60">~</span>
               <span className="text-foreground">{log.command}</span>
             </div>
@@ -259,7 +259,7 @@ export function TerminalWidget() {
 
         {/* Active prompt input */}
         <div className="flex items-center gap-2 pt-1">
-          <span className="text-emerald-400 font-bold">➜</span>
+          <span className="text-[#00ADB5] font-bold">➜</span>
           <span className="text-muted/60">~</span>
           <input
             ref={inputRef}

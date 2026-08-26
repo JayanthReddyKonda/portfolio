@@ -56,7 +56,7 @@ export function AboutSection() {
             {...reveal(0)}
             className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-faint"
           >
-            <Sparkles className="size-3.5 text-emerald-400" />
+            <Sparkles className="size-3.5 text-[#00ADB5]" />
             <span>01 — Profile &amp; Technical Foundation</span>
           </motion.div>
 
@@ -74,13 +74,13 @@ export function AboutSection() {
           {/* Left Column: ASCII Face Reveal Component */}
           <motion.div
             {...reveal(0.15)}
-            className="group relative lg:col-span-5 flex flex-col justify-between rounded-3xl border border-white/10 bg-[#070707]/90 p-6 backdrop-blur-2xl transition-colors hover:border-emerald-400/40 min-h-[460px]"
+            className="group relative lg:col-span-5 flex flex-col justify-between rounded-3xl border border-white/10 bg-[#1c2129]/90 p-6 backdrop-blur-2xl transition-colors hover:border-[#00ADB5]/40 min-h-[460px]"
           >
             <div className="flex items-center justify-between z-10">
               <span className="font-mono text-xs uppercase tracking-[0.2em] text-faint">
                 Neural Scan // Hover to Reveal
               </span>
-              <div className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="size-2 rounded-full bg-[#00ADB5] animate-pulse" />
             </div>
 
             {/* Ascii Canvas Container with Real Profile Photo */}
@@ -98,17 +98,17 @@ export function AboutSection() {
 
             <div className="flex items-center justify-between text-xs font-mono text-muted/70 z-10">
               <span>Jayanth Reddy Konda</span>
-              <span className="text-emerald-400">AI &amp; ML Engineer</span>
+              <span className="text-[#00ADB5]">AI &amp; ML Engineer</span>
             </div>
           </motion.div>
 
           {/* Right Column: Narrative & Credentials (Clean Minimal Glass Card) */}
           <motion.div
             {...reveal(0.2)}
-            className="group relative lg:col-span-7 flex flex-col justify-between rounded-3xl border border-white/10 bg-[#070707]/90 p-8 sm:p-10 backdrop-blur-xl transition-colors hover:border-white/20"
+            className="group relative lg:col-span-7 flex flex-col justify-between rounded-3xl border border-white/10 bg-[#1c2129]/90 p-8 sm:p-10 backdrop-blur-xl transition-colors hover:border-white/20"
           >
             <div className="space-y-6 relative z-10">
-              <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 uppercase tracking-widest">
+              <div className="flex items-center gap-2 font-mono text-xs text-[#00ADB5] uppercase tracking-widest">
                 <CheckCircle2 className="size-4" />
                 <span>B.Tech in Computer Science (AI &amp; ML) • VNR VJIET</span>
               </div>
@@ -157,9 +157,9 @@ export function AboutSection() {
               <motion.div
                 key={skill.label}
                 {...reveal(0.1 + idx * 0.04)}
-                className="group relative flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl transition-all duration-300 hover:border-emerald-400/40 hover:bg-white/[0.05]"
+                className="group relative flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-xl transition-all duration-300 hover:border-[#00ADB5]/40 hover:bg-white/[0.05]"
               >
-                <div className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-foreground transition-colors group-hover:border-emerald-400/40 group-hover:text-emerald-400">
+                <div className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-foreground transition-colors group-hover:border-[#00ADB5]/40 group-hover:text-[#00ADB5]">
                   <Icon className="size-5" />
                 </div>
                 <div className="mt-6">

@@ -133,7 +133,7 @@ export function LiquidCarveButton(props: LiquidCarveButtonProps) {
     rounded = 999,
     fill: fillProp,
     textColor: textColorProp,
-    colors = { fill: "#FFFFFF", textColor: "#000000" },
+    colors = { fill: "#EEEEEE", textColor: "#222831" },
     addIcon = false,
     icon = {
       type: "symbol",
@@ -146,7 +146,7 @@ export function LiquidCarveButton(props: LiquidCarveButtonProps) {
       side: "right",
     },
     gap = 8,
-    blob: blobGroup = { size: 70, color: "#10b981", smoothness: 50 },
+    blob: blobGroup = { size: 70, color: "#00ADB5", smoothness: 50 },
     blobColor: blobColorLegacy,
     blobSize: blobSizeLegacy,
     link = "",
@@ -162,7 +162,7 @@ export function LiquidCarveButton(props: LiquidCarveButtonProps) {
     children,
   } = props;
 
-  const fill = colors?.fill ?? fillProp ?? "#FFFFFF";
+  const fill = colors?.fill ?? fillProp ?? "#EEEEEE";
   const textColor = colors?.textColor ?? textColorProp ?? "#000000";
 
   const [scope, animate] = useAnimate();
@@ -197,7 +197,7 @@ export function LiquidCarveButton(props: LiquidCarveButtonProps) {
   const maskId = `bite-${uid}`;
 
   const {
-    color: blobColor = blobColorLegacy ?? "#10b981",
+    color: blobColor = blobColorLegacy ?? "#00ADB5",
     size: blobSize = blobSizeLegacy ?? 70,
     smoothness = 55,
   } = blobGroup;

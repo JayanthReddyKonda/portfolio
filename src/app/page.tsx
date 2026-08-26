@@ -28,9 +28,9 @@ export default function Home() {
       />
       <RippleTransition />
       <ButterflyDrift
-        background="#030303"
-        baseColor="#00E5FF"
-        accentColor="#10B981"
+        background="#1c2129"
+        baseColor="#00ADB5"
+        accentColor="#00ADB5"
         density={20}
         size={54}
         speed={28}
@@ -53,7 +53,7 @@ export default function Home() {
             <span className="font-mono text-xs uppercase tracking-[0.25em] text-faint">
               04 — Interactive CLI Diagnostics
             </span>
-            <span className="font-mono text-xs text-emerald-400">
+            <span className="font-mono text-xs text-[#00ADB5]">
               ● Node Online
             </span>
           </div>

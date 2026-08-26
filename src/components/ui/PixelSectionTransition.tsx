@@ -6,7 +6,7 @@
  *
  * When the viewport crosses a section boundary, six vertical panels sweep UP
  * from the bottom edge and cover the entire screen (staggered left-to-right,
- * each with a glowing cyan leading edge), then peel AWAY through the top to
+ * each with a glowing teal leading edge), then peel AWAY through the top to
  * reveal the next section. Fully scrubbed to scroll position — reversing the
  * scroll reverses the wipe.
  *
@@ -96,10 +96,10 @@ export function SectionTransition() {
               style={{
                 background:
                   i % 2 === 0
-                    ? "linear-gradient(180deg, #030303 0%, #07120e 100%)"
-                    : "linear-gradient(180deg, #050505 0%, #06121a 100%)",
+                    ? "linear-gradient(180deg, #1c2129 0%, #152a2e 100%)"
+                    : "linear-gradient(180deg, #222831 0%, #173034 100%)",
                 boxShadow:
-                  "inset 0 2px 0 rgba(0,229,255,0.55), inset 0 10px 28px rgba(16,185,129,0.12)",
+                  "inset 0 2px 0 rgba(0,173,181,0.55), inset 0 10px 28px rgba(0,173,181,0.12)",
               }}
             />
           ))}

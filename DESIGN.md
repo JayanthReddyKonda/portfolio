@@ -34,13 +34,18 @@ reference. Layer A philosophy: minimalism — restraint, typography-led, no orna
 ### Color
 | Token | Value | Use |
 |---|---|---|
-| `--background` | `#050505` | Page + canvas clear color |
-| `--foreground` | `#fafafa` | Primary text |
-| `--muted` | `rgba(255,255,255,0.56)` | Secondary text (~white/55) |
-| `--faint` | `rgba(255,255,255,0.32)` | Tertiary text, labels |
-| `--hairline` | `rgba(255,255,255,0.10)` | 1px borders, dividers |
-| `--glass` | `rgba(5,5,5,0.55)` | Frosted surfaces (with blur) |
-| `--accent` | `#fafafa` | Accent IS white — no second hue in Phase 1 |
+| `--background` | `#222831` | Page + canvas clear color (deep slate) |
+| `--foreground` | `#eeeeee` | Primary text |
+| `--muted` | `rgba(238,238,238,0.60)` | Secondary text |
+| `--faint` | `rgba(238,238,238,0.38)` | Tertiary text, labels |
+| `--hairline` | `rgba(238,238,238,0.10)` | 1px borders, dividers |
+| `--glass` | `rgba(34,40,49,0.55)` | Frosted surfaces (with blur) |
+| `--accent` | `#00ADB5` | Teal — the single accent hue |
+| Surface (cards) | `#1c2129` | Panel backgrounds, one step below bg |
+| Grey | `#393E46` | Secondary fills, fill-light tint |
+
+Full-site rule: ONLY these four palette colors (#222831 / #393E46 / #00ADB5 / #EEEEEE)
+and their alpha variants. No emerald, no cyan, no other hues anywhere.
 
 ### Typography
 | Token | Value | Use |
@@ -84,6 +89,11 @@ same links stacked large; closes on link click and Escape.
 `AI/ML Engineer & Software Builder.` in body size `--muted`, plus a scroll cue row.
 Entrance: staggered fade+rise (opacity 0→1, y 24→0, 700ms, ease `[0.16,1,0.3,1]`,
 delays 0.1/0.25/0.4s). Runs once on load.
+
+### InitialLoader
+Minimal boot screen: `#222831` field, mono wordmark with wide tracking, a single
+1px teal (`#00ADB5`) progress hairline, and a quiet tabular percentage. Fades
+out (opacity only) on completion. No icons, no telemetry logs, no zoom effects.
 
 ### AboutSection
 `min-h-svh`, vertically centered narrow column (`max-w-2xl`). Mono eyebrow `01 — ABOUT`,

@@ -31,7 +31,7 @@ const DEFAULTS = {
   invert: false,
   contrast: 105,
   colorMode: "image" as ColorMode,
-  inkColor: "#00e5ff",
+  inkColor: "#00ADB5",
   reveal: true,
   revealOptions: { size: 95, softness: 18 } as RevealOptions,
 };

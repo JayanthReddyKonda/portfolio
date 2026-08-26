@@ -306,8 +306,8 @@ export interface ButterflyDriftProps {
 export function ButterflyDrift({
   style,
   background = "transparent",
-  baseColor = "#00E5FF",
-  accentColor = "#10B981",
+  baseColor = "#00ADB5",
+  accentColor = "#00ADB5",
   density = 36,
   size = 65,
   speed = 35,
@@ -636,7 +636,7 @@ export function ButterflyDrift({
             position: "absolute",
             inset: 0,
             pointerEvents: "none",
-            background: `radial-gradient(120% 100% at 50% 50%, rgba(0,0,0,0) 30%, rgba(5,5,5,${vig.toFixed(3)}) 100%)`,
+            background: `radial-gradient(120% 100% at 50% 50%, rgba(0,0,0,0) 30%, rgba(34,40,49,${vig.toFixed(3)}) 100%)`,
           }}
         />
       )}

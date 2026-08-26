@@ -81,8 +81,8 @@ export function Navbar() {
       <nav
         aria-label="Primary"
         className={`mx-auto flex h-14 max-w-7xl items-center justify-between rounded-full px-5 backdrop-blur-2xl transition-all duration-300 ${scrolled
-            ? "border border-white/15 bg-[#050505]/85 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
-            : "border border-white/10 bg-[#050505]/60 shadow-lg"
+            ? "border border-white/15 bg-[#222831]/85 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+            : "border border-white/10 bg-[#222831]/60 shadow-lg"
           }`}
       >
         {/* Brand Wordmark & Status */}
@@ -90,8 +90,8 @@ export function Navbar() {
           href="#top"
           className="flex items-center gap-2.5 text-xs font-semibold tracking-[0.16em] text-foreground transition-opacity hover:opacity-80"
         >
-          <span className="flex size-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-          <span className="font-mono text-emerald-400 font-bold">JRK //</span>
+          <span className="flex size-2 rounded-full bg-[#00ADB5] animate-pulse shadow-[0_0_8px_#00ADB5]" />
+          <span className="font-mono text-[#00ADB5] font-bold">JRK //</span>
           <span className="hidden sm:inline">JAYANTH REDDY KONDA</span>
         </a>
 
@@ -101,7 +101,7 @@ export function Navbar() {
             <a
               key={link.label}
               href={link.href}
-              className="text-xs uppercase font-mono tracking-[0.18em] text-muted transition-colors duration-150 hover:text-emerald-400"
+              className="text-xs uppercase font-mono tracking-[0.18em] text-muted transition-colors duration-150 hover:text-[#00ADB5]"
             >
               {link.label}
             </a>
@@ -114,7 +114,7 @@ export function Navbar() {
           <a
             href="/resume.pdf"
             download="Jayanth_Reddy_Konda_Resume.pdf"
-            className="inline-flex h-11 sm:h-8 items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3.5 text-xs font-mono font-medium text-emerald-400 transition-all hover:border-emerald-400/60 hover:bg-emerald-400/20 hover:shadow-[0_0_12px_rgba(52,211,153,0.3)]"
+            className="inline-flex h-11 sm:h-8 items-center gap-1.5 rounded-full border border-[#00ADB5]/30 bg-[#00ADB5]/10 px-3.5 text-xs font-mono font-medium text-[#00ADB5] transition-all hover:border-[#00ADB5]/60 hover:bg-[#00ADB5]/20 hover:shadow-[0_0_12px_rgba(0,173,181,0.3)]"
           >
             <FileDown className="size-3.5" />
             <span>Resume</span>
@@ -172,7 +172,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -12, scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="mx-auto mt-2 max-w-lg rounded-3xl border border-white/15 bg-[#050505]/95 p-6 backdrop-blur-2xl shadow-2xl lg:hidden"
+            className="mx-auto mt-2 max-w-lg rounded-3xl border border-white/15 bg-[#222831]/95 p-6 backdrop-blur-2xl shadow-2xl lg:hidden"
           >
             <div className="flex flex-col gap-3">
               {NAV_LINKS.map((link) => (
@@ -190,7 +190,7 @@ export function Navbar() {
                 <a
                   href="/resume.pdf"
                   download="Jayanth_Reddy_Konda_Resume.pdf"
-                  className="inline-flex items-center gap-1.5 font-mono text-xs text-emerald-400"
+                  className="inline-flex items-center gap-1.5 font-mono text-xs text-[#00ADB5]"
                 >
                   <FileDown className="size-3.5" />
                   <span>Download Resume (PDF)</span>

@@ -5,12 +5,12 @@
  * ------------------------------------------------------------------------- */
 
 :root {
-  --background: #050505;
-  --foreground: #fafafa;
-  --muted: rgba(255, 255, 255, 0.56);
-  --faint: rgba(255, 255, 255, 0.32);
-  --hairline: rgba(255, 255, 255, 0.1);
-  --glass: rgba(5, 5, 5, 0.55);
+  --background: #222831;
+  --foreground: #eeeeee;
+  --muted: rgba(238, 238, 238, 0.60);
+  --faint: rgba(238, 238, 238, 0.38);
+  --hairline: rgba(238, 238, 238, 0.10);
+  --glass: rgba(34, 40, 49, 0.55);
 
   --font-stack-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-stack-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;

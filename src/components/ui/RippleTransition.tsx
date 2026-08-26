@@ -5,7 +5,7 @@
  * @description Global Ripple Shockwave Screen Warp & High-Speed Navigation Teleporter.
  * Features:
  * - Intercepts anchor links (#work, #about, etc.) to trigger radial shockwave ripples from click origin.
- * - Hardware-accelerated SVG / CSS expanding wave with emerald & cyan energy halo.
+ * - Hardware-accelerated SVG / CSS expanding wave with teal energy halo.
  * - Smooth high-speed section navigation with window scroll behavior.
  */
 
@@ -89,11 +89,11 @@ export function RippleTransition() {
               marginLeft: -40,
               marginTop: -40,
               borderRadius: "9999px",
-              border: "2px solid rgba(0, 229, 255, 0.9)",
+              border: "2px solid rgba(0, 173, 181, 0.9)",
               boxShadow:
-                "0 0 40px rgba(16, 185, 129, 0.8), inset 0 0 30px rgba(0, 229, 255, 0.5)",
+                "0 0 40px rgba(0, 173, 181, 0.8), inset 0 0 30px rgba(0, 173, 181, 0.5)",
               background:
-                "radial-gradient(circle, rgba(0,229,255,0.15) 0%, rgba(16,185,129,0.08) 50%, transparent 80%)",
+                "radial-gradient(circle, rgba(0,173,181,0.15) 0%, rgba(0,173,181,0.08) 50%, transparent 80%)",
             }}
           />
         ))}

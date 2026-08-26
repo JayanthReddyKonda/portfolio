@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#222831",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -55,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full bg-background font-sans text-foreground selection:bg-emerald-400 selection:text-black">
+      <body className="min-h-full bg-background font-sans text-foreground selection:bg-[#00ADB5] selection:text-black">
         {children}
       </body>
     </html>

@@ -39,7 +39,7 @@ export function ExperienceSection() {
             {...reveal(0)}
             className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-faint"
           >
-            <Briefcase className="size-3.5 text-emerald-400" />
+            <Briefcase className="size-3.5 text-[#00ADB5]" />
             <span>03 — Experience, Education &amp; Leadership</span>
           </motion.div>
 
@@ -56,20 +56,20 @@ export function ExperienceSection() {
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
           {/* Left Column: Work Experience & Community Leadership */}
           <motion.div {...reveal(0.15)} className="lg:col-span-6 space-y-6">
-            <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-emerald-400">
+            <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[#00ADB5]">
               <Briefcase className="size-4" />
               <span>Industry Training &amp; Experience</span>
             </h3>
 
             {/* IBM SkillsBuild Experience Card */}
-            <div className="group relative rounded-3xl border border-white/10 bg-[#070707]/90 p-8 backdrop-blur-xl transition-colors hover:border-white/20">
+            <div className="group relative rounded-3xl border border-white/10 bg-[#1c2129]/90 p-8 backdrop-blur-xl transition-colors hover:border-white/20">
               <div className="relative z-10">
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                   <div>
                     <h4 className="text-xl font-bold text-foreground">
                       Artificial Intelligence &amp; Machine Learning Virtual Trainee
                     </h4>
-                    <p className="text-sm font-semibold text-emerald-400 font-mono mt-0.5">
+                    <p className="text-sm font-semibold text-[#00ADB5] font-mono mt-0.5">
                       IBM SkillsBuild
                     </p>
                   </div>
@@ -80,13 +80,13 @@ export function ExperienceSection() {
 
                 <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted">
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="size-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <CheckCircle2 className="size-4 text-[#00ADB5] mt-0.5 shrink-0" />
                     <span>
                       Designed an AI-powered study assistant enabling interactive question answering and automated concept explanations using LLM APIs, implementing modular Python services to support concurrent study workflows.
                     </span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="size-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <CheckCircle2 className="size-4 text-[#00ADB5] mt-0.5 shrink-0" />
                     <span>
                       Engineered API-driven pipelines integrating external LLM services for summarization, concept retrieval, prompt orchestration, request routing, and response parsing.
                     </span>
@@ -96,14 +96,14 @@ export function ExperienceSection() {
             </div>
 
             {/* Leadership & Activities Card */}
-            <div className="rounded-3xl border border-white/10 bg-[#070707]/80 p-8 backdrop-blur-xl space-y-6">
+            <div className="rounded-3xl border border-white/10 bg-[#1c2129]/80 p-8 backdrop-blur-xl space-y-6">
               <h4 className="flex items-center gap-2 text-lg font-bold text-foreground">
-                <Users className="size-5 text-emerald-400" />
+                <Users className="size-5 text-[#00ADB5]" />
                 <span>Leadership &amp; Technical Volunteering</span>
               </h4>
 
               <div className="space-y-4">
-                <div className="border-l-2 border-emerald-400/40 pl-4 space-y-1.5">
+                <div className="border-l-2 border-[#00ADB5]/40 pl-4 space-y-1.5">
                   <p className="text-sm font-semibold text-foreground">
                     Technical Volunteer — Krithomedh AI/ML Club
                   </p>
@@ -112,12 +112,12 @@ export function ExperienceSection() {
                   </p>
                 </div>
 
-                <div className="border-l-2 border-emerald-400/40 pl-4 space-y-1.5">
+                <div className="border-l-2 border-[#00ADB5]/40 pl-4 space-y-1.5">
                   <p className="text-sm font-semibold text-foreground">
                     Competitive Programming &amp; Problem Solving
                   </p>
                   <p className="text-xs text-muted leading-relaxed">
-                    Solved <strong className="text-emerald-400 font-mono font-bold">300+ Data Structures and Algorithms</strong> problems across Codeforces and LeetCode with strong algorithmic optimization in C++ and Python.
+                    Solved <strong className="text-[#00ADB5] font-mono font-bold">300+ Data Structures and Algorithms</strong> problems across Codeforces and LeetCode with strong algorithmic optimization in C++ and Python.
                   </p>
                 </div>
               </div>
@@ -126,13 +126,13 @@ export function ExperienceSection() {
 
           {/* Right Column: Academic Degrees, Stanford Certification & Languages */}
           <motion.div {...reveal(0.2)} className="lg:col-span-6 space-y-6">
-            <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-emerald-400">
+            <h3 className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[#00ADB5]">
               <GraduationCap className="size-4" />
               <span>Academic Education &amp; Credentials</span>
             </h3>
 
             {/* Degrees Breakdown Card */}
-            <div className="group relative rounded-3xl border border-white/10 bg-[#070707]/90 p-8 backdrop-blur-xl space-y-6 transition-colors hover:border-white/20">
+            <div className="group relative rounded-3xl border border-white/10 bg-[#1c2129]/90 p-8 backdrop-blur-xl space-y-6 transition-colors hover:border-white/20">
               <div className="relative z-10 space-y-6">
                 <div className="space-y-2">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -144,7 +144,7 @@ export function ExperienceSection() {
                         B.Tech, Computer Science and Engineering (AI &amp; ML) • Hyderabad, Telangana
                       </p>
                     </div>
-                    <span className="font-mono text-xs font-bold text-emerald-400 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1">
+                    <span className="font-mono text-xs font-bold text-[#00ADB5] rounded-full border border-[#00ADB5]/20 bg-[#00ADB5]/10 px-3 py-1">
                       CGPA: 9.1 / 10.0
                     </span>
                   </div>
@@ -186,16 +186,16 @@ export function ExperienceSection() {
             </div>
 
             {/* Stanford University ML Specialization Card */}
-            <div className="rounded-3xl border border-white/10 bg-[#070707]/80 p-8 backdrop-blur-xl">
+            <div className="rounded-3xl border border-white/10 bg-[#1c2129]/80 p-8 backdrop-blur-xl">
               <div className="flex items-start gap-4">
-                <div className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-emerald-400 shrink-0">
+                <div className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#00ADB5] shrink-0">
                   <Award className="size-5" />
                 </div>
                 <div className="space-y-1">
                   <h4 className="text-base font-bold text-foreground">
                     Machine Learning Specialization
                   </h4>
-                  <p className="text-xs font-mono text-emerald-400">
+                  <p className="text-xs font-mono text-[#00ADB5]">
                     Stanford University &amp; DeepLearning.AI
                   </p>
                   <p className="text-xs text-muted leading-relaxed pt-1">
@@ -206,7 +206,7 @@ export function ExperienceSection() {
             </div>
 
             {/* Multilingual Fluency */}
-            <div className="rounded-3xl border border-white/10 bg-[#070707]/80 p-6 backdrop-blur-xl">
+            <div className="rounded-3xl border border-white/10 bg-[#1c2129]/80 p-6 backdrop-blur-xl">
               <span className="font-mono text-xs uppercase tracking-[0.2em] text-faint">
                 Languages Spoken
               </span>

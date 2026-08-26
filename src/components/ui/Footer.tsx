@@ -59,12 +59,12 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
   return (
-    <footer id="contact" className="relative z-10 border-t border-white/10 px-6 py-20 sm:px-10 sm:py-28 lg:px-16 bg-[#040404]/80 backdrop-blur-xl">
+    <footer id="contact" className="relative z-10 border-t border-white/10 px-6 py-20 sm:px-10 sm:py-28 lg:px-16 bg-[#1c2129]/80 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
           {/* Left Column: Direct Outreach & Messaging */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-emerald-400">
+            <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-[#00ADB5]">
               <Sparkles className="size-3.5" />
               <span>05 — Contact &amp; Transmission Lines</span>
             </div>
@@ -82,7 +82,7 @@ export function Footer() {
                 href="mailto:kondajayanthreddy@gmail.com"
                 className="group inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-6 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/20 active:scale-[0.98]"
               >
-                <Mail className="size-4 text-emerald-400" />
+                <Mail className="size-4 text-[#00ADB5]" />
                 <span>kondajayanthreddy@gmail.com</span>
                 <ArrowUpRight className="size-4 text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
               </a>
@@ -91,7 +91,7 @@ export function Footer() {
                 href="tel:+917036086060"
                 className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-5 py-3.5 text-sm font-medium text-muted backdrop-blur-md transition-colors hover:border-white/20 hover:text-foreground"
               >
-                <Phone className="size-4 text-emerald-400" />
+                <Phone className="size-4 text-[#00ADB5]" />
                 <span>+91 7036086060</span>
               </a>
             </div>
@@ -105,7 +105,7 @@ export function Footer() {
               </span>
 
               <div className="flex items-center gap-2 text-sm text-foreground/90 font-mono">
-                <MapPin className="size-4 text-emerald-400" />
+                <MapPin className="size-4 text-[#00ADB5]" />
                 <span>Hyderabad, Telangana, India (UTC+5:30)</span>
               </div>
 
@@ -149,7 +149,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-faint font-mono sm:mt-16">
           <p>© {new Date().getFullYear()} Jayanth Reddy Konda. All rights reserved.</p>
-          <p className="text-emerald-400">Status: Open for High-Impact Roles</p>
+          <p className="text-[#00ADB5]">Status: Open for High-Impact Roles</p>
         </div>
       </div>
 

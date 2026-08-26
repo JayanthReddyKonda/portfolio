@@ -35,8 +35,8 @@ export interface UserCursorProps {
 }
 
 export function CustomCursor({
-  color = "#10b981",
-  textColor = "#050505",
+  color = "#00ADB5",
+  textColor = "#222831",
   size = 26,
   labelTiltStrength = 22,
   pressScale = 0.88,
@@ -245,7 +245,7 @@ export function CustomCursor({
           borderRadius: 999,
           padding: `${size * 0.16}px ${size * 0.38}px`,
           boxShadow:
-            "0 4px 20px rgba(16,185,129,0.45), 0 2px 4px rgba(0,0,0,0.5)",
+            "0 4px 20px rgba(0,173,181,0.45), 0 2px 4px rgba(0,0,0,0.5)",
           opacity: hovering ? 1 : 0,
           transformOrigin: "0% 50%",
           transition: "opacity 140ms ease",

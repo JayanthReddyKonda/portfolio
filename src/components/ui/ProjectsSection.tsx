@@ -131,7 +131,7 @@ export function ProjectsSection() {
             transition={{ duration: 0.5 }}
             className="mb-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-faint"
           >
-            <Activity className="size-3.5 text-emerald-400" />
+            <Activity className="size-3.5 text-[#00ADB5]" />
             <span>02 — Featured Systems &amp; Engineering Projects</span>
           </motion.div>
 
@@ -156,14 +156,14 @@ export function ProjectsSection() {
                 initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: idx * 0.05 }}
-                className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-[#070707]/90 p-8 sm:p-10 backdrop-blur-xl transition-all duration-300 hover:border-emerald-400/30 hover:bg-[#090909] overflow-hidden"
+                className="group relative flex flex-col justify-between rounded-3xl border border-white/10 bg-[#1c2129]/90 p-8 sm:p-10 backdrop-blur-xl transition-all duration-300 hover:border-[#00ADB5]/30 hover:bg-[#090909] overflow-hidden"
               >
                 {/* Card Content Grid */}
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start relative z-10">
                   <div className="lg:col-span-8 space-y-4">
                     <div className="flex items-center gap-2.5">
-                      <Icon className="size-4 text-emerald-400" />
-                      <span className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-400">
+                      <Icon className="size-4 text-[#00ADB5]" />
+                      <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#00ADB5]">
                         {project.category}
                       </span>
                     </div>
@@ -186,7 +186,7 @@ export function ProjectsSection() {
                       <ul className="space-y-2 text-sm text-muted/90">
                         {project.highlights.map((h, i) => (
                           <li key={i} className="flex items-start gap-2.5">
-                            <CheckCircle2 className="size-4 text-emerald-400 mt-0.5 shrink-0" />
+                            <CheckCircle2 className="size-4 text-[#00ADB5] mt-0.5 shrink-0" />
                             <span>{h}</span>
                           </li>
                         ))}

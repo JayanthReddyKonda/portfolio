@@ -94,8 +94,8 @@ export function HeroSection() {
             className="mb-6 inline-flex max-w-full flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md"
           >
             <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#00ADB5] opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-[#00ADB5]" />
             </span>
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/90 sm:text-xs sm:tracking-[0.2em]">
               AI/ML SYSTEMS &amp; BACKEND ARCHITECT • HYDERABAD
@@ -126,8 +126,8 @@ export function HeroSection() {
               ]}
               typeSpeed={0.05}
               holdTime={1.8}
-              typedColor="#34d399"
-              cursorColor="#10b981"
+              typedColor="#00ADB5"
+              cursorColor="#00ADB5"
             />
           </motion.div>
 
@@ -149,15 +149,15 @@ export function HeroSection() {
               link="#work"
               label="Explore Projects"
               padding="10px 24px"
-              fill="#FFFFFF"
-              textColor="#050505"
-              blobColor="#10b981"
+              fill="#EEEEEE"
+              textColor="#222831"
+              blobColor="#00ADB5"
               blobSize={65}
               icon={{
                 type: "symbol",
                 symbol: "→",
                 size: 16,
-                color: "#050505",
+                color: "#222831",
                 side: "right",
               }}
               addIcon={true}
@@ -173,14 +173,14 @@ export function HeroSection() {
               href="#terminal"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 text-sm font-medium text-foreground backdrop-blur-md transition-colors hover:border-white/20 hover:bg-white/10"
             >
-              <Terminal className="size-4 text-emerald-400" />
+              <Terminal className="size-4 text-[#00ADB5]" />
               <span>CLI Terminal</span>
             </a>
 
             <a
               href="/resume.pdf"
               download="Jayanth_Reddy_Konda_Resume.pdf"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-5 text-sm font-medium text-emerald-400 backdrop-blur-md transition-all hover:border-emerald-400/60 hover:bg-emerald-400/20 hover:shadow-[0_0_16px_rgba(52,211,153,0.3)]"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-[#00ADB5]/30 bg-[#00ADB5]/10 px-5 text-sm font-medium text-[#00ADB5] backdrop-blur-md transition-all hover:border-[#00ADB5]/60 hover:bg-[#00ADB5]/20 hover:shadow-[0_0_16px_rgba(0,173,181,0.3)]"
             >
               <FileDown className="size-4" />
               <span>Get Resume</span>
@@ -219,7 +219,7 @@ export function HeroSection() {
           {...reveal(0.65)}
           className="mt-16 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] text-faint"
         >
-          <ArrowDown className="size-3.5 animate-bounce text-emerald-400" />
+          <ArrowDown className="size-3.5 animate-bounce text-[#00ADB5]" />
           <span>Scroll for full system breakdown</span>
         </motion.div>
       </div>

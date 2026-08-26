@@ -16,23 +16,23 @@ export function EnvironmentSetup() {
       <directionalLight
         position={[5, 8, 5]}
         intensity={2.2}
-        color="#f8faff"
+        color="#EEEEEE"
       />
 
       {/* Fill Light: softer neutral fill from left */}
       <directionalLight
         position={[-5, 3, 3]}
         intensity={1.0}
-        color="#d0e0ff"
+        color="#393E46"
       />
 
-      {/* Rim / Hair Light: cyan engine-room backlight for silhouette definition */}
+      {/* Rim / Hair Light: teal backlight for silhouette definition */}
       <spotLight
         position={[0, 6, -4]}
         angle={0.6}
         penumbra={0.8}
         intensity={25}
-        color="#00e5ff"
+        color="#00ADB5"
       />
 
       {/* Front Accent Spot aimed at the character area */}
