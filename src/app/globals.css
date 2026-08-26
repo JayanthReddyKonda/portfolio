@@ -102,15 +102,19 @@ main>section {
  * ------------------------------------------------------------------------- */
 @keyframes st-rotate {
   0% {
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   }
   25% {
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
     clip-path: polygon(87.5% 12.5%, 87.5% 87.5%, 12.5% 87.5%, 12.5% 12.5%);
   }
   50% {
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
     clip-path: polygon(75% 75%, 25% 75%, 25% 25%, 75% 25%);
   }
   75% {
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
     clip-path: polygon(37.5% 62.5%, 37.5% 37.5%, 62.5% 37.5%, 62.5% 62.5%);
   }
   100% {
@@ -120,9 +124,11 @@ main>section {
 
 @keyframes st-iris {
   0% {
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
     clip-path: circle(120% at 50% 50%);
   }
   60% {
+    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
     clip-path: circle(55% at 50% 50%);
   }
   100% {
