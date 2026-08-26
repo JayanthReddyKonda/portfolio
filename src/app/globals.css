@@ -93,48 +93,11 @@ main>section {
 }
 
 /* ---------------------------------------------------------------------------
- * "Spiral Veil" section transition (PixelSectionTransition.tsx v6)
- * Two stacked veils scrubbed by the section's `--scroll` custom property
- * (0→1) via paused keyframes + negative animation-delay:
- *   1. Dark veil: a square that rotates and collapses into the centre.
- *   2. Grey under-veil: a circular iris that closes behind it.
- * Both keyframes keep a constant point count, so interpolation is exact.
+ * "Luminous Wipe" section transition (PixelSectionTransition.tsx v7)
+ * A teal scanner-beam sweep with cinematic dim, driven entirely by inline
+ * styles via the --scroll custom property. No CSS keyframes needed —
+ * the component writes transform/opacity directly for GPU compositing.
  * ------------------------------------------------------------------------- */
-@keyframes st-rotate {
-  0% {
-    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-  25% {
-    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-    clip-path: polygon(87.5% 12.5%, 87.5% 87.5%, 12.5% 87.5%, 12.5% 12.5%);
-  }
-  50% {
-    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-    clip-path: polygon(75% 75%, 25% 75%, 25% 25%, 75% 25%);
-  }
-  75% {
-    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-    clip-path: polygon(37.5% 62.5%, 37.5% 37.5%, 62.5% 37.5%, 62.5% 62.5%);
-  }
-  100% {
-    clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
-  }
-}
-
-@keyframes st-iris {
-  0% {
-    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-    clip-path: circle(120% at 50% 50%);
-  }
-  60% {
-    animation-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
-    clip-path: circle(55% at 50% 50%);
-  }
-  100% {
-    clip-path: circle(0% at 50% 50%);
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   html {

@@ -73,9 +73,10 @@ export function CustomCursor({
       hero: "Jayanth // AI Systems",
       about: "01 // Profile & Stack",
       work: "02 // Selected Systems",
-      experience: "03 // Experience & Rigor",
-      terminal: "04 // CLI Diagnostics",
-      contact: "05 // Transmissions",
+      gallery: "03 // 3D Architecture Gallery",
+      experience: "04 // Experience & Rigor",
+      terminal: "05 // CLI Diagnostics",
+      contact: "06 // Transmissions",
     };
 
     const updateActiveSection = () => {
@@ -87,7 +88,7 @@ export function CustomCursor({
         return;
       }
 
-      const sections = ["contact", "terminal", "experience", "work", "about"];
+      const sections = ["contact", "terminal", "experience", "gallery", "work", "about"];
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el) {

@@ -16,7 +16,6 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, Terminal, FileText, FileDown } from "lucide-react";
 import { Typewriter } from "./Typewriter";
 import { LiquidCarveButton } from "./LiquidCarveButton";
-import { SectionTransition } from "./PixelSectionTransition";
 
 /** GitHub SVG icon component */
 function GithubIcon({ className }: { className?: string }) {
@@ -82,8 +81,10 @@ export function HeroSection() {
   return (
     <section
       id="top"
+      data-st-03="20"
+      data-st-spread="5"
       aria-labelledby="hero-heading"
-      className="relative flex min-h-svh flex-col justify-end px-6 pb-16 pt-32 sm:px-10 sm:pb-24 lg:px-16"
+      className="relative flex min-h-svh flex-col justify-end px-6 pb-12 pt-28 sm:px-10 sm:pb-16 lg:px-16"
     >
       <div className="mx-auto w-full max-w-7xl">
         {/* Constrain typography to the left half so 3D avatar has dedicated right stage */}
@@ -223,8 +224,6 @@ export function HeroSection() {
           <span>Scroll for full system breakdown</span>
         </motion.div>
       </div>
-
-      <SectionTransition />
     </section>
   );
 }

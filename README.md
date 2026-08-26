@@ -26,8 +26,8 @@ An award-winning, state-of-the-art interactive portfolio for **Jayanth Reddy Kon
 - **Animation Crossfading**: Dedicated Three.js `AnimationMixer` orchestrating smooth animation clips with React 19 compiler immutability compliance.
 - **Dynamic Framing & Scroll Dissolve**: Viewport-clamped positioning (`Math.min(viewport.width * 0.20, 2.1)`) that dissolves smoothly into deep content sections without obscuring text.
 
-### 2. "Spiral Veil" CSS Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
-- Crossing any section boundary scrubs a two-tone clip-path collapse (a rotating dark square over a closing grey iris) — driven purely by a CSS custom property and paused keyframes, no JS animation loop, fully reversible, reduced-motion aware.
+### 2. "Luminous Wipe" Section Transitions (`src/components/ui/PixelSectionTransition.tsx`)
+- Crossing any section boundary sweeps a glowing teal (`#00ADB5`) scanner-beam line across the viewport with a brief cinematic dim — driven purely by inline `transform`/`opacity` writes from a rAF scroll listener, no keyframes, fully reversible, reduced-motion aware.
 
 ### 2b. Touch-Reveal ASCII Portrait (`src/components/ui/AsciiReveal.tsx`)
 - The ASCII face reveal responds to both hover **and** touch: pressing and dragging a finger drives the multi-blob reveal (`pointerdown` capture + `touch-action: none`), and lifting off triggers a graceful 450ms dissolve back to the ASCII matrix instead of a hard snap.

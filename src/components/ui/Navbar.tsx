@@ -39,6 +39,7 @@ function LinkedinIcon({ className }: { className?: string }) {
 const NAV_LINKS = [
   { label: "Profile", href: "#about" },
   { label: "Systems", href: "#work" },
+  { label: "Gallery", href: "#gallery" },
   { label: "Experience", href: "#experience" },
   { label: "Terminal", href: "#terminal" },
   { label: "Contact", href: "#contact" },
@@ -81,8 +82,8 @@ export function Navbar() {
       <nav
         aria-label="Primary"
         className={`mx-auto flex h-14 max-w-7xl items-center justify-between rounded-full px-5 backdrop-blur-2xl transition-all duration-300 ${scrolled
-            ? "border border-white/15 bg-[#222831]/85 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
-            : "border border-white/10 bg-[#222831]/60 shadow-lg"
+          ? "border border-white/15 bg-[#222831]/85 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+          : "border border-white/10 bg-[#222831]/60 shadow-lg"
           }`}
       >
         {/* Brand Wordmark & Status */}

@@ -150,8 +150,8 @@ Reveal on scroll via `whileInView` once, same rise/fade language.
 
 **Resolved in v1.1.0 full audit:**
 1. ~~`#work` and `#contact` anchors have no target sections~~ — all sections ship
-   (About, Work, Experience, Terminal, Contact) with GSAP pixel-grid transitions on
-   every seam; Footer lives inside `<main>` so the terminal→contact seam resolves.
+   (About, Work, Experience, Terminal, Contact) with "Luminous Wipe" teal glow-line
+   transitions on every seam; Footer lives inside `<main>` so the terminal→contact seam resolves.
 2. ~~Environment preset network HDR~~ — replaced by a fully local lighting rig
    (`EnvironmentSetup.tsx`), zero runtime CDN dependencies.
 3. ~~CharacterPlaceholder primitive~~ — replaced by the production GLB avatar rig.
@@ -160,8 +160,8 @@ Reveal on scroll via `whileInView` once, same rise/fade language.
 
 **Remaining debt:**
 1. Single dark theme; light mode intentionally out of scope for this concept.
-2. Pixel-transition cell counts are computed once per build pass; extreme resize
-   storms are debounced (200ms) rather than continuously re-measured — acceptable.
+2. Section transitions use a single shared scroll listener per instance; extreme
+   resize storms are debounced by rAF coalescing rather than explicit debounce — acceptable.
 
 ## 8. Verification Contract
 
@@ -173,4 +173,4 @@ before any "done" claim on future phases.
 
 - **LiquidCarveButton** (Hero + Footer CTAs): light `#EEEEEE` fill, `#222831` text,
   teal `#00ADB5` blob, mono 13px/600 label, `→` symbol right.
-- **InitialLoader**: see §3. **Spiral Veil**: see HANDOFF §3A.
+- **InitialLoader**: see §3. **Luminous Wipe**: see HANDOFF §3A.

@@ -4,11 +4,12 @@ import { Navbar } from "@/components/ui/Navbar";
 import { HeroSection } from "@/components/ui/HeroSection";
 import { AboutSection } from "@/components/ui/AboutSection";
 import { ProjectsSection } from "@/components/ui/ProjectsSection";
+import { GallerySection } from "@/components/ui/GallerySection";
 import { ExperienceSection } from "@/components/ui/ExperienceSection";
 import { TerminalWidget } from "@/components/ui/TerminalWidget";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { ButterflyDrift } from "@/components/ui/ButterflyDrift";
-import { SectionTransition } from "@/components/ui/PixelSectionTransition";
+import { PixelSectionTransition } from "@/components/ui/PixelSectionTransition";
 import { RippleTransition } from "@/components/ui/RippleTransition";
 import { InitialLoader } from "@/components/ui/InitialLoader";
 import { Footer } from "@/components/ui/Footer";
@@ -26,6 +27,7 @@ export default function Home() {
           }
         }}
       />
+      <PixelSectionTransition />
       <RippleTransition />
       <ButterflyDrift
         background="#1c2129"
@@ -46,20 +48,25 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
+        <GallerySection />
         <ExperienceSection />
-        <section id="terminal" className="relative">
-          <div className="px-6 py-24 sm:px-10 lg:px-16 max-w-7xl mx-auto">
-          <div className="mb-6 flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-[0.25em] text-faint">
-              04 — Interactive CLI Diagnostics
-            </span>
-            <span className="font-mono text-xs text-[#00ADB5]">
-              ● Node Online
-            </span>
+        <section
+          id="terminal"
+          data-st-03="20"
+          data-st-spread="5"
+          className="relative"
+        >
+          <div className="px-6 py-16 sm:py-20 sm:px-10 lg:px-16 max-w-7xl mx-auto">
+            <div className="mb-6 flex items-center justify-between">
+              <span className="font-mono text-xs uppercase tracking-[0.25em] text-faint">
+                04 — Interactive CLI Diagnostics
+              </span>
+              <span className="font-mono text-xs text-[#00ADB5]">
+                ● Node Online
+              </span>
+            </div>
+            <TerminalWidget />
           </div>
-          <TerminalWidget />
-          </div>
-          <SectionTransition />
         </section>
         {/* Footer inside <main> keeps the terminal → contact flow contiguous. */}
         <Footer />

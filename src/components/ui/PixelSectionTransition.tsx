@@ -2,134 +2,255 @@
 
 /**
  * @file PixelSectionTransition.tsx
- * @description "Spiral Veil" — pure-CSS clip-path section transition (v6).
+ * @description Zero-Leak Direction-Aware GSAP Pixel Transition (sectionTransition03).
  *
- * Technique (scroll-variable keyframes, zero per-frame JS animation):
- * - Each section mounts a fixed two-tone veil (dark #1c2129 over grey #393E46).
- * - A rAF-throttled scroll listener writes ONE custom property (`--scroll`,
- *   0→1 seam progress) on the parent section.
- * - The veils run a CSS `@keyframes st-spiral` animation with
- *   `animation-play-state: paused` and `animation-delay: calc(var(--scroll) * -1s)`
- *   — the scroll position literally scrubs the keyframes. The grey layer runs
- *   slightly offset, so the collapse reads as a two-tone rotating spiral that
- *   tightens into the centre and reveals the next section.
+ * Zero-Leak Resting State:
+ * - When resting inside any section, ALL tiles are guaranteed to be 100% invisible (opacity: 0, scale: 0.15).
+ * - Outgoing Cover ONLY activates when the user actively scrolls the section boundary up past the bottom fold
+ *   (start: "bottom bottom", end: "bottom -35%").
+ * - Incoming Reveal activates as the incoming section rolls up into view (start: "top 100%", end: "top -10%").
  *
- * No GSAP, no per-cell writes, fully reversible, StrictMode-proof.
- * prefers-reduced-motion: renders nothing.
+ * Directional Dissolve:
+ * - Outgoing Section: Bottom -> Up cascade across the full section.
+ * - Incoming Section: Top -> Down cascade across the full section.
+ *
+ * Responsive Resolution:
+ * - Desktop: 16 columns (~85px-95px square tiles)
+ * - Tablet: 12 columns (~65px square tiles)
+ * - Mobile: 8 columns (~45px-50px tactile square tiles)
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export function SectionTransition() {
-  const root = useRef<HTMLDivElement>(null);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+export function initPixelTransitions() {
+  if (typeof window === "undefined") return () => { };
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => { };
 
-    const section = root.current?.parentElement;
-    const veils = root.current?.querySelectorAll<HTMLElement>(".st-veil");
-    if (!section || !veils || veils.length === 0) return;
+  const width = window.innerWidth;
+  const isMobile = width < 768;
+  const isTablet = width >= 768 && width < 1024;
 
-    // Exponential inertia: the rendered progress glides toward the scroll
-    // target instead of snapping to it — this is what makes the wipe feel
-    // weighted and premium rather than mechanically tied to the wheel.
-    const SMOOTHING = 0.085; // 0..1 — lower = heavier, silkier
-    const EPSILON = 0.0005;
+  const columnCount = isMobile ? 8 : isTablet ? 12 : 16;
+  const spread = isMobile ? 3 : 4.5;
 
-    let target = 0;
-    let current = 0;
-    let initialised = false;
-    let raf = 0;
-    let running = false;
+  const hash = (i: number) => {
+    const x = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+    return x - Math.floor(x);
+  };
 
-    const apply = (v: number) => {
-      section.style.setProperty("--scroll", v.toFixed(4));
-      const active = v > 0.001 && v < 0.999;
-      veils.forEach((veil) => {
-        veil.style.visibility = active ? "visible" : "hidden";
+  const createdLayers: HTMLElement[] = [];
+  const triggers: ScrollTrigger[] = [];
+
+  const createPixelLayer = (
+    section: HTMLElement,
+    mode: "cover" | "reveal",
+    isLast: boolean = false
+  ) => {
+    const computedStyles = getComputedStyle(section);
+    if (computedStyles.position === "static") {
+      section.style.position = "relative";
+    }
+
+    const layer = document.createElement("div");
+    layer.setAttribute("data-st-03-layer", mode);
+    layer.setAttribute("aria-hidden", "true");
+
+    // 100% Full Section Coverage Inset
+    Object.assign(layer.style, {
+      position: "absolute",
+      left: "0",
+      right: "0",
+      top: "0",
+      bottom: "0",
+      width: "100%",
+      height: "100%",
+      zIndex: "25",
+      pointerEvents: "none",
+      overflow: "hidden",
+    });
+
+    section.append(layer);
+
+    const layerWidth = layer.offsetWidth || section.offsetWidth || window.innerWidth;
+    const layerHeight = layer.offsetHeight || section.offsetHeight || window.innerHeight;
+    const cellSize = layerWidth / columnCount;
+    const rowCount = Math.max(Math.ceil(layerHeight / cellSize), 1);
+
+    Object.assign(layer.style, {
+      display: "grid",
+      gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+      gridTemplateRows: `repeat(${rowCount}, minmax(0, 1fr))`,
+    });
+
+    const totalCells = columnCount * rowCount;
+    const cells = Array.from({ length: totalCells }, () => {
+      const cell = document.createElement("span");
+      cell.setAttribute("data-st-03-cell", "");
+      Object.assign(cell.style, {
+        display: "block",
+        width: "100%",
+        height: "100%",
+        background:
+          "linear-gradient(135deg, rgba(0, 173, 181, 0.92) 0%, rgba(28, 33, 41, 0.97) 100%)",
+        border: isMobile ? "0.5px solid rgba(0, 173, 181, 0.35)" : "1px solid rgba(0, 173, 181, 0.32)",
+        boxShadow: "0 0 10px rgba(0, 173, 181, 0.2)",
+        transformOrigin: "center center",
+        backfaceVisibility: "hidden",
+        borderRadius: "2px",
+        willChange: "transform, opacity",
       });
+      layer.append(cell);
+      return cell;
+    });
+
+    const maxDelay = Math.max(rowCount - 1 + spread, 1);
+    const cellDelays = cells.map((_, index) => {
+      const row = Math.floor(index / columnCount);
+      // Cover (outgoing top section): Dissolves from BOTTOM (rowCount - 1) -> UP (0)
+      // Reveal (incoming bottom section): Dissolves from TOP (0) -> DOWN (rowCount - 1)
+      const distance = mode === "cover" ? rowCount - 1 - row : row;
+      return (distance + hash(index) * spread) / maxDelay;
+    });
+
+    // Zero-Leak Initial State: 100% invisible on resting page load
+    gsap.set(cells, { opacity: 0, scale: 0.15 });
+
+    if (mode === "cover") {
+      // 1. Outgoing Section: ONLY triggers as section bottom scrolls up past viewport bottom
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "bottom bottom",
+          end: "bottom 15%",
+          scrub: isMobile ? 0.35 : 0.45,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Wave In from bottom across full section as section exits
+      tl.to(cells, {
+        opacity: 1,
+        scale: 1,
+        stagger: (index) => cellDelays[index] * 0.45,
+        ease: "power1.out",
+        duration: 0.45,
+      });
+
+      // Wave Out (Decay): Dissolves away from bottom up much faster
+      tl.to(cells, {
+        opacity: 0,
+        scale: 0.15,
+        stagger: (index) => cellDelays[index] * 0.3,
+        ease: "power2.in",
+        duration: 0.35,
+      });
+
+      if (tl.scrollTrigger) triggers.push(tl.scrollTrigger);
+    } else {
+      // 2. Incoming Section: Triggers as incoming section top enters viewport bottom
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 100%",
+          end: isLast ? "top 60%" : "top -25%",
+          scrub: isMobile ? 0.65 : 0.8,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Wave In over incoming edge
+      tl.to(cells, {
+        opacity: 1,
+        scale: 1,
+        stagger: (index) => cellDelays[index] * 0.8,
+        ease: "power1.out",
+        duration: 0.35,
+      });
+
+      // Smooth Top -> Down unmasking & full dissolution
+      tl.to(cells, {
+        opacity: 0,
+        scale: 0.15,
+        stagger: (index) => cellDelays[index] * 1.0,
+        ease: "power1.inOut",
+        duration: 0.65,
+      });
+
+      if (tl.scrollTrigger) triggers.push(tl.scrollTrigger);
+    }
+
+    createdLayers.push(layer);
+  };
+
+  // Find all sections marked for transitions
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>("main > section, footer#contact")
+  );
+
+  sections.forEach((section, idx) => {
+    // 1. Outgoing Cover Layer (on every section except the very last one)
+    if (idx < sections.length - 1) {
+      createPixelLayer(section, "cover");
+    }
+
+    // 2. Incoming Reveal Layer (on every section except the first hero section)
+    if (idx > 0) {
+      createPixelLayer(section, "reveal", idx === sections.length - 1);
+    }
+  });
+
+  ScrollTrigger.refresh();
+
+  return () => {
+    triggers.forEach((st) => st.kill());
+    createdLayers.forEach((layer) => layer.remove());
+  };
+}
+
+/**
+ * PixelSectionTransition React Mount Component
+ */
+export function PixelSectionTransition() {
+  useEffect(() => {
+    let cleanup: (() => void) | undefined;
+
+    const init = () => {
+      cleanup?.();
+      cleanup = initPixelTransitions();
     };
 
-    const tick = () => {
-      current += (target - current) * SMOOTHING;
-      if (Math.abs(target - current) < EPSILON) {
-        current = target;
-        apply(current);
-        running = false;
-        return;
-      }
-      apply(current);
-      raf = requestAnimationFrame(tick);
+    const timer = setTimeout(init, 150);
+
+    const onLoaderComplete = () => {
+      init();
     };
 
-    const update = () => {
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-      // 0 while the seam is below the viewport; sweeps 0→1 as the boundary
-      // travels from the viewport bottom to 15% from the top.
-      target = Math.min(1, Math.max(0, (vh - rect.bottom) / (vh * 0.85)));
-      if (!initialised) {
-        // First measurement snaps (no sweep-in from zero on page load).
-        current = target;
-        initialised = true;
-        apply(current);
-        return;
-      }
-      if (!running) {
-        running = true;
-        raf = requestAnimationFrame(tick);
-      }
+    let resizeTimer: NodeJS.Timeout;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 200);
     };
 
-    const requestUpdate = () => requestAnimationFrame(update);
+    window.addEventListener("jrk:loader-complete", onLoaderComplete);
+    window.addEventListener("resize", onResize);
 
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate, { passive: true });
     return () => {
-      cancelAnimationFrame(raf);
-      running = false;
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
+      clearTimeout(timer);
+      clearTimeout(resizeTimer);
+      window.removeEventListener("jrk:loader-complete", onLoaderComplete);
+      window.removeEventListener("resize", onResize);
+      cleanup?.();
     };
   }, []);
 
-  return (
-    <div ref={root} aria-hidden="true" className="contents">
-      {/* Grey under-veil: circular iris closes behind the rotating square */}
-      <div
-        className="st-veil pointer-events-none fixed inset-0 z-[43] invisible"
-        style={{
-          background: "#393E46",
-          animation: "st-iris 1s linear both paused",
-          animationDelay: "calc(var(--scroll, 0) * -0.92s)",
-          willChange: "clip-path",
-        }}
-      />
-      {/* Teal rim: translucent layer trailing the dark square by a hair —
-          reads as a glowing edge sweeping across the collapse */}
-      <div
-        className="st-veil pointer-events-none fixed inset-0 z-[44] invisible"
-        style={{
-          background: "rgba(0, 173, 181, 0.45)",
-          animation: "st-rotate 1s linear both paused",
-          animationDelay: "calc(var(--scroll, 0) * -0.97s)",
-          willChange: "clip-path",
-        }}
-      />
-      {/* Dark main veil: rotating square collapse into the centre */}
-      <div
-        className="st-veil pointer-events-none fixed inset-0 z-[45] invisible"
-        style={{
-          background: "#1c2129",
-          animation: "st-rotate 1s linear both paused",
-          animationDelay: "calc(var(--scroll, 0) * -1s)",
-          willChange: "clip-path",
-        }}
-      />
-    </div>
-  );
+  return null;
 }
 
-export default SectionTransition;
+export const SectionTransition = PixelSectionTransition;
+export default PixelSectionTransition;

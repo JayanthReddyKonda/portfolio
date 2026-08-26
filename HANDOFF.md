@@ -2,7 +2,7 @@
 
 **Project**: Interactive 3D Developer Portfolio — Jayanth Reddy Konda
 **Profile**: AI/ML Systems & Backend Architect (VNR VJIET • CGPA: 9.1)
-**Version**: 1.5.0 (Production-Ready — Palette Retheme, Spiral Veil, Touch Reveal)
+**Version**: 2.0.0 (Production-Ready — Luminous Wipe, Palette Retheme, Touch Reveal)
 **Framework**: Next.js 16.3.2 (App Router, Turbopack) • React 19.2.8 • Three.js 0.185.1 • GSAP 3.15.0 • Tailwind CSS v4
 
 ---
@@ -56,7 +56,7 @@ portfolio/
 │           ├── LiquidCarveButton.tsx      # Liquid-goo CTA — used in Hero (Explore Projects)
 │           │                              #   and Footer (primary email action)
 │           ├── Navbar.tsx                 # Frosted glass capsule with live beacon & resume download
-│           ├── PixelSectionTransition.tsx # GSAP ScrollTrigger pixel grid transition (see §3A)
+│           ├── PixelSectionTransition.tsx # "Luminous Wipe" teal glow-line transition (see §3A)
 │           ├── ProjectsSection.tsx        # 4 production-grade systems case studies
 │           ├── RippleTransition.tsx       # Shockwave ripple teleporter for anchor navigation
 │           ├── RotatingText.tsx           # GSAP rotating taxonomy text badge
@@ -70,16 +70,11 @@ portfolio/
 
 ---
 
-## 3. Core Systems & Technical Implementation
-
-### A. "Spiral Veil" Section Transitions (`PixelSectionTransition.tsx` — v6)
-- **Pure-CSS clip-path scrub**: each section mounts a fixed two-tone veil (dark `#1c2129` over grey `#393E46`). A rAF-throttled listener writes a single `--scroll` (0→1) property on the section; the veils run `@keyframes st-spiral` (globals.css) with `animation-play-state: paused` and `animation-delay: calc(var(--scroll) * -1s)` — scroll position literally scrubs the keyframes.
-- **The collapse**: the dark veil is a square that rotates and shrinks into the centre (`@keyframes st-rotate`); the grey under-veil is a circular iris closing behind it (`@keyframes st-iris`, `-0.92s` offset) — a two-stage reveal with exact constant-point interpolation.
-- **Zero-cost when idle**: veils are `visibility: hidden` outside the seam window; no GSAP, no per-frame JS animation, fully scroll-reversible, `z-[44]/z-[45]` (below navbar/cursor).
-- **Coverage**: hero→about→work→experience→terminal→contact seams all spiral.
-- **Accessibility**: `prefers-reduced-motion` renders nothing.
-- **Inertia smoothing**: rendered progress glides toward the scroll target (`SMOOTHING = 0.085`), plus per-segment `cubic-bezier(0.7, 0, 0.3, 1)` easing inside the keyframes and a translucent teal rim veil trailing the dark square — the premium feel layer.
-- **CRITICAL RULE (still applies)**: never call `ScrollTrigger.getAll().forEach(kill)` / `ScrollTrigger.killAll()` anywhere in the app; all GSAP contexts stay scoped via `gsap.context()` / `useGSAP`.
+### A. GSAP Pixelated Grid Section Transitions (`PixelSectionTransition.tsx` — sectionTransition03)
+- **Dynamic CSS Pixel Grid**: Injects dynamic pixel grids across all `[data-st-03]` sections with auto-calculated row counts to ensure square pixel aspect ratios.
+- **Hardware-Accelerated Scrub**: Two-phase GSAP `ScrollTrigger` scrubbing glowing cybernetic teal (`#00ADB5`) & slate tiles that dynamically stagger into view across section fold boundaries.
+- **Deterministic Stagger**: Uses pseudo-random hash stagger `(rowFromEdge + hash(index) * spread) / maxDelay` for organic matrix dissolve.
+- **Lifecycle & Safety**: Scoped triggers with automatic `ScrollTrigger.refresh()` upon loader completion.
 
 ### B. 3D WebGL Avatar Engine (`src/components/three/`)
 - **Skeletal cursor tracking**: head/neck bone look-at with exponential decay (`LOOK_DAMPING = 4.5`).
@@ -105,7 +100,7 @@ portfolio/
 
 ---
 
-## 4. Verification & Quality Assurance (v1.2.0 Final)
+## 4. Verification & Quality Assurance (v2.0.0 Final)
 
 | Test / Check | Command | Status |
 | :--- | :--- | :---: |

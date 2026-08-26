@@ -11,7 +11,6 @@
  */
 
 import { Phone, MapPin, Sparkles } from "lucide-react";
-import { SectionTransition } from "./PixelSectionTransition";
 import { LiquidCarveButton } from "./LiquidCarveButton";
 
 /** GitHub SVG icon */
@@ -169,8 +168,6 @@ export function Footer() {
           <p className="text-[#00ADB5]">Status: Open for High-Impact Roles</p>
         </div>
       </div>
-
-      <SectionTransition />
     </footer>
   );
 }

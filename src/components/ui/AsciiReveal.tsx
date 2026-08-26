@@ -2,24 +2,21 @@
 
 /**
  * @file AsciiReveal.tsx
- * @description Originkit Full-Color ASCII Reveal Canvas Component.
- * Converts Jayanth's high-definition portrait into a vibrant, multi-color ASCII character
- * matrix in real-time, and uses an interactive multi-blob pointer mask with dynamic gaussian
- * softness to reveal the full-resolution photograph underneath on hover.
+ * @description ASCII Reveal — Originkit Official Component.
+ * Converts source portrait into ASCII character matrix in real-time,
+ * and uses an interactive multi-blob pointer mask with dynamic gaussian
+ * softness to reveal the full-resolution photograph underneath on hover/touch.
  */
 
 import { useEffect, useRef, type CSSProperties } from "react";
 
-/** Default local portrait image */
-const DEFAULT_LOCAL_IMAGE = "/images/ascii_profile.png";
+const DEFAULT_IMAGE = "/images/ascii_profile.png";
 
 export type ColorMode = "mono" | "image";
 export type Fit = "cover" | "contain";
 
 export interface RevealOptions {
-  /** Size of the reveal circle in pixels */
   size: number;
-  /** Softness / blur radius of the reveal boundary */
   softness: number;
 }
 
@@ -36,16 +33,11 @@ const DEFAULTS = {
   revealOptions: { size: 95, softness: 18 } as RevealOptions,
 };
 
-/** Calculates contrast multiplier based on 0-100 input */
 const contrastAt = (value: number) => 0.5 + (value / 100) * 2;
 
-/** Clamps focus vertical percentage between 0 and 100 */
 const clampFocus = (value: number) =>
   Math.min(100, Math.max(0, typeof value === "number" ? value : 50));
 
-/**
- * Computes destination rectangle positioning for contain/cover fit modes
- */
 function placeRect(
   imgW: number,
   imgH: number,
@@ -65,31 +57,18 @@ function placeRect(
 }
 
 export interface AsciiImageProps {
-  /** Image source path or object */
   image?: { src: string; srcSet?: string; alt?: string } | string;
-  /** Fit mode: 'cover' fills the box, 'contain' preserves aspect ratio */
   fit?: Fit;
-  /** Focus position percentage along vertical axis */
   focusY?: number;
-  /** Number of ASCII character columns */
   columns?: number;
-  /** Character density ramp from darkest to brightest */
   ramp?: string;
-  /** Invert luminance mapping */
   invert?: boolean;
-  /** Contrast adjustment multiplier (0-100+) */
   contrast?: number;
-  /** Color mode: 'mono' uses inkColor, 'image' samples rich RGB from source pixels */
   colorMode?: ColorMode;
-  /** Foreground ink color for mono mode */
   inkColor?: string;
-  /** Whether mouse hover triggers image reveal */
   reveal?: boolean;
-  /** Reveal circle size and edge softness */
   revealOptions?: RevealOptions;
-  /** Optional inline CSS styles */
   style?: CSSProperties;
-  /** Optional container class name */
   className?: string;
 }
 
@@ -126,7 +105,7 @@ export function AsciiReveal(props: AsciiImageProps) {
   const seededRef = useRef(false);
   const pointer = useRef({ x: -9999, y: -9999, inside: false });
 
-  const src = resolveImageSrc(image) || DEFAULT_LOCAL_IMAGE;
+  const src = resolveImageSrc(image) || DEFAULT_IMAGE;
   const revealSize = revealOptions?.size ?? DEFAULTS.revealOptions.size;
   const revealSoftness =
     revealOptions?.softness ?? DEFAULTS.revealOptions.softness;
@@ -160,7 +139,6 @@ export function AsciiReveal(props: AsciiImageProps) {
       return { w, h, dpr };
     }
 
-    /** Rebuilds the rich color ASCII character representation from source pixels */
     function buildAscii() {
       const img = imgRef.current;
       if (!img) return;
@@ -185,8 +163,8 @@ export function AsciiReveal(props: AsciiImageProps) {
       if (!sctx) return;
 
       const place = placeRect(
-        img.width || 600,
-        img.height || 600,
+        img.naturalWidth || img.width || 600,
+        img.naturalHeight || img.height || 600,
         canvas.width,
         canvas.height,
         fit,
@@ -229,26 +207,19 @@ export function AsciiReveal(props: AsciiImageProps) {
           const rr = data[i];
           const gg = data[i + 1];
           const bb = data[i + 2];
-
-          // Compute perceived luminance
           let lum = (0.299 * rr + 0.587 * gg + 0.114 * bb) / 255;
           lum = (lum - 0.5) * punch + 0.5;
           if (invert) lum = 1 - lum;
           lum = lum < 0 ? 0 : lum > 1 ? 1 : lum;
-
           const ch = chars[Math.round(lum * last)];
           if (ch === " ") continue;
-
-          if (colorMode === "image") {
-            // Enhanced vibrant color saturation for ASCII matrix
-            const rBoost = Math.min(255, Math.max(0, Math.round(rr * 1.15 + 15)));
-            const gBoost = Math.min(255, Math.max(0, Math.round(gg * 1.15 + 15)));
-            const bBoost = Math.min(255, Math.max(0, Math.round(bb * 1.15 + 15)));
-            octx.fillStyle = `rgb(${rBoost}, ${gBoost}, ${bBoost})`;
-          } else {
-            octx.fillStyle = inkColor;
-          }
-
+          octx.fillStyle =
+            colorMode === "image"
+              ? `rgb(${Math.min(255, rr + 25)}, ${Math.min(
+                  255,
+                  gg + 25
+                )}, ${Math.min(255, bb + 25)})`
+              : inkColor;
           octx.fillText(ch, c * cellW, r * cellH);
         }
       }
@@ -262,14 +233,16 @@ export function AsciiReveal(props: AsciiImageProps) {
         layer = document.createElement("canvas");
         ref.current = layer;
       }
-      if (layer.width !== canvas.width || layer.height !== canvas.height) {
+      if (
+        layer.width !== canvas.width ||
+        layer.height !== canvas.height
+      ) {
         layer.width = canvas.width;
         layer.height = canvas.height;
       }
       return layer;
     }
 
-    /** Smooth spring physics for organic blob tracking behind pointer */
     function updateBlobs() {
       const blobs = blobsRef.current;
       if (blobs.length === 0) return;
@@ -292,7 +265,6 @@ export function AsciiReveal(props: AsciiImageProps) {
       }
     }
 
-    /** Composites the vibrant ASCII layer with the masked high-def underlying photograph */
     function paint() {
       const off = offRef.current;
       if (!off) return;
@@ -300,8 +272,7 @@ export function AsciiReveal(props: AsciiImageProps) {
       ctx.drawImage(off, 0, 0);
 
       const img = imgRef.current;
-      const revealing = pointer.current.inside || releasing;
-      if (!reveal || !revealing || !img) return;
+      if (!reveal || !pointer.current.inside || !img) return;
 
       const { dpr } = getSize();
       const blobs = blobsRef.current;
@@ -327,8 +298,7 @@ export function AsciiReveal(props: AsciiImageProps) {
       mctx.fillStyle = "#FFFFFF";
       for (let i = 0; i < blobs.length; i++) {
         const t = blobs.length <= 1 ? 0 : i / (blobs.length - 1);
-        const radius =
-          revealSize * dpr * (1 - t * 0.5) * Math.max(0, releaseAlpha);
+        const radius = revealSize * dpr * (1 - t * 0.5);
         mctx.beginPath();
         mctx.arc(blobs[i].x, blobs[i].y, radius, 0, Math.PI * 2);
         mctx.fill();
@@ -341,37 +311,10 @@ export function AsciiReveal(props: AsciiImageProps) {
       ctx.drawImage(photo, 0, 0);
     }
 
-    let isLooping = false;
-    // Graceful release: on pointer exit (mouse leave or finger lift) the
-    // reveal blobs shrink away over ~450ms instead of snapping back to ASCII.
-    let releasing = false;
-    let releaseAlpha = 1;
-    let releaseStart = 0;
-    const RELEASE_MS = 450;
-
     function loop() {
       if (!alive) return;
       updateBlobs();
-      if (releasing) {
-        releaseAlpha = 1 - (performance.now() - releaseStart) / RELEASE_MS;
-        if (releaseAlpha <= 0) {
-          releasing = false;
-          releaseAlpha = 0;
-          seededRef.current = false; // next interaction re-seeds at its origin
-        }
-      }
       paint();
-      if (pointer.current.inside || releasing) {
-        raf = requestAnimationFrame(loop);
-      } else {
-        isLooping = false;
-        paint(); // Final static draw
-      }
-    }
-
-    function startLoop() {
-      if (isLooping || !alive) return;
-      isLooping = true;
       raf = requestAnimationFrame(loop);
     }
 
@@ -383,25 +326,14 @@ export function AsciiReveal(props: AsciiImageProps) {
       pointer.current.y = y;
       pointer.current.inside =
         x >= 0 && y >= 0 && x <= rect.width && y <= rect.height;
-      if (pointer.current.inside) {
-        startLoop();
-      }
     }
     function onLeave() {
-      if (!pointer.current.inside && !seededRef.current) return;
       pointer.current.inside = false;
-      // Begin the graceful dissolve rather than snapping back to ASCII.
-      releasing = true;
-      releaseAlpha = 1;
-      releaseStart = performance.now();
-      startLoop();
+      seededRef.current = false;
     }
 
-    // Touch support: a pressed finger drives the reveal blobs. The canvas
-    // opts out of browser panning (touch-action: none) so drags scrub the
-    // reveal instead of scrolling the page away mid-interaction.
     function onPointerDown(event: PointerEvent) {
-      if (event.pointerType !== "touch") return; // mouse handled by move/leave
+      if (event.pointerType !== "touch") return;
       canvas.setPointerCapture(event.pointerId);
       onMove(event);
     }
@@ -417,6 +349,7 @@ export function AsciiReveal(props: AsciiImageProps) {
       imgRef.current = img;
       buildAscii();
       paint();
+      if (reveal) raf = requestAnimationFrame(loop);
     };
     if (src) img.src = src;
 
@@ -464,7 +397,9 @@ export function AsciiReveal(props: AsciiImageProps) {
       ref={canvasRef}
       className={className}
       aria-label={
-        typeof image === "object" ? (image?.alt ?? "Full Color ASCII Art Profile") : "Full Color ASCII Art Profile"
+        typeof image === "object"
+          ? (image?.alt ?? "ASCII Art Profile")
+          : "ASCII Art Profile"
       }
       style={{
         ...style,
@@ -478,4 +413,5 @@ export function AsciiReveal(props: AsciiImageProps) {
   );
 }
 
+export const AsciiImage = AsciiReveal;
 export default AsciiReveal;
