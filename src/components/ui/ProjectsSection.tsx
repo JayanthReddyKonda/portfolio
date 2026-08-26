@@ -120,7 +120,7 @@ export function ProjectsSection() {
     <section
       id="work"
       aria-labelledby="projects-heading"
-      className="relative min-h-screen px-6 py-32 sm:px-10 lg:px-16"
+      className="relative min-h-svh px-6 py-32 sm:px-10 lg:px-16"
     >
       <div className="mx-auto w-full max-w-7xl">
         {/* Section Header */}

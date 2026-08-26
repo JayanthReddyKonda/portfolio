@@ -114,7 +114,7 @@ export function Navbar() {
           <a
             href="/resume.pdf"
             download="Jayanth_Reddy_Konda_Resume.pdf"
-            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3.5 text-xs font-mono font-medium text-emerald-400 transition-all hover:border-emerald-400/60 hover:bg-emerald-400/20 hover:shadow-[0_0_12px_rgba(52,211,153,0.3)]"
+            className="inline-flex h-11 sm:h-8 items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3.5 text-xs font-mono font-medium text-emerald-400 transition-all hover:border-emerald-400/60 hover:bg-emerald-400/20 hover:shadow-[0_0_12px_rgba(52,211,153,0.3)]"
           >
             <FileDown className="size-3.5" />
             <span>Resume</span>
@@ -157,7 +157,7 @@ export function Navbar() {
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="inline-flex size-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-foreground lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-foreground lg:hidden"
           >
             {menuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
           </button>

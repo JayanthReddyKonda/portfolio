@@ -269,7 +269,7 @@ export function TerminalWidget() {
             onKeyDown={handleKeyDown}
             placeholder="Type 'projects', 'skills', 'education', 'contact'..."
             aria-label="Interactive terminal prompt"
-            className="flex-1 bg-transparent text-xs text-foreground outline-none placeholder:text-muted/40 font-mono"
+            className="flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted/40 font-mono sm:text-xs"
             spellCheck={false}
             autoCapitalize="off"
             autoComplete="off"

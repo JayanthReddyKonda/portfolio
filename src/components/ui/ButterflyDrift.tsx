@@ -26,6 +26,10 @@ const PUSH = 2.6;
 const BOB = 0.55;
 const CLOCK_WRAP = 600;
 
+/** Halve the swarm on small screens to keep GPUs cool on mobile. */
+const densityScale = () =>
+  typeof window !== "undefined" && window.innerWidth < 768 ? 0.5 : 1;
+
 // Corner pairs of the sprite quad, in local units.
 const CORNERS = [-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1];
 
@@ -321,7 +325,7 @@ export function ButterflyDrift({
   const vRef = useRef({
     baseColor,
     accentColor,
-    count: Math.round(clampN(num(density, 36), 4, MAX_COUNT)),
+    count: Math.round(clampN(num(density, 36), 4, MAX_COUNT) * densityScale()),
     span: SPAN * (clampN(num(size, 65), 20, 400) / 100),
     speed: clampN(num(speed, 35), 0, 100) / 50,
     flap: clampN(num(flap, 45), 0, 100) / 50,
@@ -338,7 +342,7 @@ export function ButterflyDrift({
     vRef.current = {
       baseColor,
       accentColor,
-      count: Math.round(clampN(num(density, 36), 4, MAX_COUNT)),
+      count: Math.round(clampN(num(density, 36), 4, MAX_COUNT) * densityScale()),
       span: SPAN * (clampN(num(size, 65), 20, 400) / 100),
       speed: clampN(num(speed, 35), 0, 100) / 50,
       flap: clampN(num(flap, 45), 0, 100) / 50,

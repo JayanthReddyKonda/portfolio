@@ -68,6 +68,9 @@ function AvatarRig() {
  */
 export default function Scene() {
   const canvasContainerRef = useRef<HTMLDivElement>(null);
+  // Phones get a tighter DPR budget: same look, half the fragment work.
+  const isSmallScreen =
+    typeof window !== "undefined" && window.innerWidth < 768;
   const [isHeroVisible, setIsHeroVisible] = useState(true);
 
   useEffect(() => {
@@ -109,7 +112,7 @@ export default function Scene() {
           without the cost of destroying/recreating the WebGL context.
         */}
         <Canvas
-          dpr={[1, 1.5]}
+          dpr={[1, isSmallScreen ? 1.2 : 1.5]}
           camera={{ position: [0, 0.4, 7], fov: 40 }}
           gl={{
             antialias: true,

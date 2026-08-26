@@ -59,7 +59,7 @@ const SOCIAL_LINKS = [
 
 export function Footer() {
   return (
-    <footer id="contact" className="relative z-10 border-t border-white/10 px-6 py-28 sm:px-10 lg:px-16 bg-[#040404]/80 backdrop-blur-xl">
+    <footer id="contact" className="relative z-10 border-t border-white/10 px-6 py-20 sm:px-10 sm:py-28 lg:px-16 bg-[#040404]/80 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
           {/* Left Column: Direct Outreach & Messaging */}
@@ -147,7 +147,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-faint font-mono">
+        <div className="mt-12 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-faint font-mono sm:mt-16">
           <p>© {new Date().getFullYear()} Jayanth Reddy Konda. All rights reserved.</p>
           <p className="text-emerald-400">Status: Open for High-Impact Roles</p>
         </div>

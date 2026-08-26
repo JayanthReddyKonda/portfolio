@@ -83,7 +83,7 @@ export function HeroSection() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative flex min-h-screen flex-col justify-end px-6 pb-16 pt-32 sm:px-10 sm:pb-24 lg:px-16"
+      className="relative flex min-h-svh flex-col justify-end px-6 pb-16 pt-32 sm:px-10 sm:pb-24 lg:px-16"
     >
       <div className="mx-auto w-full max-w-7xl">
         {/* Constrain typography to the left half so 3D avatar has dedicated right stage */}
@@ -91,13 +91,13 @@ export function HeroSection() {
           {/* Status Eyebrow Pill */}
           <motion.div
             {...reveal(0.1)}
-            className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md"
+            className="mb-6 inline-flex max-w-full flex-wrap items-center gap-x-2.5 gap-y-1 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-md"
           >
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
             </span>
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-foreground/90">
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/90 sm:text-xs sm:tracking-[0.2em]">
               AI/ML SYSTEMS &amp; BACKEND ARCHITECT • HYDERABAD
             </span>
           </motion.div>
@@ -106,7 +106,7 @@ export function HeroSection() {
           <motion.h1
             id="hero-heading"
             {...reveal(0.2)}
-            className="text-[clamp(3.2rem,8.5vw,6.5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground"
+            className="text-[clamp(2.6rem,9vw,6.5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground"
           >
             Jayanth Reddy Konda.
           </motion.h1>

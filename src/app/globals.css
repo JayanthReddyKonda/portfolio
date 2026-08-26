@@ -41,6 +41,7 @@ html {
 }
 
 body {
+  -webkit-tap-highlight-color: transparent;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-stack-sans);
@@ -67,6 +68,8 @@ main {
 main>section {
   position: relative;
   min-height: 100vh;
+  /* svh tracks the mobile URL-bar viewport — no jump on scroll */
+  min-height: 100svh;
   z-index: 1;
 }
 

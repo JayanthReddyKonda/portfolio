@@ -56,13 +56,22 @@ An award-winning, state-of-the-art interactive portfolio for **Jayanth Reddy Kon
 3. **AI-Powered Patient Recovery Monitoring System** (FastAPI, React, Redis, Socket.IO, WhatsApp API)
 4. **Multi-Factor Face Authentication + Secure Notes System** (Flask, DeepFace, RetinaFace, AES-256, PostgreSQL)
 
-### 8. Performance & Reliability Engineering (v1.1.0 Full System Audit)
+### 8. Performance & Reliability Engineering (v1.2.0 Full System Audit)
 - **Scoped GSAP contexts only** — no global `ScrollTrigger.kill()` anywhere; every GSAP system (pixel transitions, camera rig) owns its triggers via `gsap.context` / `useGSAP`.
 - **Loader-aware initialization** — scroll-position-dependent systems wait for the `jrk:loader-complete` event instead of arbitrary timeouts, so GSAP never measures a scroll-locked page.
 - **WebGL context preservation** — the 3D canvas stays mounted and gates its render loop (`frameloop="never"`) when the hero is off-screen: zero draw calls, zero context churn.
 - **Shader swarm lifecycle** — butterfly background suspends on tab hide and renders a single static frame under `prefers-reduced-motion`.
 - **rAF-throttled scroll handlers** — cursor section detection coalesces layout reads to one pass per frame.
 - **Reduced-motion respected everywhere** — loader, reveals, transitions, swarm, and avatar all collapse under `prefers-reduced-motion`.
+
+### 9. Responsive & Touch Engineering (v1.2.0)
+- **Mobile viewport units** — sections use `min-h-svh` / `100svh` so heights track the mobile URL-bar viewport (no jump-on-scroll); `vh` fallbacks retained.
+- **iOS input zoom prevented** — the CLI terminal prompt renders at ≥16px on touch (`text-base sm:text-xs`).
+- **44px touch targets** — navbar menu toggle and resume button meet touch-target minimums on mobile; desktop sizes preserved via `sm:` overrides.
+- **Adaptive GPU budgets** — 3D avatar DPR clamps to 1.2 below 768px; butterfly swarm density halves below 768px.
+- **Fluid typography** — hero display type uses a safe `clamp(2.6rem, 9vw, 6.5rem)` floor; eyebrow pills wrap instead of overflowing at 320px.
+- **Layout stacking verified** — About/Projects/Experience bento grids collapse to single-column below `lg`; metrics run `2-col → sm:4-col`; hero CTAs wrap; footer rhythm tightens on mobile.
+- **Touch semantics** — custom cursor disabled on coarse pointers and below `md`; tap highlight suppressed globally; all hover effects have non-hover-safe fallbacks.
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Project**: Interactive 3D Developer Portfolio — Jayanth Reddy Konda
 **Profile**: AI/ML Systems & Backend Architect (VNR VJIET • CGPA: 9.1)
-**Version**: 1.2.0 (Production-Ready — Final Audit & Cyber Wipe Transitions)
+**Version**: 1.2.1 (Production-Ready — Responsive & Touch Optimization)
 **Framework**: Next.js 16.3.2 (App Router, Turbopack) • React 19.2.8 • Three.js 0.185.1 • GSAP 3.15.0 • Tailwind CSS v4
 
 ---
