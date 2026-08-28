@@ -7,6 +7,7 @@
  */
 
 import React, { useEffect, useRef } from "react";
+import { useReducedMotion } from "framer-motion";
 import { GALLERY_ARCHITECTURES } from "@/data/galleryImages";
 
 export interface RoundCarouselImage {
@@ -50,6 +51,7 @@ export function RoundCarousel({
 }: RoundCarouselProps) {
   const items = images.length > 0 ? images : DEFAULT_IMAGES;
   const count = items.length;
+  const reduceMotion = useReducedMotion() ?? false;
 
   const ringRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef(0);
@@ -65,6 +67,7 @@ export function RoundCarousel({
   const degPerSec = speed * 6 * (direction === "left" ? -1 : 1);
 
   useEffect(() => {
+    if (reduceMotion) return;
     const ring = ringRef.current;
     if (!ring) return;
     const apply = () => {
@@ -90,16 +93,17 @@ export function RoundCarousel({
     };
     rafRef.current = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [radius, degPerSec, count]);
+  }, [radius, degPerSec, count, reduceMotion]);
 
   const onPointerDown = (e: React.PointerEvent) => {
-    if (!drag) return;
+    if (!drag || reduceMotion) return;
     e.currentTarget.setPointerCapture?.(e.pointerId);
     dragRef.current = { active: true, x: e.clientX };
     velRef.current = 0;
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
+    if (reduceMotion) return;
     const d = dragRef.current;
     if (!d.active) return;
     const dx = e.clientX - d.x;
@@ -110,6 +114,7 @@ export function RoundCarousel({
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
+    if (reduceMotion) return;
     e.currentTarget.releasePointerCapture?.(e.pointerId);
     dragRef.current.active = false;
   };
@@ -137,7 +142,7 @@ export function RoundCarousel({
         overflow: "hidden",
         background,
         perspective: `${perspective}px`,
-        cursor: drag ? "grab" : "default",
+        cursor: drag && !reduceMotion ? "grab" : "default",
         touchAction: "none",
       }}
       onPointerDown={onPointerDown}

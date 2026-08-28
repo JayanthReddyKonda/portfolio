@@ -19,20 +19,24 @@ import { CameraController } from "./CameraController";
 /** Model height constant derived from GLB bounding box metrics */
 const MODEL_HEIGHT = 1.806;
 
+/** Camera distance and FOV constants for world unit calculations */
+const CAMERA_DISTANCE = 7;
+const CAMERA_FOV = 40;
+const WORLD_HEIGHT_AT_CAMERA = 2 * CAMERA_DISTANCE * Math.tan((CAMERA_FOV * Math.PI / 180) / 2); // ≈ 5.1
+
 /**
  * AvatarRig positions and scales the 3D character precisely across responsive viewports.
- * Clamps horizontal positioning to avoid pushing the model onto screen edges on ultrawide displays.
+ * Uses fixed world units for consistent placement regardless of viewport pixel dimensions.
  */
 function AvatarRig() {
   const viewport = useThree((state) => state.viewport);
   const isNarrow = viewport.aspect < 1;
 
   if (isNarrow) {
-    // Mobile / Portrait view: centered, lowered below hero typography
-    const depthFactor = 10 / 7;
-    const planeHeight = viewport.height * depthFactor;
-    const scale = (planeHeight * 0.36) / MODEL_HEIGHT;
-    const feetY = 0.4 - planeHeight / 2 - planeHeight * 0.30;
+    // Mobile / Portrait view: centered, scaled to fill ~50% of visible world height
+    const scale = (WORLD_HEIGHT_AT_CAMERA * 0.5) / MODEL_HEIGHT;
+    // Position feet at ~35% from bottom of visible world height
+    const feetY = -WORLD_HEIGHT_AT_CAMERA * 0.35;
     return (
       <group position={[0, feetY, -3]}>
         <Character rotation-y={0.05} scale={scale} />
@@ -44,10 +48,13 @@ function AvatarRig() {
     );
   }
 
-  // Desktop view: clamped to the right third of the hero frame
-  const scale = (viewport.height * 0.72) / MODEL_HEIGHT;
-  const feetY = 0.4 - viewport.height / 2 + viewport.height * 0.08;
-  const posX = Math.min(viewport.width * 0.20, 2.1);
+  // Desktop view: positioned in right portion, scaled to ~65% of visible world height
+  const scale = (WORLD_HEIGHT_AT_CAMERA * 0.65) / MODEL_HEIGHT;
+  // Position feet at ~25% from bottom of visible world height
+  const feetY = -WORLD_HEIGHT_AT_CAMERA * 0.25;
+  // Horizontal position: 30% from right edge of visible world width
+  const worldWidthAtCamera = WORLD_HEIGHT_AT_CAMERA * viewport.aspect;
+  const posX = worldWidthAtCamera * 0.3;
 
   return (
     <group position={[posX, feetY, 0]}>

@@ -6,7 +6,7 @@
  * 
  * Features:
  * - Standardized page entry animation aligned with all other stages.
- * - Interactive 3D WebGL Sticker Peel Deck with Emerald Sophistication palettes.
+ * - Interactive Sticker Badge Deck with Emerald Sophistication palettes.
  * - Integrated Live CLI Terminal with LabelSlideButton quick-run bar.
  */
 
@@ -89,7 +89,7 @@ export function SkillsSection() {
             {...reveal}
             className="mt-4 text-pretty font-mono text-sm text-[#f4f1eb]/80 sm:text-base"
           >
-            Peel interactive 3D WebGL stickers to explore core engineering domains,
+            Explore core engineering domains through interactive sticker badges,
             or interact directly with the CLI diagnostics terminal below.
           </motion.p>
         </div>
@@ -102,14 +102,12 @@ export function SkillsSection() {
                 key={stk.id}
                 className="group relative flex flex-col items-center justify-between rounded-2xl border border-white/10 bg-[#2d5a4a]/30 p-4 backdrop-blur-xl transition-all duration-300 hover:border-[#7ba05b]/40 hover:bg-[#2d5a4a]/50 hover:shadow-[0_0_20px_rgba(123,160,91,0.2)]"
               >
-                {/* 3D WebGL Sticker */}
+                {/* Static Sticker Badge */}
                 <div className="relative my-2 flex items-center justify-center pointer-events-auto">
                   <StickerPeel
                     image={stk.image}
                     imageWidth={130}
                     imageHeight={130}
-                    hoverPeel={45}
-                    pressPeel={70}
                     backColor="#1b4b3e"
                   />
                 </div>
@@ -125,7 +123,7 @@ export function SkillsSection() {
                 </div>
 
                 <span className="mt-2 inline-flex items-center gap-1 font-mono text-[9px] text-[#7ba05b]/80 group-hover:text-[#7ba05b] transition-colors">
-                  ● Hover to peel
+                  ● Hover for lift
                 </span>
               </div>
             ))}

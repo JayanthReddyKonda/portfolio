@@ -77,10 +77,10 @@ export function HeroSection() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative flex min-h-svh flex-col justify-end px-6 pb-12 pt-28 sm:px-10 sm:pb-16 lg:px-16"
+      className="relative flex min-h-svh flex-col justify-end px-6 pb-12 pt-28 sm:px-10 sm:pb-16 sm:pt-32 lg:px-16 lg:pt-36"
     >
       <div className="mx-auto w-full max-w-7xl">
-        <div className="max-w-xl lg:max-w-[54%] xl:max-w-[50%]">
+        <div className="max-w-xl lg:max-w-[60%] xl:max-w-[55%] 2xl:max-w-[65%]">
           {/* Status Eyebrow Pill */}
           <motion.div
             {...reveal(0.1)}
